@@ -1,0 +1,54 @@
+//created on: 07.08.2012
+package hms
+
+import java.util.Date
+
+import org.drools.planner.core.score.buildin.hardandsoftlong.HardAndSoftScoreHolder
+
+import hms.planner.Room
+import hms.planner.Reservation
+import hms.planner.RoomCategory
+import hms.planner.Schedule
+
+global HardAndSoftScoreHolder scoreHolder;
+
+function boolean dateBetween(Date date0, Date date1, Date date2) {
+# Tests if date0 is between date1 and date2
+	return date0.after(date1) && date0.before(date2);
+}
+
+function boolean dateOverlap(Date s1, Date e1, Date s2, Date e2) {
+# Tests if periods defined by s1-e1 and s2-e2 overlap
+	return dateBetween(s2, s1, e1) || dateBetween(e2, s1, e1) || ( s2.before(s1) && e2.after(e1) );
+}
+
+rule "test"
+when
+then
+end
+
+rule "Place reservation"
+dialect 'mvel'
+	when
+		$resr : Reservation( roomId == null )
+		$room: Room( adults >= $resr.adults, roomCategoryId == $resr.roomCategoryId )
+		not Reservation( roomId == $room.id,
+			dateOverlap($resr.dateFrom, $resr.dateTo, dateFrom, dateTo) == true)
+	then
+		System.out.println("Placing reservation "+$resr.id+" to room "+$room.id);
+		$resr.roomId = $room.id;
+		update($resr);
+end
+
+rule "Print result"
+dialect 'mvel'
+salience -1
+	when 
+		$resr : Reservation()
+	then
+		System.out.println(
+			"Reservation: " + $resr.id + 
+			" From: " + $resr.dateFrom + " To: " + $resr.dateTo + 
+			" placed to Room: " + $resr.roomId 
+		);
+end

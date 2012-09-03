@@ -3,7 +3,7 @@ package hms
 
 import java.util.Date
 
-import org.drools.planner.core.score.buildin.hardandsoftlong.HardAndSoftScoreHolder
+import org.drools.planner.core.score.buildin.hardandsoft.HardAndSoftScoreHolder
 
 import hms.planner.Room
 import hms.planner.Reservation
@@ -27,6 +27,7 @@ when
 then
 end
 
+/*
 rule "Place reservation"
 dialect 'mvel'
 	when
@@ -52,3 +53,4 @@ salience -1
 			" placed to Room: " + $resr.roomId 
 		);
 end
+*/

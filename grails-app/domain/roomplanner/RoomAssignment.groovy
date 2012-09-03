@@ -1,9 +1,11 @@
 package roomplanner
 
+import org.drools.planner.api.domain.entity.PlanningEntity
 import org.drools.planner.api.domain.variable.PlanningVariable
 import org.drools.planner.api.domain.variable.ValueRange
 import org.drools.planner.api.domain.variable.ValueRangeType
 
+@PlanningEntity(/*difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)*/)
 class RoomAssignment {
 
 	Room room

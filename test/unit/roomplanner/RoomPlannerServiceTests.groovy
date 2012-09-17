@@ -6,14 +6,36 @@ import grails.test.mixin.*
 
 import java.text.SimpleDateFormat
 
+import org.apache.log4j.BasicConfigurator
+import org.apache.log4j.Level
+import org.apache.log4j.LogManager
 import org.junit.*
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(RoomPlannerService)
-class RoomPlannerServiceTests {
+class RoomPlannerServiceTests extends GroovyTestCase {
+	
+	def roomPlannerService
+	def log
 
+	/* (non-Javadoc)
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		// build a logger...
+        BasicConfigurator.configure() 
+        LogManager.rootLogger.level = Level.INFO
+        log = LogManager.getLogger("RoomPlannerService")
+
+        // use groovy metaClass to put the log into your class
+        RoomPlannerService.class.metaClass.getLog << {-> log}
+
+        roomPlannerService = new RoomPlannerService()
+	}
+	
    void testDoPlanCall() {
 		
 		def rooms = [
@@ -60,11 +82,16 @@ class RoomPlannerServiceTests {
 				roomCategoryId: 1
 			)
 		]
+		
+		def roomAssignments = [
+		]
 
-        Schedule schedule = new RoomPlannerService().doPlan(rooms, roomCategories, reservations)
+        Schedule schedule = roomPlannerService.doPlan(rooms, roomCategories, reservations, roomAssignments)
 		
 		
 		schedule.reservations.each {
 			System.out.println("Reservation "+it.id+" placed to Room "+it.roomId)
 		}
-    }}
+    }
+
+}

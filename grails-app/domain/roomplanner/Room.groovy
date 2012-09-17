@@ -6,7 +6,7 @@ class Room {
 	Long roomCategoryId
 	String name
 	Integer adults
-	Boolean nonSmoking
+	//Boolean nonSmoking
 	
     static constraints = {
     }

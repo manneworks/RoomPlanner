@@ -7,7 +7,7 @@ class Reservation {
 	Date dateFrom
 	Date dateTo
 	Integer adults
-	Boolean nonSmoking
+	//Boolean nonSmoking
 		
     static constraints = {
     }

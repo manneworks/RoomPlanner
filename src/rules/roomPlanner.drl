@@ -3,12 +3,15 @@ package hms
 
 import java.util.Date
 
-import org.drools.planner.core.score.buildin.hardandsoft.HardAndSoftScoreHolder
+import org.drools.planner.core.score.buildin.hardandsoft.HardAndSoftScoreHolder;
+import org.drools.planner.core.score.constraint.IntConstraintOccurrence;
+import org.drools.planner.core.score.constraint.ConstraintType;
 
-import hms.planner.Room
-import hms.planner.Reservation
-import hms.planner.RoomCategory
-import hms.planner.Schedule
+import roomplanner.Room
+import roomplanner.Reservation
+import roomplanner.RoomCategory
+import roomplanner.Schedule
+import roomplanner.RoomAssignment
 
 global HardAndSoftScoreHolder scoreHolder;
 
@@ -22,9 +25,15 @@ function boolean dateOverlap(Date s1, Date e1, Date s2, Date e2) {
 	return dateBetween(s2, s1, e1) || dateBetween(e2, s1, e1) || ( s2.before(s1) && e2.after(e1) );
 }
 
-rule "test"
+rule "Matching RoomCategory"
 when
+    $roomAssignment: RoomAssignment(
+        reservation.getRoomCategoryId() < room.roomCategoryId
+      )
 then
+    insertLogical(new IntConstraintOccurrence("requiredRoomCategory",
+        ConstraintType.NEGATIVE_SOFT, 50, /* $roomAssignment.getRoom().getRoomCategory(),*/
+        $roomAssignment, $roomAssignment.getRoom().getRoomCategoryId()));
 end
 
 /*
@@ -54,3 +63,31 @@ salience -1
 		);
 end
 */
+// ############################################################################
+// Calculate score
+// ############################################################################
+
+// Accumulate hard constraints
+rule "hardConstraintsBroken"
+        salience -1 // Do the other rules first (optional, for performance)
+    when
+        $hardTotal : Number() from accumulate(
+            IntConstraintOccurrence(constraintType == ConstraintType.NEGATIVE_HARD, $weight : weight),
+            sum($weight) // Vote for http://jira.jboss.com/jira/browse/JBRULES-1075
+        )
+    then
+        scoreHolder.setHardConstraintsBroken($hardTotal.intValue());
+end
+
+// Accumulate soft constraints
+rule "softConstraintsBroken"
+        salience -1 // Do the other rules first (optional, for performance)
+    when
+        $softTotal : Number() from accumulate(
+            IntConstraintOccurrence(constraintType == ConstraintType.NEGATIVE_SOFT, $weight : weight),
+            sum($weight) // Vote for http://jira.jboss.com/jira/browse/JBRULES-1075
+        )
+    then
+        scoreHolder.setSoftConstraintsBroken($softTotal.intValue());
+end
+

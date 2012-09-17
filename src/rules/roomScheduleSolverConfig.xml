@@ -12,15 +12,15 @@
   <termination>
     <maximumSecondsSpend>10</maximumSecondsSpend>
   </termination>
-  <!--customSolverPhase>-->
+  <customSolverPhase>
     <!-- TODO use BEST_FIT_DECREASING instead (saves up to 10 minutes ), but deal with the extra scoreDRL problem -->
-    <!-- <customSolverPhaseCommandClass>org.drools.planner.examples.pas.solver.solution.initializer.PatientAdmissionScheduleSolutionInitializer</customSolverPhaseCommandClass> -->
-  <!--</customSolverPhase>-->
+    <customSolverPhaseCommandClass>initializer.SolutionInitializer</customSolverPhaseCommandClass>
+  </customSolverPhase>
   <localSearch>
     <selector>
-      <!--<selector>-->
-        <!--<moveFactoryClass>org.drools.planner.examples.pas.solver.move.factory.BedChangeMoveFactory</moveFactoryClass>-->
-      <!--</selector>-->
+      <selector>
+        <moveFactoryClass>factory.RoomChangeMoveFactory</moveFactoryClass>
+      </selector>
       <!--<selector>-->
         <!--<moveFactoryClass>org.drools.planner.examples.pas.solver.move.factory.BedDesignationSwapMoveFactorymoveFactoryClass>-->
       <!--</selector>-->

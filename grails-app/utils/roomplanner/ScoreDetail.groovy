@@ -75,7 +75,7 @@ public class ScoreDetail implements Comparable<ScoreDetail> {
     }
 
     public boolean equals(Object o) {
-        if (this == o) {
+        if (this.is(o)) {
             return true;
         } else if (o instanceof ScoreDetail) {
             ScoreDetail other = (ScoreDetail) o;

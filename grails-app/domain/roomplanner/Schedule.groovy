@@ -1,13 +1,19 @@
 package roomplanner
 
 import org.apache.commons.lang.builder.HashCodeBuilder
+import org.drools.ClassObjectFilter
+import org.drools.WorkingMemory
 import org.drools.planner.api.domain.solution.PlanningEntityCollectionProperty
 import org.drools.planner.core.score.buildin.hardandsoft.HardAndSoftScore
+import org.drools.planner.core.score.constraint.ConstraintOccurrence
+import org.drools.planner.core.score.director.ScoreDirector
+import org.drools.planner.core.score.director.drools.DroolsScoreDirector
 import org.drools.planner.core.solution.Solution
 
 class Schedule implements Solution<HardAndSoftScore> {
 
 	HardAndSoftScore score
+	ScoreDirector scoreDirector
 	
 	private List<Room> rooms = new ArrayList<Room>()
 	private List<Reservation> reservations = new ArrayList<Reservation>()
@@ -57,6 +63,15 @@ class Schedule implements Solution<HardAndSoftScore> {
 	public void setScore(HardAndSoftScore score) {
 		this.score = score;
 	}
+	
+	public ScoreDirector getScoreDirector() {
+		return scoreDirector
+	}
+	
+	public void setScoreDirector(ScoreDirector scoreDirector) {
+		this.scoreDirector = scoreDirector
+	}
+	
 
 	/* (non-Javadoc)
 	 * @see org.drools.planner.core.solution.Solution#cloneSolution()
@@ -93,7 +108,7 @@ class Schedule implements Solution<HardAndSoftScore> {
 	
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) {
+		if (this.is(o)) {
 			return true;
 		}
 		if (id == null || !(o instanceof Schedule)) {
@@ -103,14 +118,12 @@ class Schedule implements Solution<HardAndSoftScore> {
 			if (roomAssignments.size() != other.roomAssignments.size()) {
 				return false;
 			}
-//			for (Iterator<RoomAssignment> itr = roomAssignments.iterator(), otherItr = other.roomAssignments.iterator(); itr.hasNext();) {
-//				RoomAssignment roomAssignment = itr.next();
-//				RoomAssignment otherRoomAssignment = otherItr.next();
-//				// Notice: we don't use equals()
-//				if (!roomAssignment.solutionEquals(otherRoomAssignment)) {
-//					return false;
-//				}
-//			}
+			
+			roomAssignments.eachWithIndex { obj, i ->
+				// Notice: we don't use equals()
+				if (!obj.solutionEquals(other.roomAssignments[i]))
+					return false
+			}
 			return true;
 		}
 	}
@@ -125,4 +138,29 @@ class Schedule implements Solution<HardAndSoftScore> {
 		return hashCodeBuilder.toHashCode();
 	}
 
+	public List<ScoreDetail> getScoreDetailList() {
+		if (!(this.scoreDirector instanceof DroolsScoreDirector)) {
+			return null;
+		}
+		Map<String, ScoreDetail> scoreDetailMap = new HashMap<String, ScoreDetail>();
+		WorkingMemory workingMemory = ((DroolsScoreDirector) this.scoreDirector).getWorkingMemory();
+		if (workingMemory == null) {
+			return Collections.emptyList();
+		}
+		Iterator<ConstraintOccurrence> it = (Iterator<ConstraintOccurrence>) workingMemory.iterateObjects(
+				new ClassObjectFilter(ConstraintOccurrence.class));
+		while (it.hasNext()) {
+			ConstraintOccurrence constraintOccurrence = it.next();
+			ScoreDetail scoreDetail = scoreDetailMap.get(constraintOccurrence.getRuleId());
+			if (scoreDetail == null) {
+				scoreDetail = new ScoreDetail(constraintOccurrence.getRuleId(), constraintOccurrence.getConstraintType());
+				scoreDetailMap.put(constraintOccurrence.getRuleId(), scoreDetail);
+			}
+			scoreDetail.addConstraintOccurrence(constraintOccurrence);
+		}
+		List<ScoreDetail> scoreDetailList = new ArrayList<ScoreDetail>(scoreDetailMap.values());
+		Collections.sort(scoreDetailList);
+		return scoreDetailList;
+	}
+ 
 }

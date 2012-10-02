@@ -10,9 +10,10 @@ import org.drools.planner.api.domain.variable.ValueRangeType
 @PlanningEntity(/*difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)*/)
 class RoomAssignment {
 
+	Long id
 	Room room
 	Reservation reservation
-	//Boolean movable = true
+	Boolean moveable = true
 
     static constraints = {
     }
@@ -23,17 +24,23 @@ class RoomAssignment {
 		return room
 	}
 	
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
 	@Override
 	public RoomAssignment clone() {
-		RoomAssignment clone = new RoomAssignment();
-		clone.id = id;
-		clone.reservation = reservation;
-		clone.room = room;
-		return clone;
+//		RoomAssignment clone = new RoomAssignment();
+//		clone.id = id;
+//		clone.reservation = reservation;
+//		clone.room = room;
+//		clone.moveable = moveable;
+//		return clone;
+		
+		RoomAssignment.metaClass.getProperties().findAll() { it.getSetter() != null }
+			.inject( new RoomAssignment() ) { roomAssignment, metaProp ->
+				metaProp.setProperty(roomAssignment, metaProp.getProperty(this))
+				roomAssignment
+			}
 	}
 
 	/**
@@ -42,7 +49,7 @@ class RoomAssignment {
 	 * @see #solutionHashCode()
 	 */
 	public boolean solutionEquals(Object o) {
-		if (this == o) {
+		if (this.is(o)) {
 			return true;
 		} else if (o instanceof RoomAssignment) {
 			RoomAssignment other = (RoomAssignment) o;
@@ -50,6 +57,7 @@ class RoomAssignment {
 					.append(id, other.id)
 					.append(reservation, other.reservation)
 					.append(room, other.room)
+					.append(moveable, other.moveable)
 					.isEquals();
 		} else {
 			return false;
@@ -66,12 +74,13 @@ class RoomAssignment {
 				.append(id)
 				.append(reservation)
 				.append(room)
+				.append(moveable)
 				.toHashCode();
 	}
 
 	@Override
 	public String toString() {
-		return reservation + " @ " + room;
+		return reservation.toString() + " @ " + room.toString();
 	}
 
 }

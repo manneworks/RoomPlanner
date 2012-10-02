@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solver>
-  <environmentMode>DEBUG</environmentMode>
+  <environmentMode>TRACE</environmentMode>
   <solutionClass>roomplanner.Schedule</solutionClass>
   <planningEntityClass>roomplanner.RoomAssignment</planningEntityClass>
-
   <scoreDirectorFactory>
     <scoreDefinitionType>HARD_AND_SOFT</scoreDefinitionType>
     <scoreDrl>/roomPlanner.drl</scoreDrl>
   </scoreDirectorFactory>
 
+<!-- 
   <termination>
     <maximumSecondsSpend>10</maximumSecondsSpend>
   </termination>
-  <customSolverPhase>
+-->
+  <constructionHeuristic>
+    <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+    <!-- Speedup that can be applied to most, but not all use cases: -->
+    <!-- constructionHeuristicPickEarlyType> -->
+  </constructionHeuristic>
+  <!-- <customSolverPhase> -->
     <!-- TODO use BEST_FIT_DECREASING instead (saves up to 10 minutes ), but deal with the extra scoreDRL problem -->
-    <customSolverPhaseCommandClass>initializer.SolutionInitializer</customSolverPhaseCommandClass>
-  </customSolverPhase>
+    <!-- <customSolverPhaseCommandClass>initializer.SolutionInitializer</customSolverPhaseCommandClass> -->
+  <!-- </customSolverPhase> -->
+
   <localSearch>
     <selector>
       <selector>
-        <moveFactoryClass>factory.RoomChangeMoveFactory</moveFactoryClass>
+        <moveFactoryClass>factory.RoomChangeMoveFactory</moveFactoryClass> -->
       </selector>
-      <!--<selector>-->
-        <!--<moveFactoryClass>org.drools.planner.examples.pas.solver.move.factory.BedDesignationSwapMoveFactorymoveFactoryClass>-->
-      <!--</selector>-->
-      <!--<selector>-->
-        <!--<moveFactoryClass>org.drools.planner.examples.pas.solver.move.factory.BedDesignationPillarPartSwapMoveFactory</moveFactoryClass>-->
-      <!--</selector>-->
-      <selector>
-		<moveFactoryClass>org.drools.planner.core.move.generic.GenericChangeMoveFactory</moveFactoryClass>
-	  </selector>
-	  <selector>
-	    <moveFactoryClass>org.drools.planner.core.move.generic.GenericSwapMoveFactory</moveFactoryClass>
-      </selector>
+<!--       <selector> -->
+<!-- 		<moveFactoryClass>org.drools.planner.core.move.generic.GenericChangeMoveFactory</moveFactoryClass> -->
+<!-- 	  </selector> -->
+<!-- 	  <selector> -->
+<!-- 	    <moveFactoryClass>org.drools.planner.core.move.generic.GenericSwapMoveFactory</moveFactoryClass> -->
+<!--       </selector> -->
     </selector>
     <acceptor>
-      <planningEntityTabuSize>7</planningEntityTabuSize>
+      <planningEntityTabuSize>50</planningEntityTabuSize>
       <solutionTabuSize>1000</solutionTabuSize>
       <undoMoveTabuSize>3</undoMoveTabuSize>
     </acceptor>

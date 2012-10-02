@@ -1,5 +1,6 @@
 //created on: 07.08.2012
 package hms
+dialect "mvel"
 
 import java.util.Date
 
@@ -13,56 +14,74 @@ import roomplanner.RoomCategory
 import roomplanner.Schedule
 import roomplanner.RoomAssignment
 
+import org.joda.time.ReadableInterval
+
 global HardAndSoftScoreHolder scoreHolder;
 
-function boolean dateBetween(Date date0, Date date1, Date date2) {
-# Tests if date0 is between date1 and date2
-	return date0.after(date1) && date0.before(date2);
-}
+// ############################################################################
+// Hard constraints
+// ############################################################################
+rule "Overlapping periods"
+dialect "mvel"
+when
+    $ra1 : RoomAssignment(room != null, $room : room, $i : reservation.bookingInterval)
+    $ra2 : RoomAssignment(room == $room, reservation.bookingInterval.overlaps($i))
+    eval($ra1 != $ra2)
+then
+    insertLogical(new IntConstraintOccurrence("overlappingPeriod",
+        ConstraintType.NEGATIVE_HARD, 1, $ra1, $ra2));
+     //System.out.println("Overlap constraint " + $ra1 + " <=> " + $ra2);
+end
 
-function boolean dateOverlap(Date s1, Date e1, Date s2, Date e2) {
-# Tests if periods defined by s1-e1 and s2-e2 overlap
-	return dateBetween(s2, s1, e1) || dateBetween(e2, s1, e1) || ( s2.before(s1) && e2.after(e1) );
-}
+rule "Lower room size"
+when
+    RoomAssignment(room != null, $room : room, $reservation : reservation,
+    $reservation.adults > $room.adults)
+then
+    insertLogical(new IntConstraintOccurrence("lowerRoomSize",
+        ConstraintType.NEGATIVE_HARD, 3 * ($reservation.adults - $room.adults), 
+        $room, $reservation));
+end
 
-rule "Matching RoomCategory"
+rule "Lower RoomCategory"
 when
     $roomAssignment: RoomAssignment(
-        reservation.getRoomCategoryId() < room.roomCategoryId
+        reservation != null,
+        room != null,
+        room.roomCategory.id < reservation.roomCategory.id
       )
 then
-    insertLogical(new IntConstraintOccurrence("requiredRoomCategory",
-        ConstraintType.NEGATIVE_SOFT, 50, /* $roomAssignment.getRoom().getRoomCategory(),*/
-        $roomAssignment, $roomAssignment.getRoom().getRoomCategoryId()));
+    insertLogical(new IntConstraintOccurrence("lowerRoomCategory",
+        ConstraintType.NEGATIVE_HARD, 1 * ($roomAssignment.reservation.roomCategory.id - $roomAssignment.room.roomCategory.id),
+        $roomAssignment));
 end
 
-/*
-rule "Place reservation"
-dialect 'mvel'
-	when
-		$resr : Reservation( roomId == null )
-		$room: Room( adults >= $resr.adults, roomCategoryId == $resr.roomCategoryId )
-		not Reservation( roomId == $room.id,
-			dateOverlap($resr.dateFrom, $resr.dateTo, dateFrom, dateTo) == true)
-	then
-		System.out.println("Placing reservation "+$resr.id+" to room "+$room.id);
-		$resr.roomId = $room.id;
-		update($resr);
+// ############################################################################
+// Soft constraints
+// ############################################################################
+rule "Higher RoomCategory"
+when
+    $roomAssignment: RoomAssignment(
+        reservation != null,
+        room != null,
+        reservation.roomCategory.id < room.roomCategory.id
+      )
+then
+    insertLogical(new IntConstraintOccurrence("higherRoomCategory",
+        ConstraintType.NEGATIVE_SOFT, 20 /* ($roomAssignment.room.roomCategory.id - $roomAssignment.reservation.roomCategory.id) */,
+        $roomAssignment)); 
 end
 
-rule "Print result"
-dialect 'mvel'
-salience -1
-	when 
-		$resr : Reservation()
-	then
-		System.out.println(
-			"Reservation: " + $resr.id + 
-			" From: " + $resr.dateFrom + " To: " + $resr.dateTo + 
-			" placed to Room: " + $resr.roomId 
-		);
+rule "Higher room size"
+when
+    RoomAssignment(room != null, $room : room, $reservation : reservation,
+    $room.adults > $reservation.adults)
+then
+    insertLogical(new IntConstraintOccurrence("higherRoomSize",
+        ConstraintType.NEGATIVE_SOFT, 10 /* ($reservation.adults - $room.adults)*/, 
+        $room, $reservation));
 end
-*/
+
 // ############################################################################
 // Calculate score
 // ############################################################################

@@ -36,6 +36,7 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 		
+		compile 'org.drools.planner:drools-planner-core:5.4.0.Final'
 		build 'org.drools.planner:drools-planner-core:5.4.0.Final'
 		runtime 'org.drools.planner:drools-planner-core:5.4.0.Final'
 		

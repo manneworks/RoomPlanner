@@ -153,7 +153,7 @@ class Schedule implements Solution<HardAndSoftScore> {
 			ConstraintOccurrence constraintOccurrence = it.next();
 			ScoreDetail scoreDetail = scoreDetailMap.get(constraintOccurrence.getRuleId());
 			if (scoreDetail == null) {
-				scoreDetail = new ScoreDetail(constraintOccurrence.getRuleId(), constraintOccurrence.getConstraintType());
+				scoreDetail = new ScoreDetail(constraintOccurrence.getRuleId(), constraintOccurrence.getConstraintType(), constraintOccurrence.getCauses());
 				scoreDetailMap.put(constraintOccurrence.getRuleId(), scoreDetail);
 			}
 			scoreDetail.addConstraintOccurrence(constraintOccurrence);

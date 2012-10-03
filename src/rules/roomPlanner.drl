@@ -35,12 +35,11 @@ end
 
 rule "Lower room size"
 when
-    RoomAssignment(room != null, $room : room, $reservation : reservation,
-    $reservation.adults > $room.adults)
+    $roomAssignment : RoomAssignment(room != null, reservation.adults > room.adults)
 then
     insertLogical(new IntConstraintOccurrence("lowerRoomSize",
-        ConstraintType.NEGATIVE_HARD, 3 * ($reservation.adults - $room.adults), 
-        $room, $reservation));
+        ConstraintType.NEGATIVE_HARD, (3*($roomAssignment.reservation.adults - $roomAssignment.room.adults)).intValue(), 
+        $roomAssignment));
 end
 
 rule "Lower RoomCategory"
@@ -52,7 +51,7 @@ when
       )
 then
     insertLogical(new IntConstraintOccurrence("lowerRoomCategory",
-        ConstraintType.NEGATIVE_HARD, 1 * ($roomAssignment.reservation.roomCategory.id - $roomAssignment.room.roomCategory.id),
+        ConstraintType.NEGATIVE_HARD, (1*($roomAssignment.reservation.roomCategory.id - $roomAssignment.room.roomCategory.id)).intValue(),
         $roomAssignment));
 end
 
@@ -68,18 +67,17 @@ when
       )
 then
     insertLogical(new IntConstraintOccurrence("higherRoomCategory",
-        ConstraintType.NEGATIVE_SOFT, 20 /* ($roomAssignment.room.roomCategory.id - $roomAssignment.reservation.roomCategory.id) */,
+        ConstraintType.NEGATIVE_SOFT, (20*($roomAssignment.room.roomCategory.id - $roomAssignment.reservation.roomCategory.id)).intValue(),
         $roomAssignment)); 
 end
 
 rule "Higher room size"
 when
-    RoomAssignment(room != null, $room : room, $reservation : reservation,
-    $room.adults > $reservation.adults)
+    $roomAssignment: RoomAssignment(room != null, room.adults > reservation.adults)
 then
     insertLogical(new IntConstraintOccurrence("higherRoomSize",
-        ConstraintType.NEGATIVE_SOFT, 10 /* ($reservation.adults - $room.adults)*/, 
-        $room, $reservation));
+        ConstraintType.NEGATIVE_SOFT, (10*($roomAssignment.room.adults - $roomAssignment.reservation.adults)).intValue(), 
+        $roomAssignment));
 end
 
 // ############################################################################

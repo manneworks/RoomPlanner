@@ -23,13 +23,15 @@ public class ScoreDetail implements Comparable<ScoreDetail> {
 
     private String ruleId;
     private ConstraintType constraintType;
+	private Object[] causes;
 
     private Set<ConstraintOccurrence> constraintOccurrenceSet = new HashSet<ConstraintOccurrence>();
     private double scoreTotal = 0.0;
 
-    public ScoreDetail(String ruleId, ConstraintType constraintType) {
+    public ScoreDetail(String ruleId, ConstraintType constraintType, Object[] causes) {
         this.ruleId = ruleId;
         this.constraintType = constraintType;
+		this.causes = causes;
     }
 
     public String getRuleId() {

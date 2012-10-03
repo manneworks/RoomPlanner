@@ -175,8 +175,12 @@ class RoomPlannerServiceTests extends GroovyTestCase {
 		def listOfBrokenConstraints = schedule.getScoreDetailList()
 		if (!listOfBrokenConstraints.isEmpty()) {
 			System.out.println "List of broken constraints"
-			listOfBrokenConstraints.each {
-				System.out.println(it)
+			listOfBrokenConstraints.each { group ->
+				System.out.println(group)
+//				ScoreDetail item = (ScoreDetail)group
+//				item.causes.each { cause ->
+//					System.out.println(cause)
+//				}
 			}
 		}
 		

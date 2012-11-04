@@ -12,6 +12,8 @@ import org.drools.planner.core.solution.Solution
 
 class Schedule implements Solution<HardAndSoftScore> {
 
+	Long id
+	
 	HardAndSoftScore score
 	ScoreDirector scoreDirector
 	

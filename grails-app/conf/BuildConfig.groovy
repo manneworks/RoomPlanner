@@ -1,4 +1,4 @@
-grails.project.work.dir = "D:/Grails/work/HMS-RP"
+grails.project.work.dir = "D:/Grails/work/RoomPlanner"
 
 grails.servlet.version = "2.5" // Change depending on target container compliance (2.5 or 3.0)
 grails.project.class.dir = "target/classes"
@@ -7,6 +7,7 @@ grails.project.test.reports.dir = "target/test-reports"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
+
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
@@ -36,16 +37,17 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 		
-		compile 'org.drools.planner:drools-planner-core:5.4.0.Final',
-				'org.drools:drools-core:5.4.0.Final'
-	
-        // runtime 'mysql:mysql-connector-java:5.1.20'
+	   compile 'org.drools.planner:drools-planner-core:5.5.0.Final'
+	   compile 'org.drools:drools-core:5.5.0.Final'
+       runtime 'org.drools:drools-compiler:5.5.0.Final'
     }
 
     plugins {
+        compile ":cxf:1.1.0"
+        runtime ":resources:1.2.RC2"
+        runtime ":database-migration:1.3.2"
+
         runtime ":hibernate:$grailsVersion"
-        runtime ":jquery:1.8.0"
-        runtime ":resources:1.2-RC1"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
@@ -54,8 +56,5 @@ grails.project.dependency.resolution = {
 
         build ":tomcat:$grailsVersion"
 
-        runtime ":database-migration:1.1"
-
-        compile ':cache:1.0.0'
     }
 }

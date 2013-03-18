@@ -1,17 +1,27 @@
 package roomplanner
 
-import org.joda.time.ReadableInterval
+import javax.xml.bind.annotation.XmlAccessType
+import javax.xml.bind.annotation.XmlAccessorType
+import javax.xml.bind.annotation.XmlAttribute
+import javax.xml.bind.annotation.XmlElement
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter
 
-class Reservation {
+import joda.IntervalStringAdapter
 
-	Long id
-	RoomCategory roomCategory
-	ReadableInterval bookingInterval
-	Integer adults
-	Boolean nonSmoking = true
+import org.joda.time.Interval
+
+@XmlAccessorType(XmlAccessType.NONE)
+class Reservation implements Serializable {
+
+	@XmlAttribute	Long id
+	@XmlElement		RoomCategory roomCategory
 		
-    static constraints = {
-    }
+	@XmlJavaTypeAdapter(IntervalStringAdapter.class)
+	@XmlElement Interval bookingInterval
+	
+	@XmlElement		Integer adults
+	@XmlElement		Boolean nonSmoking = true
+		
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

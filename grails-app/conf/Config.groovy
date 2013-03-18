@@ -77,6 +77,14 @@ log4j = {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
 	
+  appenders {
+    rollingFile name: "logFile", maxFileSize: 1024000, file: "roomplanner.log"
+  }
+
+  root {
+    error 'console', 'logFile'
+  }
+
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
@@ -88,4 +96,16 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+		   
+    error  'grails.app'
+
+    warn   'org.mortbay.log'
+
+    info   'org.drools'
+
+    error  'org.apache.cxf'
+
+    debug  'grails.app.conf', 
+           'grails.app.bootstrap',
+           'grails.app.services.roomplanner' 
 }

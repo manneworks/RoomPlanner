@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solver>
-  <environmentMode>TRACE</environmentMode>
+  <environmentMode>PRODUCTION</environmentMode>
   <solutionClass>roomplanner.Schedule</solutionClass>
   <planningEntityClass>roomplanner.RoomAssignment</planningEntityClass>
   <scoreDirectorFactory>
     <scoreDefinitionType>HARD_AND_SOFT</scoreDefinitionType>
-    <scoreDrl>/roomPlanner.drl</scoreDrl>
+    <scoreDrl>/drools/roomPlanner.drl</scoreDrl>
   </scoreDirectorFactory>
 
-<!-- 
+
   <termination>
     <maximumSecondsSpend>10</maximumSecondsSpend>
   </termination>
--->
+
   <constructionHeuristic>
     <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
     <!-- Speedup that can be applied to most, but not all use cases: -->
@@ -24,24 +24,26 @@
   <!-- </customSolverPhase> -->
 
   <localSearch>
-    <selector>
-      <selector>
-        <moveFactoryClass>factory.RoomChangeMoveFactory</moveFactoryClass> -->
-      </selector>
-<!--       <selector> -->
-<!-- 		<moveFactoryClass>org.drools.planner.core.move.generic.GenericChangeMoveFactory</moveFactoryClass> -->
-<!-- 	  </selector> -->
-<!-- 	  <selector> -->
-<!-- 	    <moveFactoryClass>org.drools.planner.core.move.generic.GenericSwapMoveFactory</moveFactoryClass> -->
-<!--       </selector> -->
-    </selector>
+  	<termination>
+  		<terminationCompositionStyle>OR</terminationCompositionStyle>
+  		<scoreAttained>0hard/0soft</scoreAttained>
+  		<maximumUnimprovedStepCount>5</maximumUnimprovedStepCount>
+  	</termination>
+    <!-- <unionMoveSelector> -->
+      <!-- <changeMoveSelector/> -->
+      <!-- <swapMoveSelector/> -->    
+    <!-- </unionMoveSelector> -->
+    <moveListFactory>
+      <moveListFactoryClass>factory.RoomChangeMoveFactory</moveListFactoryClass>
+    </moveListFactory>
+ 
     <acceptor>
-      <planningEntityTabuSize>50</planningEntityTabuSize>
+      <planningEntityTabuSize>7</planningEntityTabuSize>
       <solutionTabuSize>1000</solutionTabuSize>
-      <undoMoveTabuSize>3</undoMoveTabuSize>
+      <undoMoveTabuSize>5</undoMoveTabuSize>
     </acceptor>
     <forager>
-      <pickEarlyType>NEVER</pickEarlyType>
+      <!-- <pickEarlyType>FIRST_BEST_SCORE_IMPROVING</pickEarlyType> -->
       <minimalAcceptedSelection>500</minimalAcceptedSelection><!-- TODO tweak me -->
     </forager>
   </localSearch>

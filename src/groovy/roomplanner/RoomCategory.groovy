@@ -1,13 +1,17 @@
 package roomplanner
 
-class RoomCategory /*implements Comparable*/ {
+import javax.xml.bind.annotation.XmlAccessType
+import javax.xml.bind.annotation.XmlAccessorType
+import javax.xml.bind.annotation.XmlAttribute
+import javax.xml.bind.annotation.XmlElement
 
-	Long id
-	String name
+@XmlAccessorType(XmlAccessType.NONE)
+class RoomCategory implements Serializable {
+
+	@XmlAttribute	Long id
+	@XmlElement		String name
 	
-    static constraints = {
-    }
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -17,10 +21,4 @@ class RoomCategory /*implements Comparable*/ {
 		" Name: " + name
 	}
 
-//	@Override
-//	public int compareTo(Object o) {
-//		RoomCategory other = (RoomCategory)o
-//		return (this.id - other.id);
-//	}
-//
 }

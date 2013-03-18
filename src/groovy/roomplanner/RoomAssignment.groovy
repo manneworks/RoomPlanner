@@ -1,5 +1,10 @@
 package roomplanner
 
+import javax.xml.bind.annotation.XmlAccessType
+import javax.xml.bind.annotation.XmlAccessorType
+import javax.xml.bind.annotation.XmlAttribute
+import javax.xml.bind.annotation.XmlElement
+
 import org.apache.commons.lang.builder.EqualsBuilder
 import org.apache.commons.lang.builder.HashCodeBuilder
 import org.drools.planner.api.domain.entity.PlanningEntity
@@ -8,15 +13,14 @@ import org.drools.planner.api.domain.variable.ValueRange
 import org.drools.planner.api.domain.variable.ValueRangeType
 
 @PlanningEntity(/*difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)*/)
-class RoomAssignment {
+@XmlAccessorType(XmlAccessType.NONE)
+class RoomAssignment implements Serializable {
 
-	Long id
-	Room room
-	Reservation reservation
-	Boolean moveable = true
+	@XmlAttribute	Long id
+	@XmlElement		Room room
+	@XmlElement		Reservation reservation
+	@XmlElement		Boolean moveable = true
 
-    static constraints = {
-    }
 	
 	@PlanningVariable(/*strengthComparatorClass = RoomStrengthComparator.class*/)
 	@ValueRange(type = ValueRangeType.FROM_SOLUTION_PROPERTY, solutionProperty = "rooms")

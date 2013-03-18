@@ -1,6 +1,8 @@
 package roomplanner
 
+import static org.junit.Assert.*
 import grails.test.mixin.*
+import grails.test.mixin.support.*
 
 import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level
@@ -11,22 +13,21 @@ import org.joda.time.Interval
 import org.junit.*
 
 /**
- * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
+ * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
-@TestFor(RoomPlannerService)
+@TestMixin(GrailsUnitTestMixin)
 class RoomPlannerServiceTests extends GroovyTestCase {
-	
+
 	def roomPlannerService
 	def log
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
-	@Override
-	protected void setUp() throws Exception {
+	void setUp() throws Exception {
 		// build a logger...
         BasicConfigurator.configure() 
-        LogManager.rootLogger.level = Level.INFO
+        LogManager.rootLogger.level = Level.DEBUG
 		log = LogManager.getLogger("org.drools.planner")
 
         // use groovy metaClass to put the log into your class
@@ -89,6 +90,7 @@ class RoomPlannerServiceTests extends GroovyTestCase {
 		def roomAssignments = [
 		]
    
+   		System.out.println("Start solving...")
 		solve(rooms, roomCategories, reservations, roomAssignments)
    }
    
@@ -99,8 +101,8 @@ class RoomPlannerServiceTests extends GroovyTestCase {
 	   def reservations = []
 	   def roomAssignments = []
 	   
-	   int NUMBER_OF_ROOMS = 15
-	   int NUMBER_OF_RESERVATIONS = 25
+	   int NUMBER_OF_ROOMS = 25
+	   int NUMBER_OF_RESERVATIONS = 50
 	   
 	   def years = [2012]
 	   def months = [10]
@@ -167,12 +169,12 @@ class RoomPlannerServiceTests extends GroovyTestCase {
 	   reservations.each { System.out.println(it) }
 	   
 	   
-        Schedule schedule = roomPlannerService.doPlan(rooms, roomCategories, reservations, roomAssignments)
+        Plan plan = roomPlannerService.doPlan(rooms, roomCategories, reservations, roomAssignments)
 		
-		System.out.println("Score: " + schedule.score)
-		System.out.println("Feasible: " + (schedule.score.feasible))
+		System.out.println("Score: " + plan.score.hardScoreConstraints + '/' + plan.score.softScoreConstraints)
+		System.out.println("Feasible: " + (plan.score.feasible))
 		
-		def listOfBrokenConstraints = schedule.getScoreDetailList()
+		def listOfBrokenConstraints = [] //plan.score.scoreDetails
 		if (!listOfBrokenConstraints.isEmpty()) {
 			System.out.println "List of broken constraints"
 			listOfBrokenConstraints.each { group ->
@@ -184,7 +186,7 @@ class RoomPlannerServiceTests extends GroovyTestCase {
 			}
 		}
 		
-		schedule.roomAssignments.each {
+		plan.roomAssignments.each {
 			System.out.println(it.reservation.toString() + " => " + it.room.toString())
 		}
     }

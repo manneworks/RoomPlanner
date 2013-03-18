@@ -19,7 +19,7 @@ import org.drools.planner.core.score.constraint.UnweightedConstraintOccurrence;
 /**
  * TODO Replace this class with the ConstraintOccurrenceTotal class: https://jira.jboss.org/jira/browse/JBRULES-2510
  */
-public class ScoreDetail implements Comparable<ScoreDetail> {
+public class ScoreDetail implements Comparable<ScoreDetail>, Serializable {
 
     private String ruleId;
     private ConstraintType constraintType;

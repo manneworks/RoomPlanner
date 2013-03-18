@@ -13,7 +13,6 @@ import org.drools.planner.core.solution.Solution
 class Schedule implements Solution<HardAndSoftScore> {
 
 	Long id
-	
 	HardAndSoftScore score
 	ScoreDirector scoreDirector
 	
@@ -22,8 +21,6 @@ class Schedule implements Solution<HardAndSoftScore> {
 	private List<RoomCategory> roomCategories = new ArrayList<RoomCategory>()
 	private List<RoomAssignment> roomAssignments = new ArrayList<RoomAssignment>()
 	
-    static constraints = {
-    }
 	
 	@PlanningEntityCollectionProperty
 	public List<RoomAssignment> getRoomAssignments() {

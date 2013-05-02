@@ -11,7 +11,8 @@ class BootStrap {
     def init = { servletContext ->
 
     		log.debug("Build solver")
-			SolverFactory solverFactory = new XmlSolverFactory("/drools/roomScheduleSolverConfig.xml")
+			SolverFactory solverFactory = new XmlSolverFactory()
+			solverFactory.configure("/drools/roomScheduleSolverConfig.xml")
 			Solver solver = solverFactory.buildSolver()
 			ScoreDirector scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
 			grailsApplication.config.solver = solver

@@ -1,4 +1,4 @@
-grails.project.work.dir = "D:/Grails/work/RoomPlanner"
+grails.project.work.dir = "~/Grails/work/RoomPlanner"
 
 grails.servlet.version = "2.5" // Change depending on target container compliance (2.5 or 3.0)
 grails.project.class.dir = "target/classes"
@@ -43,9 +43,9 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        compile ":cxf:1.1.0"
+        compile ":cxf:1.1.1"
         runtime ":resources:1.2.RC2"
-        runtime ":database-migration:1.3.2"
+        runtime ":database-migration:1.3.3"
 
         runtime ":hibernate:$grailsVersion"
 

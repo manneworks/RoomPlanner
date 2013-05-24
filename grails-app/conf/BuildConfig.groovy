@@ -1,4 +1,4 @@
-grails.project.work.dir = "~/Grails/work/RoomPlanner"
+grails.project.work.dir = "../../work/RoomPlanner"
 
 grails.servlet.version = "2.5" // Change depending on target container compliance (2.5 or 3.0)
 grails.project.class.dir = "target/classes"

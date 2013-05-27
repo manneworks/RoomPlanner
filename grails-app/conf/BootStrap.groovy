@@ -12,7 +12,15 @@ class BootStrap {
 
     		log.debug("Build solver")
 			SolverFactory solverFactory = new XmlSolverFactory()
-			solverFactory.configure("/drools/roomScheduleSolverConfig.xml")
+			
+			try {
+				InputStream xmlConfigStream = this.getClass().getResourceAsStream("/drools/roomScheduleSolverConfig.xml")
+				solverFactory.configure(xmlConfigStream)
+			} catch (Exception e) {
+				log.error("Cannot configure solver: " + e.message)
+				throw new Exception()
+			}
+			
 			Solver solver = solverFactory.buildSolver()
 			ScoreDirector scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
 			grailsApplication.config.solver = solver

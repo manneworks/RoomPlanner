@@ -109,3 +109,7 @@ log4j = {
            'grails.app.bootstrap',
            'grails.app.services.roomplanner' 
 }
+
+solver {
+  configurationXML = "/drools/roomScheduleSolverConfig.xml"
+}

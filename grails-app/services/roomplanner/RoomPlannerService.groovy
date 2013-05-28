@@ -60,14 +60,9 @@ class RoomPlannerService {
 
 		try {
 
-			// log.debug("Build solver")
-			// SolverFactory solverFactory = new XmlSolverFactory("/drools/roomScheduleSolverConfig.xml");
-			// Solver solver = solverFactory.buildSolver();
-
 			Schedule unsolvedSchedule = new Schedule()
 			Schedule solvedSchedule = null
 
-			// add problem facts to a solution
 			log.trace("Add problem facts")
 
 			unsolvedSchedule.rooms.addAll(rooms)
@@ -77,13 +72,40 @@ class RoomPlannerService {
 			createRoomAssignmentList(unsolvedSchedule)	
 			
 			synchronized (this) {
-				log.trace("Get solver from applicationContext")	 
-				Solver solver = grailsApplication.config.solver
+				Solver solver = null
 
-				// unsolvedSchedule.scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
-				unsolvedSchedule.scoreDirector = grailsApplication.config.scoreDirector
+				def configValue = grailsApplication.config.solverObject
+
+				if (configValue) {
+					log.trace("Get solver from applicationContext")	 
+					solver = configValue
+				} else {
+		    		log.trace("Configure solver")
+					SolverFactory solverFactory = new XmlSolverFactory()
+					
+					try {
+						InputStream xmlConfigStream = this.getClass().getResourceAsStream(
+							grailsApplication.config.solver.configurationXML
+						)
+						solverFactory.configure(xmlConfigStream)
+					} catch (Exception e) {
+						log.error("Cannot configure solver: " + e.message)
+						throw new Exception()
+					}
+					
+		    		log.trace("Build solver")
+					solver = solverFactory.buildSolver()
+
+		    		log.trace("Build scoreDirector")
+					ScoreDirector scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
+
+		    		log.trace("Store solver in grailsApplication")
+					grailsApplication.config.solverObject = solver
+					grailsApplication.config.scoreDirectorObject = scoreDirector
+				}
+
+				unsolvedSchedule.scoreDirector = grailsApplication.config.scoreDirectorObject
 				 
-				// start solving	
 				log.trace("Start solving")
 
 				unsolvedSchedule.scoreDirector.setWorkingSolution(unsolvedSchedule);
@@ -92,9 +114,8 @@ class RoomPlannerService {
 			 
 				solvedSchedule = (Schedule) solver.getBestSolution();
 
-				// get constraints info
-				// solvedSchedule.scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
-				solvedSchedule.scoreDirector = grailsApplication.config.scoreDirector
+				log.trace("Get constraints info")
+				solvedSchedule.scoreDirector = grailsApplication.config.scoreDirectorObject
 				solvedSchedule.scoreDirector.setWorkingSolution(solvedSchedule)
 				solvedSchedule.scoreDirector.calculateScore()
 			} // synchronized

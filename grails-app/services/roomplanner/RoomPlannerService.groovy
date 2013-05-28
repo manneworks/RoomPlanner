@@ -17,6 +17,7 @@ import org.apache.cxf.interceptor.OutInterceptors
 import roomplanner.utils.CustomLoggingInInterceptor
 import roomplanner.utils.CustomLoggingOutInterceptor
 
+
 // @GrailsCxfEndpoint(
 // 	importInterceptors  = ["customLoggingInInterceptor"],
 // 	outInterceptors = ["customLoggingOutInterceptor"]
@@ -58,6 +59,8 @@ class RoomPlannerService {
 		log.trace("Reservations: " + reservations)
 		log.trace("RoomAssignments: " + roomAssignments)
 
+		// printClassPath(this.class.classLoader)
+
 		try {
 
 			Schedule unsolvedSchedule = new Schedule()
@@ -84,10 +87,10 @@ class RoomPlannerService {
 					SolverFactory solverFactory = new XmlSolverFactory()
 					
 					try {
-						InputStream xmlConfigStream = this.getClass().getResourceAsStream(
-							grailsApplication.config.solver.configurationXML
-						)
-						solverFactory.configure(xmlConfigStream)
+						// InputStream xmlConfigStream = this.getClass().getResourceAsStream(
+						// 	grailsApplication.config.solver.configurationXML
+						// )
+						solverFactory.configure(grailsApplication.config.solver.configurationXML)
 					} catch (Exception e) {
 						log.error("Cannot configure solver: " + e.message)
 						throw new Exception()
@@ -154,6 +157,15 @@ class RoomPlannerService {
 			roomAssignmentList.add(roomAssignment);
 		}
 		schedule.roomAssignments.addAll(roomAssignmentList);
+	}
+
+	void printClassPath(def classLoader) {
+	    def urlPaths = classLoader.getURLs()
+	    println "classLoader: $classLoader"
+	    println urlPaths*.toString()
+	    if (classLoader.parent) {
+	        printClassPath(classLoader.parent)
+	    }
 	}
 
 }

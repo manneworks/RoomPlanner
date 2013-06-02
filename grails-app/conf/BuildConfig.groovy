@@ -37,9 +37,13 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 		
-	   compile 'org.drools.planner:drools-planner-core:5.5.0.Final'
-	   compile 'org.drools:drools-core:5.5.0.Final'
-       runtime 'org.drools:drools-compiler:5.5.0.Final'
+        compile 'org.drools.planner:drools-planner-core:5.5.0.Final'
+        compile 'org.drools:drools-core:5.5.0.Final'
+        runtime 'org.drools:drools-compiler:5.5.0.Final'
+
+        //compile 'org.optaplanner:optaplanner-core:6.0.0.Beta2'
+        //compile 'org.drools:drools-core:6.0.0.Beta2'
+        //runtime 'org.drools:drools-compiler:6.0.0.Beta2'
     }
 
     plugins {

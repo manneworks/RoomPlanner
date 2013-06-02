@@ -1,8 +1,8 @@
 package factory
 
-import org.drools.planner.core.move.Move
-import org.drools.planner.core.heuristic.selector.move.factory.MoveListFactory;
-import org.drools.planner.core.solution.Solution
+import org.optaplanner.core.impl.move.Move
+import org.optaplanner.core.impl.heuristic.selector.move.factory.MoveListFactory;
+import org.optaplanner.core.impl.solution.Solution
 
 import roomplanner.Room
 import roomplanner.RoomAssignment

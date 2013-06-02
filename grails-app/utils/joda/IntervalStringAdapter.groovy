@@ -2,7 +2,6 @@ package joda
 
 import javax.xml.bind.annotation.adapters.XmlAdapter
 
-import org.drools.base.ValueType
 import org.joda.time.Interval
 
 public class IntervalStringAdapter extends XmlAdapter<String, Interval>{

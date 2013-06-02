@@ -1,19 +1,24 @@
 package roomplanner
 
 import org.apache.commons.lang.builder.HashCodeBuilder
-import org.drools.ClassObjectFilter
-import org.drools.WorkingMemory
-import org.drools.planner.api.domain.solution.PlanningEntityCollectionProperty
-import org.drools.planner.core.score.buildin.hardandsoft.HardAndSoftScore
-import org.drools.planner.core.score.constraint.ConstraintOccurrence
-import org.drools.planner.core.score.director.ScoreDirector
-import org.drools.planner.core.score.director.drools.DroolsScoreDirector
-import org.drools.planner.core.solution.Solution
 
-class Schedule implements Solution<HardAndSoftScore> {
+import org.drools.core.ClassObjectFilter
+import org.drools.core.WorkingMemory
+
+import org.optaplanner.core.api.domain.solution.PlanningSolution
+import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty
+import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore
+import org.optaplanner.core.impl.score.constraint.ConstraintOccurrence
+import org.optaplanner.core.impl.score.director.ScoreDirector
+import org.optaplanner.core.impl.score.director.drools.DroolsScoreDirector
+import org.optaplanner.core.impl.solution.Solution
+
+@PlanningSolution
+class Schedule implements Solution<HardSoftScore> {
 
 	Long id
-	HardAndSoftScore score
+
+	HardSoftScore score
 	ScoreDirector scoreDirector
 	
 	private List<Room> rooms = new ArrayList<Room>()
@@ -55,11 +60,11 @@ class Schedule implements Solution<HardAndSoftScore> {
 		this.reservations = reservations
 	}
 
-	public HardAndSoftScore getScore() {
+	public HardSoftScore getScore() {
 		return score;
 	}
 
-	public void setScore(HardAndSoftScore score) {
+	public void setScore(HardSoftScore score) {
 		this.score = score;
 	}
 	
@@ -137,29 +142,29 @@ class Schedule implements Solution<HardAndSoftScore> {
 		return hashCodeBuilder.toHashCode();
 	}
 
-	public List<ScoreDetail> getScoreDetailList() {
-		if (!(this.scoreDirector instanceof DroolsScoreDirector)) {
-			return null;
-		}
-		Map<String, ScoreDetail> scoreDetailMap = new HashMap<String, ScoreDetail>();
-		WorkingMemory workingMemory = ((DroolsScoreDirector) this.scoreDirector).getWorkingMemory();
-		if (workingMemory == null) {
-			return Collections.emptyList();
-		}
-		Iterator<ConstraintOccurrence> it = (Iterator<ConstraintOccurrence>) workingMemory.iterateObjects(
-				new ClassObjectFilter(ConstraintOccurrence.class));
-		while (it.hasNext()) {
-			ConstraintOccurrence constraintOccurrence = it.next();
-			ScoreDetail scoreDetail = scoreDetailMap.get(constraintOccurrence.getRuleId());
-			if (scoreDetail == null) {
-				scoreDetail = new ScoreDetail(constraintOccurrence.getRuleId(), constraintOccurrence.getConstraintType(), constraintOccurrence.getCauses());
-				scoreDetailMap.put(constraintOccurrence.getRuleId(), scoreDetail);
-			}
-			scoreDetail.addConstraintOccurrence(constraintOccurrence);
-		}
-		List<ScoreDetail> scoreDetailList = new ArrayList<ScoreDetail>(scoreDetailMap.values());
-		Collections.sort(scoreDetailList);
-		return scoreDetailList;
-	}
+	// public List<ScoreDetail> getScoreDetailList() {
+	// 	if (!(this.scoreDirector instanceof DroolsScoreDirector)) {
+	// 		return null;
+	// 	}
+	// 	Map<String, ScoreDetail> scoreDetailMap = new HashMap<String, ScoreDetail>();
+	// 	WorkingMemory workingMemory = ((DroolsScoreDirector) this.scoreDirector).getWorkingMemory();
+	// 	if (workingMemory == null) {
+	// 		return Collections.emptyList();
+	// 	}
+	// 	Iterator<ConstraintOccurrence> it = (Iterator<ConstraintOccurrence>) workingMemory.iterateObjects(
+	// 			new ClassObjectFilter(ConstraintOccurrence.class));
+	// 	while (it.hasNext()) {
+	// 		ConstraintOccurrence constraintOccurrence = it.next();
+	// 		ScoreDetail scoreDetail = scoreDetailMap.get(constraintOccurrence.getRuleId());
+	// 		if (scoreDetail == null) {
+	// 			scoreDetail = new ScoreDetail(constraintOccurrence.getRuleId(), constraintOccurrence.getConstraintType(), constraintOccurrence.getCauses());
+	// 			scoreDetailMap.put(constraintOccurrence.getRuleId(), scoreDetail);
+	// 		}
+	// 		scoreDetail.addConstraintOccurrence(constraintOccurrence);
+	// 	}
+	// 	List<ScoreDetail> scoreDetailList = new ArrayList<ScoreDetail>(scoreDetailMap.values());
+	// 	Collections.sort(scoreDetailList);
+	// 	return scoreDetailList;
+	// }
  
 }

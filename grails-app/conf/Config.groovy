@@ -101,7 +101,8 @@ log4j = {
 
     warn   'org.mortbay.log'
 
-    info   'org.drools'
+    info   'org.optaplanner',
+           'org.kie'
 
     error  'org.apache.cxf'
 

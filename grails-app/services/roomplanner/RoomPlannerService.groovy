@@ -4,10 +4,10 @@ import javax.jws.WebMethod
 import javax.jws.WebParam
 import javax.jws.WebResult
 
-import org.drools.planner.config.SolverFactory
-import org.drools.planner.config.XmlSolverFactory
-import org.drools.planner.core.Solver
-import org.drools.planner.core.score.director.ScoreDirector
+import org.optaplanner.core.api.solver.SolverFactory
+import org.optaplanner.core.config.solver.XmlSolverFactory
+import org.optaplanner.core.api.solver.Solver
+import org.optaplanner.core.impl.score.director.ScoreDirector
 
 import org.grails.cxf.utils.EndpointType
 import org.grails.cxf.utils.GrailsCxfEndpoint

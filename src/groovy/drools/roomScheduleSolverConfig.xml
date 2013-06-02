@@ -4,7 +4,7 @@
   <solutionClass>roomplanner.Schedule</solutionClass>
   <planningEntityClass>roomplanner.RoomAssignment</planningEntityClass>
   <scoreDirectorFactory>
-    <scoreDefinitionType>HARD_AND_SOFT</scoreDefinitionType>
+    <scoreDefinitionType>HARD_SOFT</scoreDefinitionType>
     <scoreDrl>/drools/roomPlanner.drl</scoreDrl>
   </scoreDirectorFactory>
 
@@ -44,7 +44,8 @@
     </acceptor>
     <forager>
       <!-- <pickEarlyType>FIRST_BEST_SCORE_IMPROVING</pickEarlyType> -->
-      <minimalAcceptedSelection>500</minimalAcceptedSelection><!-- TODO tweak me -->
+      <!-- minimalAcceptedSelection>500</minimalAcceptedSelection --><!-- TODO tweak me -->
+      <acceptedCountLimit>100</acceptedCountLimit>
     </forager>
   </localSearch>
 </solver>

@@ -7,10 +7,11 @@ import javax.xml.bind.annotation.XmlElement
 
 import org.apache.commons.lang.builder.EqualsBuilder
 import org.apache.commons.lang.builder.HashCodeBuilder
-import org.drools.planner.api.domain.entity.PlanningEntity
-import org.drools.planner.api.domain.variable.PlanningVariable
-import org.drools.planner.api.domain.variable.ValueRange
-import org.drools.planner.api.domain.variable.ValueRangeType
+
+import org.optaplanner.core.api.domain.entity.PlanningEntity
+import org.optaplanner.core.api.domain.variable.PlanningVariable
+import org.optaplanner.core.api.domain.value.ValueRange
+import org.optaplanner.core.api.domain.value.ValueRangeType
 
 @PlanningEntity(/*difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)*/)
 @XmlAccessorType(XmlAccessType.NONE)

@@ -38,7 +38,7 @@
     </moveListFactory>
  
     <acceptor>
-      <planningEntityTabuSize>7</planningEntityTabuSize>
+      <!-- planningEntityTabuSize>7</planningEntityTabuSize -->
       <solutionTabuSize>1000</solutionTabuSize>
       <undoMoveTabuSize>5</undoMoveTabuSize>
     </acceptor>

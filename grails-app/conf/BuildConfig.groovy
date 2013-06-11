@@ -60,5 +60,7 @@ grails.project.dependency.resolution = {
 
         build ":tomcat:$grailsVersion"
 
+        compile ":codenarc:0.18.1"
+
     }
 }

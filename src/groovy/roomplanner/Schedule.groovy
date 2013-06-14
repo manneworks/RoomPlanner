@@ -8,7 +8,6 @@ import org.drools.core.WorkingMemory
 import org.optaplanner.core.api.domain.solution.PlanningSolution
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore
-import org.optaplanner.core.impl.score.constraint.ConstraintOccurrence
 import org.optaplanner.core.impl.score.director.ScoreDirector
 import org.optaplanner.core.impl.score.director.drools.DroolsScoreDirector
 import org.optaplanner.core.impl.solution.Solution

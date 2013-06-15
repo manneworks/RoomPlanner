@@ -18,33 +18,25 @@ class SolverHelper {
 
 	private static final log = LogFactory.getLog(this.getClass())
 
-	static void convertFromDto (
+	static def convertFromDto (
 		List<RoomCategoryDto> roomCategoriesDto, 
 		List<RoomDto> roomsDto, 
 		List<ReservationDto> reservationsDto, 
-		List<RoomAssignmentDto> roomAssignmentsDto,
-		def roomCategories, 
-		def rooms, 
-		def reservations, 
-		def roomAssignments
+		List<RoomAssignmentDto> roomAssignmentsDto
 	) {
-		log.debug("Before conversion...")
-		roomCategories = roomCategoriesDto?.collect { roomCategory ->
-			log.debug("Converting RoomCategories")
+		def roomCategories = roomCategoriesDto.collect { roomCategory ->
 			new RoomCategory( 
 				id: roomCategory.id
 			) 
 		}
-		rooms = roomsDto?.collect { room ->
-			log.debug("Converting Rooms")
+		def rooms = roomsDto.collect { room ->
 			new Room( 
 				id: room.id,
 				roomCategory: roomCategories.find { it.id == room.roomCategory.id },
 				adults: room.adults
 			) 
 		}
-		reservations = reservationsDto?.collect { reservation ->
-			log.debug("Converting Reservations")
+		def reservations = reservationsDto.collect { reservation ->
 			new Reservation(
 				id: reservation.id,
 				roomCategory: roomCategories.find { it.id == reservation.roomCategory.id },
@@ -52,8 +44,7 @@ class SolverHelper {
 				bookingInterval: reservation.bookingInterval
 			) 
 		}
-		roomAssignments = roomAssignmentsDto?.collect { roomAssignment ->
-			log.debug("Converting roomAssignments")
+		def roomAssignments = roomAssignmentsDto.collect { roomAssignment ->
 			new RoomAssignment( 
 				id: roomAssignment.id,
 				room: rooms.find { it.id == roomAssignment.room.id },
@@ -61,15 +52,15 @@ class SolverHelper {
 				moveable: false
 			) 
 		}
-		
-		if (rooms == null) { rooms = new ArrayList<Room>() }
-		if (roomCategories == null) { roomCategories = new ArrayList<RoomCategory>() }
-		if (reservations == null) { reservations = new ArrayList<Reservation>() }
-		if (roomAssignments == null) { roomAssignments = new ArrayList<RoomAssignment>() }
 
+		[ roomCategories, rooms, reservations, roomAssignments ]
 	}
 
-	static PlanDto buildDtoResponse(Schedule solvedSchedule) {
+	static PlanDto buildDtoResponse(
+			Schedule solvedSchedule, 
+			List<RoomDto> roomsDto, 
+			List<ReservationDto> reservationsDto
+	) {
 		PlanDto planDto = new PlanDto()
 
 		planDto.score = new ScoreDto(

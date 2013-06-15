@@ -48,31 +48,21 @@ class RoomPlannerSoapService {
 		@WebParam(name="roomAssignmentList") List<RoomAssignmentDto> roomAssignmentsDto
 		) {
 
-    	def roomCategories = []
-    	def rooms = []
-    	def reservations = []
-    	def roomAssignments = []
-
-		log.debug("RoomCategoriesDto: " + roomCategoriesDto)
-		log.debug("RoomsDto: " + roomsDto)
-		log.debug("ReservationsDto: " + reservationsDto)
-		log.debug("RoomAssignmentsDto: " + roomAssignmentsDto)
-
-    	SolverHelper.convertFromDto(
-    		roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto,
-    		roomCategories, rooms, reservations, roomAssignments
-    	)
+		def (roomCategories, rooms, reservations, roomAssignments) = 
+			SolverHelper.convertFromDto(
+				roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto,
+			)
 				 
-		log.debug("Rooms: " + rooms)
-		log.debug("RoomCategories: " + roomCategories)
-		log.debug("Reservations: " + reservations)
-		log.debug("RoomAssignments: " + roomAssignments)
+		log.trace("Rooms: " + rooms)
+		log.trace("RoomCategories: " + roomCategories)
+		log.trace("Reservations: " + reservations)
+		log.trace("RoomAssignments: " + roomAssignments)
 
 		def planDto
 
 		try {
 			Schedule solvedSchedule = SolverHelper.solveProblem(grailsApplication, roomCategories, rooms, reservations, roomAssignments)
-			planDto = SolverHelper.buildDtoResponse(solvedSchedule)
+			planDto = SolverHelper.buildDtoResponse(solvedSchedule, roomsDto, reservationsDto)
 
 			log.debug("Score: [${planDto.score.hardScoreConstraints}hard/${planDto.score.softScoreConstraints}soft] Feasible: ${planDto.score.feasible}")
 		} catch (Throwable e) {

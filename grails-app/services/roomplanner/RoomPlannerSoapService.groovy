@@ -22,7 +22,7 @@ import roomplanner.api.Room as RoomDto
 import roomplanner.api.Reservation as ReservationDto
 import roomplanner.api.RoomAssignment as RoomAssignmentDto
 import roomplanner.api.Plan as PlanDto
-
+import roomplanner.api.Score as ScoreDto
 
 // @GrailsCxfEndpoint(
 // 	importInterceptors  = ["customLoggingInInterceptor"],
@@ -46,14 +46,42 @@ class RoomPlannerSoapService {
 	 */
 	@WebMethod( operationName = 'doPlan' )
 	@WebResult( name = 'plan' )
-    Plan doPlan(
-		@WebParam(name="roomList") List<Room> rooms, 
-		@WebParam(name="roomCategoryList") List<RoomCategory> roomCategories, 
-		@WebParam(name="reservationList") List<Reservation> reservations, 
-		@WebParam(name="roomAssignmentList") List<RoomAssignment> roomAssignments
+    PlanDto doPlan(
+		@WebParam(name="roomList") List<RoomDto> roomsDto, 
+		@WebParam(name="roomCategoryList") List<RoomCategoryDto> roomCategoriesDto, 
+		@WebParam(name="reservationList") List<ReservationDto> reservationsDto, 
+		@WebParam(name="roomAssignmentList") List<RoomAssignmentDto> roomAssignmentsDto
 		) {
 
-		Plan plan = new Plan();
+		def roomCategories = roomCategoriesDto?.collect { roomCategory ->
+			new RoomCategory( 
+				id: roomCategory.id
+			) 
+		}
+		def rooms = roomsDto?.collect { room ->
+			new Room( 
+				id: room.id,
+				roomCategory: roomCategories.find { it.id == room.roomCategory.id },
+				adults: room.adults
+			) 
+		}
+		def reservations = reservationsDto?.collect { reservation ->
+			new Reservation(
+				id: reservation.id,
+				roomCategory: roomCategories.find { it.id == reservation.roomCategory.id },
+				adults: reservation.adults,
+				bookingInterval: reservation.bookingInterval
+			) 
+		}
+		def roomAssignments = roomAssignmentsDto?.collect { roomAssignment ->
+			new RoomAssignment( 
+				id: roomAssignment.id,
+				room: rooms.find { it.id == roomAssignment.room.id },
+				reservation:  reservations.find { it.id == roomAssignment.reservation.id },
+				moveable: false
+			) 
+		}
+		def planDto = new PlanDto()
 
 		if (rooms == null) { rooms = new ArrayList<Room>() }
 		if (roomCategories == null) { roomCategories = new ArrayList<RoomCategory>() }
@@ -131,13 +159,23 @@ class RoomPlannerSoapService {
 
 			log.trace("Build score object")
 
-			plan.roomAssignments = solvedSchedule.roomAssignments
-			plan.score = new Score(
+			planDto.roomAssignments = solvedSchedule.roomAssignments
+			plan.score = new ScoreDto(
 				 feasible: solvedSchedule.score.feasible,
 				 hardScoreConstraints: solvedSchedule.score.hardScore,
 				 softScoreConstraints: solvedSchedule.score.softScore
 				 //scoreDetails: solvedSchedule.getScoreDetailList()   
 			)
+			planDto.roomAssignments = []
+			solvedSchedule.roomAssignments.each { roomAssignment ->
+			planDto.roomAssignments <<
+				new RoomAssignmentDto(
+					id: roomAssignment.id,
+					room: roomsDto.find { it.id == roomAssignment.room.id },
+					reservation: reservationsDto.find { it.id == roomAssignment.reservation.id },
+					moveable: roomAssignment.moveable
+					)
+			}
 			log.debug("Score: [${plan.score.hardScoreConstraints}hard/${plan.score.softScoreConstraints}soft] Feasible: ${plan.score.feasible}")
 	 
 		} catch (Throwable e) {
@@ -145,8 +183,8 @@ class RoomPlannerSoapService {
 		}
 		finally {
 			new PlannerRequest().save()
-			return plan
 		}
+		planDto
     }
 	
 	private void createRoomAssignmentList(Schedule schedule) {
@@ -155,9 +193,9 @@ class RoomPlannerSoapService {
 		long id = 0L;
 		reservationList.each() { reservation ->
 			RoomAssignment roomAssignment = new RoomAssignment();
-			roomAssignment.setId(id);
+			roomAssignment.id = id;
 			id++;
-			roomAssignment.setReservation(reservation);
+			roomAssignment.reservation = reservation;
 			roomAssignment.moveable = true;
 			// Notice that we leave the PlanningVariable properties on null
 			roomAssignmentList.add(roomAssignment);

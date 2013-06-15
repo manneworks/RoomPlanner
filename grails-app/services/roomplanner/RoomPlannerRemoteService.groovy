@@ -9,9 +9,9 @@ import roomplanner.api.Plan as PlanDto
 /**
 	Provides an entry point for Hessian protocol
 */
-class RoomPlannerRemoteService implements roomplanner.api.RoomPlannerService {
+class RoomPlannerRemoteService implements roomplanner.api.IRoomPlannerService {
 
-	static expose = ['hessian']
+	static expose = [ 'hessian' ]
 
 	/**
 		Implements doPlan method

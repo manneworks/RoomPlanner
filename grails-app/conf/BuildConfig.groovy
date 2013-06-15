@@ -8,6 +8,7 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
+grails.plugin.location.'roomplanner-api' = '../roomplanner-api'
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
@@ -48,6 +49,8 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":cxf:1.1.1"
+        compile ":remoting:1.3"
+
         runtime ":resources:1.2.RC2"
         runtime ":database-migration:1.3.3"
 

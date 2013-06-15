@@ -4,11 +4,6 @@ import javax.jws.WebMethod
 import javax.jws.WebParam
 import javax.jws.WebResult
 
-import org.optaplanner.core.api.solver.SolverFactory
-import org.optaplanner.core.config.solver.XmlSolverFactory
-import org.optaplanner.core.api.solver.Solver
-import org.optaplanner.core.impl.score.director.ScoreDirector
-
 import org.grails.cxf.utils.EndpointType
 import org.grails.cxf.utils.GrailsCxfEndpoint
 import org.apache.cxf.interceptor.InInterceptors
@@ -53,131 +48,33 @@ class RoomPlannerSoapService {
 		@WebParam(name="roomAssignmentList") List<RoomAssignmentDto> roomAssignmentsDto
 		) {
 
-		def roomCategories = roomCategoriesDto?.collect { roomCategory ->
-			new RoomCategory( 
-				id: roomCategory.id
-			) 
-		}
-		def rooms = roomsDto?.collect { room ->
-			new Room( 
-				id: room.id,
-				roomCategory: roomCategories.find { it.id == room.roomCategory.id },
-				adults: room.adults
-			) 
-		}
-		def reservations = reservationsDto?.collect { reservation ->
-			new Reservation(
-				id: reservation.id,
-				roomCategory: roomCategories.find { it.id == reservation.roomCategory.id },
-				adults: reservation.adults,
-				bookingInterval: reservation.bookingInterval
-			) 
-		}
-		def roomAssignments = roomAssignmentsDto?.collect { roomAssignment ->
-			new RoomAssignment( 
-				id: roomAssignment.id,
-				room: rooms.find { it.id == roomAssignment.room.id },
-				reservation:  reservations.find { it.id == roomAssignment.reservation.id },
-				moveable: false
-			) 
-		}
-		def planDto = new PlanDto()
+    	def roomCategories = []
+    	def rooms = []
+    	def reservations = []
+    	def roomAssignments = []
 
-		if (rooms == null) { rooms = new ArrayList<Room>() }
-		if (roomCategories == null) { roomCategories = new ArrayList<RoomCategory>() }
-		if (reservations == null) { reservations = new ArrayList<Reservation>() }
-		if (roomAssignments == null) { roomAssignments = new ArrayList<RoomAssignment>() }
+		log.debug("RoomCategoriesDto: " + roomCategoriesDto)
+		log.debug("RoomsDto: " + roomsDto)
+		log.debug("ReservationsDto: " + reservationsDto)
+		log.debug("RoomAssignmentsDto: " + roomAssignmentsDto)
+
+    	SolverHelper.convertFromDto(
+    		roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto,
+    		roomCategories, rooms, reservations, roomAssignments
+    	)
 				 
-		log.trace("Rooms: " + rooms)
-		log.trace("RoomCategories: " + roomCategories)
-		log.trace("Reservations: " + reservations)
-		log.trace("RoomAssignments: " + roomAssignments)
+		log.debug("Rooms: " + rooms)
+		log.debug("RoomCategories: " + roomCategories)
+		log.debug("Reservations: " + reservations)
+		log.debug("RoomAssignments: " + roomAssignments)
 
-		// printClassPath(this.class.classLoader)
+		def planDto
 
 		try {
+			Schedule solvedSchedule = SolverHelper.solveProblem(grailsApplication, roomCategories, rooms, reservations, roomAssignments)
+			planDto = SolverHelper.buildDtoResponse(solvedSchedule)
 
-			Schedule unsolvedSchedule = new Schedule()
-			Schedule solvedSchedule = null
-
-			log.trace("Add problem facts")
-
-			unsolvedSchedule.rooms.addAll(rooms)
-			unsolvedSchedule.roomCategories.addAll(roomCategories)
-			unsolvedSchedule.reservations.addAll(reservations)
-			unsolvedSchedule.roomAssignments.addAll(roomAssignments)
-			createRoomAssignmentList(unsolvedSchedule)	
-			
-			synchronized (this) {
-				Solver solver = null
-
-				def configValue = grailsApplication.config.solverObject
-
-				if (configValue) {
-					log.trace("Get solver from applicationContext")	 
-					solver = configValue
-				} else {
-		    		log.trace("Configure solver")
-					SolverFactory solverFactory = new XmlSolverFactory()
-					
-					try {
-						// InputStream xmlConfigStream = this.getClass().getResourceAsStream(
-						// 	grailsApplication.config.solver.configurationXML
-						// )
-						solverFactory.configure(grailsApplication.config.solver.configurationXML)
-					} catch (Exception e) {
-						log.error("Cannot configure solver: " + e.message)
-						throw new Exception()
-					}
-					
-		    		log.trace("Build solver")
-					solver = solverFactory.buildSolver()
-
-		    		log.trace("Build scoreDirector")
-					ScoreDirector scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
-
-		    		log.trace("Store solver in grailsApplication")
-					grailsApplication.config.solverObject = solver
-					grailsApplication.config.scoreDirectorObject = scoreDirector
-				}
-
-				unsolvedSchedule.scoreDirector = grailsApplication.config.scoreDirectorObject
-				 
-				log.trace("Start solving")
-
-				unsolvedSchedule.scoreDirector.setWorkingSolution(unsolvedSchedule);
-				solver.setPlanningProblem(unsolvedSchedule);
-				solver.solve();
-			 
-				solvedSchedule = (Schedule) solver.getBestSolution();
-
-				log.trace("Get constraints info")
-				solvedSchedule.scoreDirector = grailsApplication.config.scoreDirectorObject
-				solvedSchedule.scoreDirector.setWorkingSolution(solvedSchedule)
-				solvedSchedule.scoreDirector.calculateScore()
-			} // synchronized
-
-			log.trace("Build score object")
-
-			planDto.roomAssignments = solvedSchedule.roomAssignments
-			plan.score = new ScoreDto(
-				 feasible: solvedSchedule.score.feasible,
-				 hardScoreConstraints: solvedSchedule.score.hardScore,
-				 softScoreConstraints: solvedSchedule.score.softScore
-				 //scoreDetails: solvedSchedule.getScoreDetailList()   
-			)
-			planDto.roomAssignments = []
-			solvedSchedule.roomAssignments.each { roomAssignment ->
-			planDto.roomAssignments <<
-				new RoomAssignmentDto(
-					id: roomAssignment.id,
-					room: roomsDto.find { it.id == roomAssignment.room.id },
-					reservation: reservationsDto.find { it.id == roomAssignment.reservation.id },
-					moveable: roomAssignment.moveable
-					)
-			}
-			log.debug("Score: [${plan.score.hardScoreConstraints}hard/${plan.score.softScoreConstraints}soft] Feasible: ${plan.score.feasible}")
-	 
+			log.debug("Score: [${planDto.score.hardScoreConstraints}hard/${planDto.score.softScoreConstraints}soft] Feasible: ${planDto.score.feasible}")
 		} catch (Throwable e) {
 			log.error("Error solving", e)
 		}
@@ -187,22 +84,6 @@ class RoomPlannerSoapService {
 		planDto
     }
 	
-	private void createRoomAssignmentList(Schedule schedule) {
-		List<Reservation> reservationList = schedule.reservations;
-		List<RoomAssignment> roomAssignmentList = new ArrayList<RoomAssignment>(reservationList.size());
-		long id = 0L;
-		reservationList.each() { reservation ->
-			RoomAssignment roomAssignment = new RoomAssignment();
-			roomAssignment.id = id;
-			id++;
-			roomAssignment.reservation = reservation;
-			roomAssignment.moveable = true;
-			// Notice that we leave the PlanningVariable properties on null
-			roomAssignmentList.add(roomAssignment);
-		}
-		schedule.roomAssignments.addAll(roomAssignmentList);
-	}
-
 	void printClassPath(def classLoader) {
 	    def urlPaths = classLoader.getURLs()
 	    println "classLoader: $classLoader"

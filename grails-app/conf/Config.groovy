@@ -108,7 +108,8 @@ log4j = {
 
     debug  'grails.app.conf', 
            'grails.app.bootstrap',
-           'grails.app.services.roomplanner' 
+           'grails.app.services.roomplanner',
+           'roomplanner'
 }
 
 solver {

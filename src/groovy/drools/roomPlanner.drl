@@ -1,12 +1,9 @@
-//created on: 07.08.2012
 package hms
 dialect "mvel"
 
 import java.util.Date
 
-import org.drools.planner.core.score.buildin.hardandsoft.HardAndSoftScoreHolder;
-import org.drools.planner.core.score.constraint.IntConstraintOccurrence;
-import org.drools.planner.core.score.constraint.ConstraintType;
+import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScoreHolder;
 
 import roomplanner.Room
 import roomplanner.Reservation
@@ -16,7 +13,7 @@ import roomplanner.RoomAssignment
 
 import org.joda.time.Interval
 
-global HardAndSoftScoreHolder scoreHolder;
+global HardSoftScoreHolder scoreHolder;
 
 // ############################################################################
 // Hard constraints
@@ -28,18 +25,16 @@ when
     $ra2 : RoomAssignment(room == $room, reservation.bookingInterval.overlaps($i))
     eval($ra1 != $ra2)
 then
-    insertLogical(new IntConstraintOccurrence("overlappingPeriod",
-        ConstraintType.NEGATIVE_HARD, 1, $ra1, $ra2));
-     //System.out.println("Overlap constraint " + $ra1 + " <=> " + $ra2);
+    scoreHolder.addHardConstraintMatch(kcontext, -1)
 end
 
 rule "Lower room size"
 when
     $roomAssignment : RoomAssignment(room != null, reservation.adults > room.adults)
 then
-    insertLogical(new IntConstraintOccurrence("lowerRoomSize",
-        ConstraintType.NEGATIVE_HARD, (3*($roomAssignment.reservation.adults - $roomAssignment.room.adults)).intValue(), 
-        $roomAssignment));
+    scoreHolder.addHardConstraintMatch(kcontext, 
+        (-3*($roomAssignment.reservation.adults - $roomAssignment.room.adults)).intValue()
+    )
 end
 
 rule "Lower RoomCategory"
@@ -50,9 +45,9 @@ when
         room.roomCategory.id < reservation.roomCategory.id
       )
 then
-    insertLogical(new IntConstraintOccurrence("lowerRoomCategory",
-        ConstraintType.NEGATIVE_HARD, (1*($roomAssignment.reservation.roomCategory.id - $roomAssignment.room.roomCategory.id)).intValue(),
-        $roomAssignment));
+    scoreHolder.addHardConstraintMatch(kcontext,
+        (-1*($roomAssignment.reservation.roomCategory.id - $roomAssignment.room.roomCategory.id)).intValue()
+    )
 end
 
 // ############################################################################
@@ -66,45 +61,16 @@ when
         reservation.roomCategory.id < room.roomCategory.id
       )
 then
-    insertLogical(new IntConstraintOccurrence("higherRoomCategory",
-        ConstraintType.NEGATIVE_SOFT, (20*($roomAssignment.room.roomCategory.id - $roomAssignment.reservation.roomCategory.id)).intValue(),
-        $roomAssignment)); 
+    scoreHolder.addSoftConstraintMatch(kcontext,
+        (-20*($roomAssignment.room.roomCategory.id - $roomAssignment.reservation.roomCategory.id)).intValue()
+    )
 end
 
 rule "Higher room size"
 when
     $roomAssignment: RoomAssignment(room != null, room.adults > reservation.adults)
 then
-    insertLogical(new IntConstraintOccurrence("higherRoomSize",
-        ConstraintType.NEGATIVE_SOFT, (10*($roomAssignment.room.adults - $roomAssignment.reservation.adults)).intValue(), 
-        $roomAssignment));
+    scoreHolder.addSoftConstraintMatch(kcontext,
+        (-10*($roomAssignment.room.adults - $roomAssignment.reservation.adults)).intValue()
+    )
 end
-
-// ############################################################################
-// Calculate score
-// ############################################################################
-
-// Accumulate hard constraints
-rule "hardConstraintsBroken"
-        salience -1 // Do the other rules first (optional, for performance)
-    when
-        $hardTotal : Number() from accumulate(
-            IntConstraintOccurrence(constraintType == ConstraintType.NEGATIVE_HARD, $weight : weight),
-            sum($weight) // Vote for http://jira.jboss.com/jira/browse/JBRULES-1075
-        )
-    then
-        scoreHolder.setHardConstraintsBroken($hardTotal.intValue());
-end
-
-// Accumulate soft constraints
-rule "softConstraintsBroken"
-        salience -1 // Do the other rules first (optional, for performance)
-    when
-        $softTotal : Number() from accumulate(
-            IntConstraintOccurrence(constraintType == ConstraintType.NEGATIVE_SOFT, $weight : weight),
-            sum($weight) // Vote for http://jira.jboss.com/jira/browse/JBRULES-1075
-        )
-    then
-        scoreHolder.setSoftConstraintsBroken($softTotal.intValue());
-end
-

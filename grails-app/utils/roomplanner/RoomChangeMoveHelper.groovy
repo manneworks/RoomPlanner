@@ -1,6 +1,6 @@
 package roomplanner
 
-import org.drools.planner.core.score.director.ScoreDirector
+import org.optaplanner.core.impl.score.director.ScoreDirector
 
 class RoomChangeMoveHelper {
 

@@ -101,13 +101,15 @@ log4j = {
 
     warn   'org.mortbay.log'
 
-    info   'org.drools'
+    info   'org.optaplanner',
+           'org.kie'
 
     error  'org.apache.cxf'
 
     debug  'grails.app.conf', 
            'grails.app.bootstrap',
-           'grails.app.services.roomplanner' 
+           'grails.app.services.roomplanner',
+           'roomplanner'
 }
 
 solver {

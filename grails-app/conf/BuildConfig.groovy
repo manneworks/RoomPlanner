@@ -8,6 +8,7 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
+grails.plugin.location.'roomplanner-api' = '../roomplanner-api'
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
@@ -37,17 +38,19 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 		
-        compile 'org.drools.planner:drools-planner-core:5.5.0.Final'
-        compile 'org.drools:drools-core:5.5.0.Final'
-        runtime 'org.drools:drools-compiler:5.5.0.Final'
+        // compile 'org.drools.planner:drools-planner-core:5.5.0.Final'
+        // compile 'org.drools:drools-core:5.5.0.Final'
+        // runtime 'org.drools:drools-compiler:5.5.0.Final'
 
-        //compile 'org.optaplanner:optaplanner-core:6.0.0.Beta2'
-        //compile 'org.drools:drools-core:6.0.0.Beta2'
-        //runtime 'org.drools:drools-compiler:6.0.0.Beta2'
+        compile 'org.optaplanner:optaplanner-core:6.0.0.Beta3'
+        compile 'org.drools:drools-core:6.0.0.Beta3'
+        runtime 'org.drools:drools-compiler:6.0.0.Beta3'
     }
 
     plugins {
         compile ":cxf:1.1.1"
+        compile ":remoting:1.3"
+
         runtime ":resources:1.2.RC2"
         runtime ":database-migration:1.3.3"
 
@@ -59,6 +62,8 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.4"
 
         build ":tomcat:$grailsVersion"
+
+        compile ":codenarc:0.18.1"
 
     }
 }

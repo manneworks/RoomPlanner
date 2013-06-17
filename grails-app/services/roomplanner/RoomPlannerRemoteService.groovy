@@ -23,10 +23,31 @@ class RoomPlannerRemoteService implements roomplanner.api.IRoomPlannerService {
 		List<ReservationDto> reservationsDto, 
 		List<RoomAssignmentDto> roomAssignmentsDto
 	) {
-		PlanDto planDto = null
 
+		def (roomCategories, rooms, reservations, roomAssignments) = 
+			SolverHelper.convertFromDto(
+				roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto,
+			)
+				 
+		log.trace("Rooms: " + rooms)
+		log.trace("RoomCategories: " + roomCategories)
+		log.trace("Reservations: " + reservations)
+		log.trace("RoomAssignments: " + roomAssignments)
 
+		def planDto
+
+		try {
+			Schedule solvedSchedule = SolverHelper.solveProblem(grailsApplication, roomCategories, rooms, reservations, roomAssignments)
+			planDto = SolverHelper.buildDtoResponse(solvedSchedule, roomsDto, reservationsDto)
+
+			log.debug("Score: [${planDto.score.hardScoreConstraints}hard/${planDto.score.softScoreConstraints}soft] Feasible: ${planDto.score.feasible}")
+		} catch (Throwable e) {
+			log.error("Error solving", e)
+		}
+		finally {
+			new PlannerRequest().save()
+		}
 		planDto
-	}
+    }
 
 }

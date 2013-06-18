@@ -12,13 +12,47 @@ import roomplanner.api.RoomAssignment as RoomAssignmentDto
 import roomplanner.api.Plan as PlanDto
 import roomplanner.api.Score as ScoreDto
 
-import org.apache.commons.logging.LogFactory
 
-class SolverHelper {
+class RoomPlannerService {
 
-	private static final log = LogFactory.getLog(this.getClass())
+	def grailsApplication
 
-	static def convertFromDto (
+    /**
+
+    */
+    def doPlan(def roomCategoriesDto, def roomsDto, def reservationsDto, def roomAssignmentsDto) {
+
+		def (roomCategories, rooms, reservations, roomAssignments) = 
+			convertFromDto(
+				roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto
+			)
+				 
+		log.trace("Rooms: " + rooms)
+		log.trace("RoomCategories: " + roomCategories)
+		log.trace("Reservations: " + reservations)
+		log.trace("RoomAssignments: " + roomAssignments)
+
+		def planDto
+
+		try {
+			Schedule solvedSchedule = solveProblem(roomCategories, rooms, reservations, roomAssignments)
+			planDto = buildDtoResponse(solvedSchedule, roomsDto, reservationsDto)
+
+			log.debug("Score: [${planDto.score.hardScoreConstraints}hard/${planDto.score.softScoreConstraints}soft] Feasible: ${planDto.score.feasible}")
+		} catch (Throwable e) {
+			log.error("Error solving", e)
+		}
+		finally {
+			new PlannerRequest().save()
+		}
+		planDto
+
+    }
+
+    /**
+
+    */
+	private def convertFromDto (
 		List<RoomCategoryDto> roomCategoriesDto, 
 		List<RoomDto> roomsDto, 
 		List<ReservationDto> reservationsDto, 
@@ -56,7 +90,10 @@ class SolverHelper {
 		[ roomCategories, rooms, reservations, roomAssignments ]
 	}
 
-	static PlanDto buildDtoResponse(
+    /**
+
+    */
+	private PlanDto buildDtoResponse(
 			Schedule solvedSchedule, 
 			List<RoomDto> roomsDto, 
 			List<ReservationDto> reservationsDto
@@ -83,7 +120,10 @@ class SolverHelper {
 		planDto
 	}
 
-	static Schedule solveProblem(def grailsApplication, def roomCategories, def rooms, def reservations, def roomAssignments) {
+    /**
+
+    */
+	private Schedule solveProblem(def roomCategories, def rooms, def reservations, def roomAssignments) {
 
 		Schedule solvedSchedule = null
 		try {
@@ -98,6 +138,8 @@ class SolverHelper {
 			unsolvedSchedule.roomAssignments.addAll(roomAssignments)
 			createRoomAssignmentList(unsolvedSchedule)	
 			
+			//printClassPath(this.getClass().getClassLoader())
+
 			synchronized (this) {
 				Solver solver = null
 
@@ -109,9 +151,9 @@ class SolverHelper {
 				} else {
 		    		log.trace("Configure solver")
 					SolverFactory solverFactory = new XmlSolverFactory()
-					
+
 					try {
-						solverFactory.configure(grailsApplication.config.solver.configurationXML)
+ 						solverFactory.configure(grailsApplication.config.solver.configurationXML)
 					} catch (Exception e) {
 						log.error("Cannot configure solver: " + e.message)
 						throw new Exception()
@@ -149,20 +191,40 @@ class SolverHelper {
 		solvedSchedule
 	}
 
-	static private void createRoomAssignmentList(Schedule schedule) {
-	List<Reservation> reservationList = schedule.reservations;
-	List<RoomAssignment> roomAssignmentList = new ArrayList<RoomAssignment>(reservationList.size());
-	long id = 0L;
-	reservationList.each() { reservation ->
-		RoomAssignment roomAssignment = new RoomAssignment();
-		roomAssignment.id = id;
-		id++;
-		roomAssignment.reservation = reservation;
-		roomAssignment.moveable = true;
-		// Notice that we leave the PlanningVariable properties on null
-		roomAssignmentList.add(roomAssignment);
+    /**
+
+    */
+	private void createRoomAssignmentList(Schedule schedule) {
+		List<Reservation> reservationList = schedule.reservations;
+		List<RoomAssignment> roomAssignmentList = new ArrayList<RoomAssignment>(reservationList.size());
+		long id = 0L;
+		reservationList.each() { reservation ->
+			RoomAssignment roomAssignment = new RoomAssignment();
+			roomAssignment.id = id;
+			id++;
+			roomAssignment.reservation = reservation;
+			roomAssignment.moveable = true;
+			// Notice that we leave the PlanningVariable properties on null
+			roomAssignmentList.add(roomAssignment);
+		}
+		schedule.roomAssignments.addAll(roomAssignmentList);
 	}
-	schedule.roomAssignments.addAll(roomAssignmentList);
-}
+
+    /**
+
+    */
+	private void printClassPath(def classLoader) {
+		
+		if (classLoader == null) {
+        	classLoader = ClassLoader.getSystemClassLoader();
+ 	    }
+
+	    def urlPaths = classLoader.getURLs()
+	    println "classLoader: $classLoader"
+	    println urlPaths*.toString()
+	    if (classLoader.parent) {
+	        printClassPath(classLoader.parent)
+	    }
+	}
 
 }

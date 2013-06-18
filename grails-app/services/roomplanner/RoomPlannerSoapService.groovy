@@ -29,7 +29,7 @@ class RoomPlannerSoapService {
 
 	static expose = EndpointType.JAX_WS
 
-	def grailsApplication
+	def roomPlannerService
 	
 	/**
 	 * 
@@ -48,39 +48,7 @@ class RoomPlannerSoapService {
 		@WebParam(name="roomAssignmentList") List<RoomAssignmentDto> roomAssignmentsDto
 		) {
 
-		def (roomCategories, rooms, reservations, roomAssignments) = 
-			SolverHelper.convertFromDto(
-				roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto,
-			)
-				 
-		log.trace("Rooms: " + rooms)
-		log.trace("RoomCategories: " + roomCategories)
-		log.trace("Reservations: " + reservations)
-		log.trace("RoomAssignments: " + roomAssignments)
+		roomPlannerService.doPlan(roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto)
 
-		def planDto
-
-		try {
-			Schedule solvedSchedule = SolverHelper.solveProblem(grailsApplication, roomCategories, rooms, reservations, roomAssignments)
-			planDto = SolverHelper.buildDtoResponse(solvedSchedule, roomsDto, reservationsDto)
-
-			log.debug("Score: [${planDto.score.hardScoreConstraints}hard/${planDto.score.softScoreConstraints}soft] Feasible: ${planDto.score.feasible}")
-		} catch (Throwable e) {
-			log.error("Error solving", e)
-		}
-		finally {
-			new PlannerRequest().save()
-		}
-		planDto
     }
-	
-	void printClassPath(def classLoader) {
-	    def urlPaths = classLoader.getURLs()
-	    println "classLoader: $classLoader"
-	    println urlPaths*.toString()
-	    if (classLoader.parent) {
-	        printClassPath(classLoader.parent)
-	    }
-	}
-
 }

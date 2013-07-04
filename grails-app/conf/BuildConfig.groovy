@@ -52,7 +52,7 @@ grails.project.dependency.resolution = {
         compile ":remoting:1.3"
 
         runtime ":resources:1.2.RC2"
-        runtime ":database-migration:1.3.3"
+        runtime ":database-migration:1.3.5"
 
         runtime ":hibernate:$grailsVersion"
 

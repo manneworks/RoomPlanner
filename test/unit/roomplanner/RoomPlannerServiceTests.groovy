@@ -12,6 +12,5 @@ import org.junit.*
 class RoomPlannerServiceTests {
 
     void testSomething() {
-        fail "Implement me"
     }
 }

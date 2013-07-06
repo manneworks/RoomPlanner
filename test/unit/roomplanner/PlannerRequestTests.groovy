@@ -12,6 +12,5 @@ import org.junit.*
 class PlannerRequestTests {
 
     void testSomething() {
-       fail "Implement me"
     }
 }

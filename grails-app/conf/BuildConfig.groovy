@@ -45,9 +45,9 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 		
-        compile 'org.optaplanner:optaplanner-core:6.0.0.Beta3'
-        compile 'org.drools:drools-core:6.0.0.Beta3'
-        runtime 'org.drools:drools-compiler:6.0.0.Beta3'
+        compile 'org.optaplanner:optaplanner-core:6.0.0.Beta4'
+        compile 'org.drools:drools-core:6.0.0.Beta4'
+        runtime 'org.drools:drools-compiler:6.0.0.Beta4'
     }
 
     plugins {
@@ -67,6 +67,8 @@ grails.project.dependency.resolution = {
         build ":tomcat:$grailsVersion"
 
         compile ":codenarc:0.18.1"
+        test ":code-coverage:1.2.6"
+
 
         if (env == 'jenkins') {
             runtime "grails-roomplanner-api:grails-roomplanner-api:0.1"

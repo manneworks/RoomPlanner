@@ -9,6 +9,13 @@ eventCompileStart = {
 
 eventCreateWarStart = { warName, stagingDir ->
    copyResources "$stagingDir/WEB-INF/classes"
+   
+   def buildNumber = System.getenv('BUILD_NUMBER')
+   if(buildNumber) {
+       ant.propertyfile(file:"${stagingDir}/WEB-INF/classes/application.properties") {
+           entry(key:'build.number', value: buildNumber)
+       }
+   }
 }
 
 private copyResources(destination) {

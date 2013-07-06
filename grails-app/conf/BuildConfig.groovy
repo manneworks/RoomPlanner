@@ -76,3 +76,10 @@ grails.project.dependency.resolution = {
 
     }
 }
+
+codenarc.reports = {
+    Jenkins('xml') {                    
+        outputFile = 'target/analysis-reports/CodeNarcReport.xml'
+        title = 'CodeNarc Analysis Report'             
+    }
+}

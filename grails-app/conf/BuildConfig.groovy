@@ -75,6 +75,7 @@ grails.project.dependency.resolution = {
         test ":codenarc:0.18.1"
         test ":code-coverage:1.2.6"
 
+        //test ":build-test-data:2.0.5"
 
         if (env == 'jenkins') {
             runtime "grails-roomplanner-api:grails-roomplanner-api:0.1"

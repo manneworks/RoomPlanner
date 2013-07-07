@@ -12,7 +12,7 @@ class RoomPlannerRemoteServiceSpec extends Specification {
 	def roomPlannerRemoteServiceClient
 
 	def setup() {
-		roomPlannerRemoteServiceClient = new roomplanner.remote.RoomPlannerRemoteService()
+		//roomPlannerRemoteServiceClient = new roomplanner.remote.RoomPlannerRemoteService()
 	}
 
 	def "Call roomplanner via remoting" () {

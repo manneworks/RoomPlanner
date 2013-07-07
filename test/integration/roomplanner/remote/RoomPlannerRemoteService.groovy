@@ -1,6 +1,6 @@
-package roomplanner
+package roomplanner.remote
 
-class RoomPlannerRemoteServiceClient {
+class RoomPlannerRemoteService {
 
    static remote = [
         protocol: 'hessian',

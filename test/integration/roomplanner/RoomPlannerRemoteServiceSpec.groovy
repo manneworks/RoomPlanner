@@ -9,10 +9,10 @@ import spock.lang.*
 @TestFor(RoomPlannerRemoteService)
 class RoomPlannerRemoteServiceSpec extends Specification {
 
-	def roomPlannerRemoteServiceClient 
+	def roomPlannerRemoteServiceClient
 
 	def setup() {
-		roomPlannerRemoteServiceClient = new RoomPlannerRemoteServiceClient()
+		roomPlannerRemoteServiceClient = new roomplanner.remote.RoomPlannerRemoteService()
 	}
 
 	def "Call roomplanner via remoting" () {

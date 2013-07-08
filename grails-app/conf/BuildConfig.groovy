@@ -49,6 +49,8 @@ grails.project.dependency.resolution = {
         compile 'org.drools:drools-core:6.0.0.Beta3'
         compile 'org.drools:drools-compiler:6.0.0.Beta3'
 
+        compile 'joda-time:joda-time:2.2'
+
         test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
 
     }
@@ -78,7 +80,7 @@ grails.project.dependency.resolution = {
         //test ":build-test-data:2.0.5"
 
         if (env == 'jenkins') {
-            runtime "grails-roomplanner-api:grails-roomplanner-api:0.1"
+            runtime "grails-roomplanner-api:grails-roomplanner-api:0.2"
         }
 
     }

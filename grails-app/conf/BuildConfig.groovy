@@ -39,8 +39,10 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
 
-        mavenRepo name: 'HMS',
+        if (env == 'jenkins') {
+            mavenRepo name: 'HMS',
                   root: 'http://192.168.0.35:8080/artifactory/HMS'
+        }
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.

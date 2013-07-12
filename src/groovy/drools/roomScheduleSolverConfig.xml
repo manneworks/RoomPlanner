@@ -38,13 +38,12 @@
     </moveListFactory>
  
     <acceptor>
-      <!-- planningEntityTabuSize>7</planningEntityTabuSize -->
+      <entityTabuSize>7</entityTabuSize>
       <solutionTabuSize>1000</solutionTabuSize>
       <undoMoveTabuSize>5</undoMoveTabuSize>
     </acceptor>
     <forager>
-      <!-- <pickEarlyType>FIRST_BEST_SCORE_IMPROVING</pickEarlyType> -->
-      <!-- minimalAcceptedSelection>500</minimalAcceptedSelection --><!-- TODO tweak me -->
+      <pickEarlyType>FIRST_BEST_SCORE_IMPROVING</pickEarlyType>
       <acceptedCountLimit>100</acceptedCountLimit>
     </forager>
   </localSearch>

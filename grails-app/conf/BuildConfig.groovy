@@ -47,9 +47,9 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 		
-        compile 'org.optaplanner:optaplanner-core:6.0.0.Beta3'
-        compile 'org.drools:drools-core:6.0.0.Beta3'
-        compile 'org.drools:drools-compiler:6.0.0.Beta3'
+        build 'org.optaplanner:optaplanner-core:6.0.0.Beta5'
+        build 'org.drools:drools-core:6.0.0.Beta5'
+        build 'org.drools:drools-compiler:6.0.0.Beta5'
 
         compile 'joda-time:joda-time:2.2'
 

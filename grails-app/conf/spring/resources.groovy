@@ -5,10 +5,10 @@ beans = {
 	customLoggingInInterceptor(roomplanner.utils.CustomLoggingInInterceptor)
     customLoggingOutInterceptor(roomplanner.utils.CustomLoggingOutInterceptor)
 
-    Environment.executeForCurrentEnvironment {
+ //    Environment.executeForCurrentEnvironment {
 	
-		test {
-			roomPlannerRemoteServiceClient(roomplanner.remote.RoomPlannerRemoteService)
-		}
-	}
+	// 	test {
+	// 		roomPlannerRemoteServiceClient(roomplanner.remote.RoomPlannerRemoteService)
+	// 	}
+	// }
 }

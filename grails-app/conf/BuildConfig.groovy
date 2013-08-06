@@ -47,9 +47,9 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 		
-        build 'org.optaplanner:optaplanner-core:6.0.0.Beta5'
-        build 'org.drools:drools-core:6.0.0.Beta5'
-        build 'org.drools:drools-compiler:6.0.0.Beta5'
+        build 'org.optaplanner:optaplanner-core:6.0.0.CR1'
+        build 'org.drools:drools-core:6.0.0.CR1'
+        build 'org.drools:drools-compiler:6.0.0.CR1'
 
         compile 'joda-time:joda-time:2.2'
 
@@ -76,7 +76,7 @@ grails.project.dependency.resolution = {
         test(":spock:0.7") {
             exclude "spock-grails-support"
         }
-        test ":codenarc:0.18.1"
+        test ":codenarc:0.19"
         test ":code-coverage:1.2.6"
 
         //test ":build-test-data:2.0.5"

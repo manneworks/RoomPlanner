@@ -107,7 +107,6 @@ log4j = {
     error  'org.apache.cxf'
 
     debug  'grails.app.conf', 
-           'grails.app.bootstrap',
            'grails.app.services.roomplanner',
            'roomplanner'
 }

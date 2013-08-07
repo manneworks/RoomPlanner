@@ -22,21 +22,21 @@ class RoomAssignment {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
-	@Override
-	public RoomAssignment clone() {
-//		RoomAssignment clone = new RoomAssignment();
-//		clone.id = id;
-//		clone.reservation = reservation;
-//		clone.room = room;
-//		clone.moveable = moveable;
-//		return clone;
-		
-		RoomAssignment.metaClass.getProperties().findAll() { it.getSetter() != null }
-			.inject( new RoomAssignment() ) { roomAssignment, metaProp ->
-				metaProp.setProperty(roomAssignment, metaProp.getProperty(this))
-				roomAssignment
-			}
-	}
+//	@Override
+//	public RoomAssignment clone() {
+////		RoomAssignment clone = new RoomAssignment();
+////		clone.id = id;
+////		clone.reservation = reservation;
+////		clone.room = room;
+////		clone.moveable = moveable;
+////		return clone;
+//		
+//		RoomAssignment.metaClass.getProperties().findAll() { it.getSetter() != null }
+//			.inject( new RoomAssignment() ) { roomAssignment, metaProp ->
+//				metaProp.setProperty(roomAssignment, metaProp.getProperty(this))
+//				roomAssignment
+//			}
+//	}
 
 	/**
 	 * The normal methods {@link #equals(Object)} and {@link #hashCode()} cannot be used because the rule engine already

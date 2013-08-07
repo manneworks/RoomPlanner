@@ -81,22 +81,22 @@ class Schedule implements Solution<HardSoftScore> {
 	/* (non-Javadoc)
 	 * @see org.drools.planner.core.solution.Solution#cloneSolution()
 	 */
-	@Override
-	public Schedule cloneSolution() {
-        Schedule clone = new Schedule();
-        clone.id = id;
-        clone.rooms = rooms;
-        clone.reservations = reservations;
-        clone.roomCategories = roomCategories;
-        List<RoomAssignment> clonedRoomAssignments = new ArrayList<RoomAssignment>(roomAssignments.size());
-        for (RoomAssignment roomAssignment: roomAssignments) {
-            RoomAssignment clonedRoomAssignment = roomAssignment.clone();
-            clonedRoomAssignments.add(clonedRoomAssignment);
-        }
-        clone.roomAssignments = clonedRoomAssignments;
-        clone.score = score;
-        return clone;
-	}
+//	@Override
+//	public Schedule cloneSolution() {
+//        Schedule clone = new Schedule();
+//        clone.id = id;
+//        clone.rooms = rooms;
+//        clone.reservations = reservations;
+//        clone.roomCategories = roomCategories;
+//        List<RoomAssignment> clonedRoomAssignments = new ArrayList<RoomAssignment>(roomAssignments.size());
+//        for (RoomAssignment roomAssignment: roomAssignments) {
+//            RoomAssignment clonedRoomAssignment = roomAssignment.clone();
+//            clonedRoomAssignments.add(clonedRoomAssignment);
+//        }
+//        clone.roomAssignments = clonedRoomAssignments;
+//        clone.score = score;
+//        return clone;
+//	}
 	
 	/* (non-Javadoc)
 	 * @see org.drools.planner.core.solution.Solution#getProblemFacts()

@@ -14,9 +14,34 @@ class RoomAssignment {
 	Reservation reservation
 	Boolean moveable = true
 
+	public Long getId() {
+		return id
+	}
+	public void setId(Long id) {
+		this.id = id
+	}
+
 	@PlanningVariable(valueRangeProviderRefs = ["roomRange"])
 	public Room getRoom() {
 		return room
+	}
+
+	public void setRoom(Room room) {
+		this.room = room
+	}
+
+	public Reservation getReservation() {
+		return reservation
+	}
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation
+	}
+
+	public Boolean getMoveable() {
+		return moveable
+	}
+	public void setMoveable(Boolean moveable) {
+		this.moveable = moveable
 	}
 
 	/* (non-Javadoc)

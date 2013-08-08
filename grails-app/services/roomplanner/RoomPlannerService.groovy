@@ -27,10 +27,10 @@ class RoomPlannerService {
 				roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto
 			)
 				 
-		log.trace("Rooms: " + rooms)
-		log.trace("RoomCategories: " + roomCategories)
-		log.trace("Reservations: " + reservations)
-		log.trace("RoomAssignments: " + roomAssignments)
+		log.debug("Rooms: " + rooms)
+		log.debug("RoomCategories: " + roomCategories)
+		log.debug("Reservations: " + reservations)
+		log.debug("RoomAssignments: " + roomAssignments)
 
 		def planDto
 

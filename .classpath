@@ -10,9 +10,9 @@
 	<classpathentry kind="src" path="test/integration"/>
 	<classpathentry kind="src" path="test/unit"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.grails.ide.eclipse.core.CLASSPATH_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Optaplanner 6.0.0CR1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Optaplanner 6.0.0.CR1"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/roomplanner-api"/>
+	<classpathentry kind="con" path="org.grails.ide.eclipse.core.CLASSPATH_CONTAINER"/>
 	<classpathentry kind="output" path="target/eclipseclasses"/>
 </classpath>

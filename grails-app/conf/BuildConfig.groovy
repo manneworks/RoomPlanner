@@ -76,7 +76,7 @@ grails.project.dependency.resolution = {
         test(":spock:0.7") {
             exclude "spock-grails-support"
         }
-        test ":codenarc:0.18.1"
+        test ":codenarc:0.19"
         test ":code-coverage:1.2.6"
 
         //test ":build-test-data:2.0.5"

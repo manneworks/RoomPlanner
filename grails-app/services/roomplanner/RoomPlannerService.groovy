@@ -11,6 +11,7 @@ import roomplanner.api.Reservation as ReservationDto
 import roomplanner.api.RoomAssignment as RoomAssignmentDto
 import roomplanner.api.Plan as PlanDto
 import roomplanner.api.Score as ScoreDto
+import roomplanner.api.ScoreDetail as ScoreDetailDto
 
 
 class RoomPlannerService {
@@ -100,11 +101,31 @@ class RoomPlannerService {
 	) {
 		PlanDto planDto = new PlanDto()
 
+		def constraintsMatchList = []
+		solvedSchedule.getScoreDetailList().each { scoreDetail ->
+			def roomAssignments = []
+			scoreDetail.roomAssignments.each { roomAssignment ->
+				roomAssignments << 
+			new RoomAssignmentDto(
+				id: roomAssignment.id,
+				room: roomsDto.find { it.id == roomAssignment.room.id },
+				reservation: reservationsDto.find { it.id == roomAssignment.reservation.id },
+				moveable: roomAssignment.moveable
+				)
+			}
+			constraintsMatchList <<
+				new ScoreDetailDto(
+					constraintName: scoreDetail.constraintName,
+					roomAssignments: roomAssignments,
+					weight: scoreDetail.weight
+					)
+		}
+
 		planDto.score = new ScoreDto(
 			 feasible: solvedSchedule.score.feasible,
 			 hardScoreConstraints: solvedSchedule.score.hardScore,
-			 softScoreConstraints: solvedSchedule.score.softScore
-			 //scoreDetails: solvedSchedule.getScoreDetailList()   
+			 softScoreConstraints: solvedSchedule.score.softScore,
+			 scoreDetails: constraintsMatchList
 		)
 		planDto.roomAssignments = []
 		solvedSchedule.roomAssignments.each { roomAssignment ->
@@ -140,8 +161,8 @@ class RoomPlannerService {
 			
 			//printClassPath(this.getClass().getClassLoader())
 
+			Solver solver = null
 			synchronized (this) {
-				Solver solver = null
 
 				def configValue = grailsApplication.config.solverObject
 
@@ -171,7 +192,7 @@ class RoomPlannerService {
 				}
 
 				unsolvedSchedule.scoreDirector = grailsApplication.config.scoreDirectorObject
-				 
+
 				log.trace("Start solving")
 
 				unsolvedSchedule.scoreDirector.setWorkingSolution(unsolvedSchedule);

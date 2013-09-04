@@ -2,15 +2,14 @@ package roomplanner
 
 import org.apache.commons.lang.builder.HashCodeBuilder
 
-import org.drools.core.ClassObjectFilter
-import org.drools.core.WorkingMemory
-
 import org.optaplanner.core.api.domain.solution.PlanningSolution
-import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty
+//import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore
 import org.optaplanner.core.impl.score.director.ScoreDirector
 import org.optaplanner.core.impl.score.director.drools.DroolsScoreDirector
 import org.optaplanner.core.impl.solution.Solution
+
+import org.optaplanner.core.api.domain.value.ValueRangeProvider
 
 @PlanningSolution
 class Schedule implements Solution<HardSoftScore> {
@@ -26,7 +25,8 @@ class Schedule implements Solution<HardSoftScore> {
 	private List<RoomAssignment> roomAssignments = new ArrayList<RoomAssignment>()
 	
 	
-	@PlanningEntityCollectionProperty
+	//@PlanningEntityCollectionProperty
+	@ValueRangeProvider(id = "roomRange")
 	public List<RoomAssignment> getRoomAssignments() {
 		return roomAssignments;
 	}

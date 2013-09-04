@@ -20,7 +20,7 @@ grails.project.dependency.resolution = {
         // specify dependency exclusions here; for example, uncomment this to disable ehcache:
         // excludes 'ehcache'
     }
-    log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
 
     repositories {
@@ -47,9 +47,9 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 		
-        build 'org.optaplanner:optaplanner-core:6.0.0.Beta5'
-        build 'org.drools:drools-core:6.0.0.Beta5'
-        build 'org.drools:drools-compiler:6.0.0.Beta5'
+        compile 'org.optaplanner:optaplanner-bom:6.0.0.CR2'
+        // build 'org.drools:drools-core:6.0.0.CR2'
+        // build 'org.drools:drools-bom:6.0.0.CR2'
 
         compile 'joda-time:joda-time:2.2'
 
@@ -62,7 +62,7 @@ grails.project.dependency.resolution = {
         compile ":remoting:1.3"
 
         runtime ":resources:1.2.RC2"
-        runtime ":database-migration:1.3.5"
+        runtime ":database-migration:1.3.6"
 
         runtime ":hibernate:$grailsVersion"
 

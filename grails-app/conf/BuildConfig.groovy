@@ -23,6 +23,8 @@ grails.project.dependency.resolution = {
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
 
+    // pom true
+
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
 
@@ -32,6 +34,10 @@ grails.project.dependency.resolution = {
 
         mavenLocal()
         mavenCentral()
+
+        // mavenRepo "https://repository.jboss.org/nexus/content/repositories/releases"
+        // mavenRepo "https://repository.jboss.org/nexus/content/repositories/snapshots"
+        // mavenRepo "https://repository.jboss.org/nexus/content/repositories/developer"
 
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
         //mavenRepo "http://snapshots.repository.codehaus.org"
@@ -47,8 +53,8 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 		
-        compile 'org.optaplanner:optaplanner-bom:6.0.0.CR2'
-        // build 'org.drools:drools-core:6.0.0.CR2'
+        compile 'org.optaplanner:optaplanner-core:6.0.0.CR3'
+        //build 'org.drools:drools-bom:6.0.0.CR3'
         // build 'org.drools:drools-bom:6.0.0.CR2'
 
         compile 'joda-time:joda-time:2.2'

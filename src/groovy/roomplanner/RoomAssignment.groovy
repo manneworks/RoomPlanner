@@ -5,8 +5,6 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity
 import org.optaplanner.core.api.domain.variable.PlanningVariable
-import org.optaplanner.core.api.domain.value.ValueRange
-import org.optaplanner.core.api.domain.value.ValueRangeType
 
 @PlanningEntity(/*difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)*/)
 class RoomAssignment {
@@ -16,8 +14,7 @@ class RoomAssignment {
 	Reservation reservation
 	Boolean moveable = true
 
-	@PlanningVariable(/*strengthComparatorClass = RoomStrengthComparator.class*/)
-	@ValueRange(type = ValueRangeType.FROM_SOLUTION_PROPERTY, solutionProperty = "rooms")
+	@PlanningVariable(valueRangeProviderRefs=["roomRange"]/*strengthComparatorClass = RoomStrengthComparator.class*/)
 	public Room getRoom() {
 		return room
 	}

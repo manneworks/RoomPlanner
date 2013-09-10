@@ -34,7 +34,7 @@ grails.project.dependency.resolution = {
         // specify dependency exclusions here; for example, uncomment this to disable ehcache:
         // excludes 'ehcache'
     }
-    log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "debug" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
 
     repositories {
@@ -42,9 +42,8 @@ grails.project.dependency.resolution = {
 
         grailsPlugins()
         grailsHome()
-        grailsCentral()
-
         mavenLocal()
+        grailsCentral()
         mavenCentral()
 
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
@@ -61,11 +60,12 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 		
-        compile 'org.optaplanner:optaplanner-core:6.0.0.Beta5'
-        compile 'org.drools:drools-core:6.0.0.Beta5'
-        compile 'org.drools:drools-compiler:6.0.0.Beta5'
+        // compile 'org.optaplanner:optaplanner-core:6.0.0.Beta5'
+        // compile 'org.drools:drools-core:6.0.0.Beta5'
+        // compile 'org.drools:drools-compiler:6.0.0.Beta5'
+        compile 'org.optaplanner:optaplanner-core:6.0.0.CR3'
 
-        compile 'joda-time:joda-time:2.2'
+        compile 'joda-time:joda-time:2.3'
 
         test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
 

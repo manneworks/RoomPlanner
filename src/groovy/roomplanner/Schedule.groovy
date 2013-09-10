@@ -7,6 +7,7 @@ import org.drools.core.WorkingMemory
 
 import org.optaplanner.core.api.domain.solution.PlanningSolution
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty
+import org.optaplanner.core.api.domain.value.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore
 import org.optaplanner.core.impl.score.director.ScoreDirector
 import org.optaplanner.core.impl.score.director.drools.DroolsScoreDirector
@@ -35,6 +36,7 @@ class Schedule implements Solution<HardSoftScore> {
 		this.roomAssignments = roomAssignments
 	}
 	
+	@ValueRangeProvider(id="roomRange")
 	public List<Room> getRooms() {
 		return rooms;
 	}

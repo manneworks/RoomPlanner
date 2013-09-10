@@ -97,7 +97,7 @@ grails.project.dependency.resolution = {
         //test ":build-test-data:2.0.5"
 
         if (env == 'jenkins') {
-            runtime "grails-roomplanner-api:grails-roomplanner-api:0.3"
+            runtime "grails-roomplanner-api:grails-roomplanner-api:0.4"
         }
 
     }

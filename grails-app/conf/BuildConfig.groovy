@@ -34,11 +34,15 @@ grails.project.dependency.resolution = {
         // specify dependency exclusions here; for example, uncomment this to disable ehcache:
         // excludes 'ehcache'
     }
-    log "debug" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
 
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
+
+        if (env == 'jenkins') {
+            mavenRepo 'http://192.168.0.35:8080/artifactory/HMS'
+        }
 
         grailsPlugins()
         grailsHome()
@@ -51,11 +55,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
-
-        if (env == 'jenkins') {
-            mavenRepo name: 'HMS',
-                  root: 'http://192.168.0.35:8080/artifactory/HMS'
-        }
+        
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
@@ -97,7 +97,7 @@ grails.project.dependency.resolution = {
         //test ":build-test-data:2.0.5"
 
         if (env == 'jenkins') {
-            runtime "grails-roomplanner-api:grails-roomplanner-api:0.3"
+            compile "grails-roomplanner-api:grails-roomplanner-api:0.4"
         }
 
     }

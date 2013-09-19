@@ -19,8 +19,10 @@ class RoomPlannerServiceSpec extends Specification {
 	}
 
 	def 'Empty parameters returns empty plan' () {
+		given: 
+			def license = new roomplanner.api.License(key: "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX")
     	when: 
-    		def plan = roomPlannerService.doPlan([],[],[],[])
+    		def plan = roomPlannerService.doPlan(license,[],[],[],[])
 
     	then:
     		plan != null
@@ -30,12 +32,25 @@ class RoomPlannerServiceSpec extends Specification {
     		plan.roomAssignments.size() == 0
     }
 
+    def 'Check statistic object creation' () {
+		given: 
+			def license = new roomplanner.api.License(key: "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX")
+			def count = PlannerRequest.list().size()
+    	when: 
+    		def plan = roomPlannerService.doPlan(license,[],[],[],[])
+
+    	then:
+    		plan != null
+    		PlannerRequest.list().size() == (count + 1)
+    }
+
     def 'Run with no room assignment' () {
     	given:
+			def license = new roomplanner.api.License(key: "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX")
     		def (roomCategories, rooms, reservations) = buildHotelData()
 
     	when: 
-    		def plan = roomPlannerService.doPlan(roomCategories, rooms, reservations, [])
+    		def plan = roomPlannerService.doPlan(license, roomCategories, rooms, reservations, [])
 		
 		then:
 			plan != null
@@ -46,6 +61,7 @@ class RoomPlannerServiceSpec extends Specification {
 
     def 'Run with room assignment' () {
     	given:
+			def license = new roomplanner.api.License(key: "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX")
     		def (roomCategories, rooms, reservations) = buildHotelData()
 			def seed = new Random()
     		def roomAssignments = (301..301).collect {
@@ -57,7 +73,7 @@ class RoomPlannerServiceSpec extends Specification {
     				)
     		}
     	when: 
-    		def plan = roomPlannerService.doPlan(roomCategories, rooms, reservations, roomAssignments)
+    		def plan = roomPlannerService.doPlan(license, roomCategories, rooms, reservations, roomAssignments)
 		
 		then:
 			plan != null

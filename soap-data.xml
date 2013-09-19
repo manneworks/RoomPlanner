@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:room="http://roomplanner/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <room:doPlan>
+
+	<license>
+		<key>XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</key>
+	</license>
+
+         <!--Room Categories-->
+         <roomCategoryList id="1"/>
+         <roomCategoryList id="2"/>
+         <roomCategoryList id="3"/>
+         <roomCategoryList id="4"/>
+         <roomCategoryList id="5"/>
+
+         <!--Rooms-->
+         <roomList id="1">
+            <roomCategory id="1"/>
+            <adults>1</adults>
+         </roomList>
+         <roomList id="2">
+            <roomCategory id="2"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="3">
+            <roomCategory id="3"/>
+            <adults>3</adults>
+         </roomList>
+         <roomList id="4">
+            <roomCategory id="4"/>
+            <adults>4</adults>
+         </roomList>
+         <roomList id="5">
+            <roomCategory id="5"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="6">
+            <roomCategory id="1"/>
+            <adults>1</adults>
+         </roomList>
+         <roomList id="7">
+            <roomCategory id="2"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="8">
+            <roomCategory id="3"/>
+            <adults>3</adults>
+         </roomList>
+         <roomList id="9">
+            <roomCategory id="4"/>
+            <adults>4</adults>
+         </roomList>
+         <roomList id="10">
+            <roomCategory id="5"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="11">
+            <roomCategory id="1"/>
+            <adults>1</adults>
+         </roomList>
+         <roomList id="12">
+            <roomCategory id="2"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="13">
+            <roomCategory id="3"/>
+            <adults>3</adults>
+         </roomList>
+         <roomList id="14">
+            <roomCategory id="4"/>
+            <adults>4</adults>
+         </roomList>
+         <roomList id="15">
+            <roomCategory id="5"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="16">
+            <roomCategory id="1"/>
+            <adults>1</adults>
+         </roomList>
+         <roomList id="17">
+            <roomCategory id="2"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="18">
+            <roomCategory id="3"/>
+            <adults>3</adults>
+         </roomList>
+         <roomList id="19">
+            <roomCategory id="4"/>
+            <adults>4</adults>
+         </roomList>
+         <roomList id="20">
+            <roomCategory id="5"/>
+            <adults>2</adults>
+         </roomList>
+
+         
+         <!--Zero or more repetitions:-->
+         <reservationList id="1">
+            <roomCategory id="1"/>
+            <bookingInterval>10000-20000</bookingInterval>
+            <adults>2</adults>
+         </reservationList>
+         <reservationList id="2">
+            <roomCategory id="2"/>
+            <bookingInterval>10000-20000</bookingInterval>
+            <adults>3</adults>
+         </reservationList>
+         <reservationList id="3">
+            <roomCategory id="3"/>
+            <bookingInterval>10000-20000</bookingInterval>
+            <adults>1</adults>
+         </reservationList>
+         <reservationList id="4">
+            <roomCategory id="4"/>
+            <bookingInterval>10000-20000</bookingInterval>
+            <adults>3</adults>
+         </reservationList>
+         <reservationList id="5">
+            <roomCategory id="5"/>
+            <bookingInterval>10000-20000</bookingInterval>
+            <adults>4</adults>
+         </reservationList>
+
+      </room:doPlan>
+   </soapenv:Body>
+</soapenv:Envelope>

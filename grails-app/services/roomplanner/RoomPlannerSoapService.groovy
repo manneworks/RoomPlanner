@@ -18,6 +18,7 @@ import roomplanner.api.Reservation as ReservationDto
 import roomplanner.api.RoomAssignment as RoomAssignmentDto
 import roomplanner.api.Plan as PlanDto
 import roomplanner.api.Score as ScoreDto
+import roomplanner.api.License as LicenseDto
 
 // @GrailsCxfEndpoint(
 // 	importInterceptors  = ["customLoggingInInterceptor"],
@@ -42,13 +43,14 @@ class RoomPlannerSoapService {
 	@WebMethod( operationName = 'doPlan' )
 	@WebResult( name = 'plan' )
     PlanDto doPlan(
+    	@WebParam(name="license") LicenseDto licenseDto,
 		@WebParam(name="roomList") List<RoomDto> roomsDto, 
 		@WebParam(name="roomCategoryList") List<RoomCategoryDto> roomCategoriesDto, 
 		@WebParam(name="reservationList") List<ReservationDto> reservationsDto, 
 		@WebParam(name="roomAssignmentList") List<RoomAssignmentDto> roomAssignmentsDto
 		) {
 
-		roomPlannerService.doPlan(roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto)
+		roomPlannerService.doPlan(licenseDto, roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto)
 
     }
 }

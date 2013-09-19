@@ -21,7 +21,10 @@ class RoomPlannerService {
     /**
 
     */
-    def doPlan(def roomCategoriesDto, def roomsDto, def reservationsDto, def roomAssignmentsDto) {
+    def doPlan(def license, def roomCategoriesDto, def roomsDto, def reservationsDto, def roomAssignmentsDto) {
+
+		def startNano = System.nanoTime()
+		def timestamp = new Date()
 
 		def (roomCategories, rooms, reservations, roomAssignments) = 
 			convertFromDto(
@@ -44,7 +47,13 @@ class RoomPlannerService {
 			log.error("Error solving", e)
 		}
 		finally {
-			new PlannerRequest().save()
+			def endNano = System.nanoTime()
+
+			new PlannerRequest(
+				licenseKey: license.key,
+				timestamp: timestamp,
+				requestDuration: (endNano - startNano)
+				).save(flush:true)
 		}
 		planDto
 

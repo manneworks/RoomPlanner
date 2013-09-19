@@ -14,13 +14,14 @@ class RoomPlannerRemoteService implements roomplanner.api.IRoomPlannerService {
 	*/
 	@Override
 	def doPlan(
+		def license,
 		def roomCategoriesDto, 
 		def roomsDto, 
 		def reservationsDto, 
 		def roomAssignmentsDto
 	) {
 
-		roomPlannerService.doPlan(roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto)
+		roomPlannerService.doPlan(license, roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto)
 
     }
 

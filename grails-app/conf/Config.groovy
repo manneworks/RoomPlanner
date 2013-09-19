@@ -95,13 +95,14 @@ log4j = {
            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
            'org.springframework',
            'org.hibernate',
-           'net.sf.ehcache.hibernate'
+           //'net.sf.ehcache.hibernate',
+           'org.hibernate.cache.ehcache'
 		   
     error  'grails.app'
 
     warn   'org.mortbay.log'
 
-    info   'org.optaplanner',
+    error  'org.optaplanner',
            'org.kie'
 
     error  'org.apache.cxf'

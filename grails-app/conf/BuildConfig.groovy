@@ -25,7 +25,12 @@ def env = System.getProperty('grails.env')
 
 if (env in ['development', 'test']) {
     grails.plugin.location.'roomplanner-api' = '../roomplanner-api'
+    grails.server.port.http = 8080
 }
+else {
+    grails.server.port.http = 80
+}
+
 
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
@@ -75,7 +80,7 @@ grails.project.dependency.resolution = {
         compile ":cxf:1.1.1"
         compile ":remoting:1.3"
 
-        runtime ":resources:1.2"
+        runtime ":resources:1.2.1"
         runtime ":database-migration:1.3.6"
 
         //runtime ":hibernate:3.6.10.1" 
@@ -88,12 +93,19 @@ grails.project.dependency.resolution = {
 
         build ":tomcat:7.0.42"
 
-        test(":spock:0.7") {
+        test (":spock:0.7") {
             exclude "spock-grails-support"
+            export = false
         }
-        test ":codenarc:0.19"
-        test ":code-coverage:1.2.6"
+        test (":codenarc:0.19") {
+            export = false
+        }
 
+        if (env == 'jenkins') {
+            test (":code-coverage:1.2.6") {
+                export = false
+            }
+        }
         //test ":build-test-data:2.0.5"
 
         if (env == 'jenkins') {

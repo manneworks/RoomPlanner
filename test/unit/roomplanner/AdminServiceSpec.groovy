@@ -24,6 +24,7 @@ class AdminServiceSpec extends Specification {
 
 		then:
 			Partner.list().size() == 1
+			p.password.size() == 16
 
 		cleanup:
 			p.delete(flush:true)

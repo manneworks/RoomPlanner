@@ -47,7 +47,7 @@ class AdminService {
     	def PASSWORD_SYMBOLS = [*'A'..'Z',*'a'..'z',*'0'..'9']
 
     	def value = ""
-    	for (i in 0..PASSWORD_LENGTH) {
+    	for (i in 0..<PASSWORD_LENGTH) {
     		int index = Math.ceil(Math.random() * PASSWORD_SYMBOLS.size())
     		value = value + PASSWORD_SYMBOLS[index-1]
     	}

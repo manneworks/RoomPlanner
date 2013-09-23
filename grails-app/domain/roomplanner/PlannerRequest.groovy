@@ -10,4 +10,8 @@ class PlannerRequest {
     static constraints = {
     }
 
+   	static mapping = {
+		timestamp column: '`timestamp`'
+	}
+
 }

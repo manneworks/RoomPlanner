@@ -38,6 +38,9 @@ class AdminServiceSpec extends Specification {
 		then:
 			Partner.list().size() == 1
 			adminService.checkPartner("abc","def") == true
+			adminService.checkPartner("abc","xyz") == false
+			adminService.checkPartner("xyz","def") == false
+			adminService.checkPartner("opq","rst") == false
 
 		cleanup:
 			p.delete(flush:true)

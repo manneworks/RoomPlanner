@@ -111,6 +111,8 @@ log4j = {
            'grails.app.bootstrap',
            'grails.app.services.roomplanner',
            'roomplanner'
+
+    off    'org.hibernate.tool.hbm2ddl'
 }
 
 solver {

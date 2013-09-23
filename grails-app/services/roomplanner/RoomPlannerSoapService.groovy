@@ -20,15 +20,12 @@ import roomplanner.api.Plan as PlanDto
 import roomplanner.api.Score as ScoreDto
 import roomplanner.api.License as LicenseDto
 
-// @GrailsCxfEndpoint(
+@GrailsCxfEndpoint(
+	expose = EndpointType.JAX_WS
+	)
 // 	importInterceptors  = ["customLoggingInInterceptor"],
 // 	outInterceptors = ["customLoggingOutInterceptor"]
-// )
-//@InInterceptors( classes = [CustomLoggingInInterceptor])
-//@OutInterceptors( classes = [CustomLoggingOutInterceptor])
 class RoomPlannerSoapService {
-
-	static expose = EndpointType.JAX_WS
 
 	def roomPlannerService
 	

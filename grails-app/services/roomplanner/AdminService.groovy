@@ -22,7 +22,7 @@ class AdminService {
 			log.trace("...done. [$password]")
 		}	
 
-		log.trace("Creating user: [$username][$password]...")
+		log.trace("Creating user: [$username]:[$password]...")
 		def partner = new Partner(
 			username: username,
 			password: password,
@@ -30,8 +30,8 @@ class AdminService {
 			)
 
 		if(!partner.save(flush:true)) {
-			log.error("User [$username] was not created")
-			throw new Exception("User was not created")
+			log.error("Partner [$username] was not created")
+			throw new Exception("Partner was not created")
 		}
 
 		log.trace("...done.")
@@ -53,5 +53,21 @@ class AdminService {
     	}
 
     	value
+    }
+
+    def createSystemUser(def username, def password) {
+
+		log.trace("Creating system user: [$username]:[$password]...")
+    	def systemUser = new SystemUser(
+    		username: username,
+    		password: password
+    		)
+		if(!systemUser.save(flush:true)) {
+			log.error("SystemUser [$username] was not created")
+			throw new Exception("SystemUser was not created")
+		}
+
+		log.trace("...done.")
+		systemUser
     }
 }

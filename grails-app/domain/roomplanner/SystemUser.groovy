@@ -1,10 +1,9 @@
 package roomplanner
 
-class Partner {
+class SystemUser {
 
 	String username
 	String password
-	boolean enabled = true
 
     static constraints = {
     	username nullable: false, blank: false, unique: true
@@ -14,5 +13,4 @@ class Partner {
    	static mapping = {
 		password column: '`password`'
 	}
-
 }

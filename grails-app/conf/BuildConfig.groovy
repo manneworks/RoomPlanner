@@ -65,15 +65,14 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 		
-        // compile 'org.optaplanner:optaplanner-core:6.0.0.Beta5'
-        // compile 'org.drools:drools-core:6.0.0.Beta5'
-        // compile 'org.drools:drools-compiler:6.0.0.Beta5'
         compile 'org.optaplanner:optaplanner-core:6.0.0.CR3'
-
         compile 'joda-time:joda-time:2.3'
 
-        test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
+        // WSS4J
+        compile 'org.apache.ws.security:wss4j:1.6.7'
+        compile 'org.apache.cxf:cxf-rt-ws-security:2.6.2'
 
+        test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
     }
 
     plugins {

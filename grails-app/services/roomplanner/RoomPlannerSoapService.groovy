@@ -6,22 +6,21 @@ import javax.jws.WebResult
 
 import org.grails.cxf.utils.EndpointType
 import org.grails.cxf.utils.GrailsCxfEndpoint
-import org.apache.cxf.interceptor.InInterceptors
-import org.apache.cxf.interceptor.OutInterceptors
-
-import roomplanner.utils.CustomLoggingInInterceptor
-import roomplanner.utils.CustomLoggingOutInterceptor
+import org.grails.cxf.utils.GrailsCxfEndpointProperty
 
 import roomplanner.api.RoomCategory as RoomCategoryDto
 import roomplanner.api.Room as RoomDto
 import roomplanner.api.Reservation as ReservationDto
 import roomplanner.api.RoomAssignment as RoomAssignmentDto
 import roomplanner.api.Plan as PlanDto
-import roomplanner.api.Score as ScoreDto
 import roomplanner.api.License as LicenseDto
 
 @GrailsCxfEndpoint(
-	expose = EndpointType.JAX_WS
+	expose = EndpointType.JAX_WS,
+	properties = [
+		@GrailsCxfEndpointProperty(name = "ws-security.enable.nonce.cache", value = "false"), 
+		@GrailsCxfEndpointProperty(name = "ws-security.enable.timestamp.cache", value = "false")
+	]
 	)
 // 	importInterceptors  = ["customLoggingInInterceptor"],
 // 	outInterceptors = ["customLoggingOutInterceptor"]

@@ -64,7 +64,8 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-		
+        runtime 'mysql:mysql-connector-java:5.1.26'
+
         compile 'org.optaplanner:optaplanner-core:6.0.0.CR3'
         compile 'joda-time:joda-time:2.3'
 

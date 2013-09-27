@@ -1,5 +1,7 @@
 package roomplanner
 
+import filters.SecurityFilters
+
 import grails.test.mixin.Mock
 import spock.lang.Specification
 

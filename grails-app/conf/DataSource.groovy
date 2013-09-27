@@ -39,7 +39,7 @@ environments {
     }
     production {
         dataSource {
-            jndiName = "java:comp/env/myDataSource"
+            jndiName = "java:comp/env/jdbc/MysqlDS"
         }
     }
 }

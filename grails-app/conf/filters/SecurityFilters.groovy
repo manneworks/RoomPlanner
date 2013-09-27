@@ -24,7 +24,7 @@ class SecurityFilters {
 
                     if (!user) {  
                         log.error("User $credentials not known")
-                        response.status = 403
+                        response.status = 401
                         return false
                     }
                     

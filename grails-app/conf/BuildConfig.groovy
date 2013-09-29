@@ -120,7 +120,7 @@ grails.project.dependency.resolution = {
 
         if (env == 'jenkins') {
             compile "grails-roomplanner-api:grails-roomplanner-api:0.5.20"
-            compile "grails-roombix-ui:grails-roombix-ui:0.1.3"
+            compile "grails-roombix-ui:grails-roombix-ui:0.1.4"
         }
 
     }

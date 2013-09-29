@@ -46,7 +46,7 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
 
-        if (env == 'jenkins') {
+        if (env == 'jenkins'|| env == 'prod') {
             mavenRepo 'http://192.168.0.35:8080/artifactory/HMS'
         }
 

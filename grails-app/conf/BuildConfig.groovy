@@ -16,7 +16,7 @@ grails.project.fork = [
     // configure settings for the run-app JVM
     run: false, //[maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
     // configure settings for the run-war JVM
-    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    war: false, //[maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
     // configure settings for the Console UI JVM
     console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
 ]
@@ -46,7 +46,7 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
 
-        if (env == 'jenkins'|| env == 'production') {
+        if (env == 'jenkins'|| env == 'prod') {
             mavenRepo 'http://192.168.0.35:8080/artifactory/HMS'
         }
 
@@ -118,9 +118,9 @@ grails.project.dependency.resolution = {
         }
         //test ":build-test-data:2.0.5"
 
-        if (env == 'jenkins' || env == 'production') {
-            compile "grails-roomplanner-api:grails-roomplanner-api:0.5.20"
-            compile "grails-roombix-ui:grails-roombix-ui:0.1.4"
+        if (env == 'jenkins' || env == 'prod') {
+            runtime "grails-roomplanner-api:grails-roomplanner-api:0.5.20"
+            runtime "grails-roombix-ui:grails-roombix-ui:0.1.4"
         }
 
     }

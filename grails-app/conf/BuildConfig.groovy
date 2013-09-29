@@ -25,6 +25,7 @@ def env = System.getProperty('grails.env')
 
 if (env in ['development', 'test']) {
     grails.plugin.location.'roomplanner-api' = '../roomplanner-api'
+    grails.plugin.location.'roombix-ui' = '../roombix-ui'
     grails.server.port.http = 8080
 }
 else {
@@ -80,7 +81,15 @@ grails.project.dependency.resolution = {
         compile ":cxf:1.1.1"
         compile ":remoting:1.3"
 
+        compile ":quartz2:2.1.6.2"
+
         runtime ":resources:1.2.1"
+
+        // compile ":lesscss-resources:1.3.3"
+        // runtime ":jquery:1.10.2"
+        // compile ":jquery-ui:1.8.24"
+        // compile ":jquery-mobile:1.1.0.5"
+
         runtime ":database-migration:1.3.6"
 
         //runtime ":hibernate:3.6.10.1" 
@@ -96,7 +105,8 @@ grails.project.dependency.resolution = {
         test (":spock:0.7") {
             exclude "spock-grails-support"
             export = false
-        }
+        }   
+
         test (":codenarc:0.19") {
             export = false
         }
@@ -110,6 +120,7 @@ grails.project.dependency.resolution = {
 
         if (env == 'jenkins') {
             compile "grails-roomplanner-api:grails-roomplanner-api:0.5.20"
+            compile "grails-roombix-ui:roombix-ui:0.1.3"
         }
 
     }

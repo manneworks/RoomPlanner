@@ -29,7 +29,7 @@ if (env in ['development', 'test']) {
     grails.server.port.http = 8080
 }
 else {
-    grails.server.port.http = 80
+   grails.server.port.http = 80
 }
 
 
@@ -67,7 +67,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
         runtime 'mysql:mysql-connector-java:5.1.26'
 
-        compile 'org.optaplanner:optaplanner-core:6.0.0.CR3'
+        compile 'org.optaplanner:optaplanner-core:6.0.0.CR4'
         compile 'joda-time:joda-time:2.3'
 
         // WSS4J
@@ -119,8 +119,8 @@ grails.project.dependency.resolution = {
         //test ":build-test-data:2.0.5"
 
         if (env == 'jenkins' || env == 'prod') {
-            runtime "grails-roomplanner-api:grails-roomplanner-api:0.5.20"
-            runtime "grails-roombix-ui:grails-roombix-ui:0.1.4"
+           runtime "grails-roomplanner-api:grails-roomplanner-api:0.5.20"
+           runtime "grails-roombix-ui:grails-roombix-ui:0.1.4"
         }
 
     }

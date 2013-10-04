@@ -1,8 +1,9 @@
+grails.project.work.dir = "../../work/RoomPlanner"
+
 grails.servlet.version = "3.0" // Change depending on target container compliance (2.5 or 3.0)
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
-grails.project.work.dir = "../../work/RoomPlanner"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
@@ -82,14 +83,7 @@ grails.project.dependency.resolution = {
         compile ":remoting:1.3"
 
         compile ":quartz2:2.1.6.2"
-
         runtime ":resources:1.2.1"
-
-        // compile ":lesscss-resources:1.3.3"
-        // runtime ":jquery:1.10.2"
-        // compile ":jquery-ui:1.8.24"
-        // compile ":jquery-mobile:1.1.0.5"
-
         runtime ":database-migration:1.3.6"
 
         //runtime ":hibernate:3.6.10.1" 
@@ -118,11 +112,8 @@ grails.project.dependency.resolution = {
         }
         //test ":build-test-data:2.0.5"
 
-        if (env == 'jenkins' || env == 'prod') {
-           runtime "grails-roomplanner-api:grails-roomplanner-api:0.5.22"
-           runtime "grails-roombix-ui:grails-roombix-ui:0.1.5"
-        }
-
+       runtime ":roomplanner-api:0.5.24"
+       runtime ":roombix-ui:0.1.10"
     }
 }
 

@@ -8,7 +8,7 @@
 
 <content tag="main">
 <div>
-    <legend>admin</legend>
+    <legend>Admin page</legend>
 </div> 
 </content>
 

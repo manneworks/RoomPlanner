@@ -25,12 +25,10 @@ grails.project.fork = [
 def env = System.getProperty('grails.env')
 
 if (env in ['development', 'test']) {
-    grails.plugin.location.'roomplanner-api' = '../roomplanner-api'
-    grails.plugin.location.'roombix-ui' = '../roombix-ui'
     grails.server.port.http = 8080
 }
 else {
-   grails.server.port.http = 80
+    grails.server.port.http = 80
 }
 
 
@@ -47,9 +45,7 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
 
-        if (env == 'jenkins'|| env == 'prod') {
-            mavenRepo 'http://192.168.0.35:8080/artifactory/HMS'
-        }
+        mavenRepo 'http://192.168.0.35:8080/artifactory/HMS'
 
         grailsPlugins()
         grailsHome()
@@ -83,7 +79,10 @@ grails.project.dependency.resolution = {
         compile ":remoting:1.3"
 
         compile ":quartz2:2.1.6.2"
-        runtime ":resources:1.2.1"
+        
+        compile ":asset-pipeline:0.9.0"
+        compile ":less-asset-pipeline:0.8.2"
+
         runtime ":database-migration:1.3.6"
 
         //runtime ":hibernate:3.6.10.1" 

@@ -35,6 +35,11 @@ grails.mime.types = [
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
+// Whether debug resources
+//grails.resources.debug = true
+
+grails.assets.excludes = ["bootstrap/*.less"]
+
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
 grails.views.gsp.encoding = "UTF-8"
@@ -111,6 +116,8 @@ log4j = {
            'grails.app.bootstrap',
            'grails.app.services.roomplanner',
            'roomplanner'
+
+    debug  "asset"
 
     off    'org.hibernate.tool.hbm2ddl'
 }

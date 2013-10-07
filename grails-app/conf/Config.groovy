@@ -38,7 +38,10 @@ grails.mime.types = [
 // Whether debug resources
 //grails.resources.debug = true
 
-grails.assets.excludes = ["bootstrap/*.less"]
+grails.assets.excludes = [
+  "bootstrap/*.less",
+  "font-awesome/*.less"
+]
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64

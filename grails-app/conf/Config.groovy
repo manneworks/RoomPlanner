@@ -33,7 +33,7 @@ grails.mime.types = [
 //grails.urlmapping.cache.maxsize = 1000
 
 // What URL patterns should be processed by the resources plugin
-grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
+//grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
 // Whether debug resources
 //grails.resources.debug = true
@@ -116,8 +116,6 @@ log4j = {
            'grails.app.bootstrap',
            'grails.app.services.roomplanner',
            'roomplanner'
-
-    debug  "asset"
 
     off    'org.hibernate.tool.hbm2ddl'
 }

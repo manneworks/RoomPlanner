@@ -35,6 +35,11 @@ grails.mime.types = [
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
+// Whether debug resources
+//grails.resources.debug = true
+
+grails.assets.excludes = ["bootstrap/*.less"]
+
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
 grails.views.gsp.encoding = "UTF-8"
@@ -95,21 +100,52 @@ log4j = {
            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
            'org.springframework',
            'org.hibernate',
-           'net.sf.ehcache.hibernate'
+           //'net.sf.ehcache.hibernate',
+           'org.hibernate.cache.ehcache'
 		   
     error  'grails.app'
 
     warn   'org.mortbay.log'
 
-    info   'org.drools'
+    error  'org.optaplanner',
+           'org.kie'
 
     error  'org.apache.cxf'
 
     debug  'grails.app.conf', 
            'grails.app.bootstrap',
-           'grails.app.services.roomplanner' 
+           'grails.app.services.roomplanner',
+           'roomplanner'
+
+    debug  "asset"
+
+    off    'org.hibernate.tool.hbm2ddl'
 }
 
 solver {
   configurationXML = "/drools/roomScheduleSolverConfig.xml"
 }
+
+// Uncomment and edit the following lines to start using Grails encoding & escaping improvements
+
+/* remove this line 
+// GSP settings
+grails {
+    views {
+        gsp {
+            encoding = 'UTF-8'
+            htmlcodec = 'xml' // use xml escaping instead of HTML4 escaping
+            codecs {
+                expression = 'html' // escapes values inside null
+                scriptlet = 'none' // escapes output from scriptlets in GSPs
+                taglib = 'none' // escapes output from taglibs
+                staticparts = 'none' // escapes output from static template parts
+            }
+        }
+        // escapes all not-encoded output at final stage of outputting
+        filteringCodecForContentType {
+            //'text/html' = 'html'
+        }
+    }
+}
+remove this line */

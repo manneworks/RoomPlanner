@@ -38,7 +38,16 @@
 
 # "temporary" build files
 /target
+/target-eclipse
 
 # other
 *.iws
 
+#class files
+/*.class
+
+*.sublime-project
+*.sublime-workspace
+cobertura.ser
+*.log
+*.log.1

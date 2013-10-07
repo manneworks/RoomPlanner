@@ -3,8 +3,9 @@ package roomplanner
 import groovy.transform.EqualsAndHashCode
 
 import org.apache.commons.lang.ObjectUtils
-import org.drools.planner.core.move.Move
-import org.drools.planner.core.score.director.ScoreDirector
+
+import org.optaplanner.core.impl.move.Move
+import org.optaplanner.core.impl.score.director.ScoreDirector
 
 @EqualsAndHashCode
 class RoomChangeMove implements Move {
@@ -42,36 +43,6 @@ class RoomChangeMove implements Move {
 		boolean doable = (roomAssignment.moveable && !ObjectUtils.equals(roomAssignment.getRoom(), toRoom));
 		return doable
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-//	@Override
-//	public int hashCode() {
-//		return new HashCodeBuilder()
-//		.append(roomAssignment)
-//		.append(toRoom)
-//		.toHashCode();
-//	}
-//
-//	/* (non-Javadoc)
-//	 * @see java.lang.Object#equals(java.lang.Object)
-//	 */
-//	@Override
-//	public boolean equals(Object o) {
-//		if (this.is(o)) {
-//			return true;
-//		} else if (o instanceof RoomChangeMove) {
-//			RoomChangeMove other = (RoomChangeMove) o;
-//			boolean result = new EqualsBuilder()
-//					.append(roomAssignment, other.roomAssignment)
-//					.append(toRoom, other.toRoom)
-//					.isEquals();
-//			return result;
-//		} else {
-//			return false;
-//		}
-//	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

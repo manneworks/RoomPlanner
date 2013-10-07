@@ -1,17 +1,12 @@
 package roomplanner
 
-
-
 import grails.test.mixin.*
-import org.junit.*
+import spock.lang.*
 
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
 @TestFor(StatController)
-class StatControllerTests {
+class StatControllerSpec extends Specification {
 
-    void testSomething() {
-       fail "Implement me"
-    }
 }

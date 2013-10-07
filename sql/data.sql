@@ -1,0 +1,2 @@
+insert into partner (version,enabled,`password`,username) values (0,true,"qAEX2X2NKXYhvvtz","184f4c1f-d814-4124-9adb-4bb4d445d0a6");
+insert into system_user (version,`password`,username) values (0,"test","planner");

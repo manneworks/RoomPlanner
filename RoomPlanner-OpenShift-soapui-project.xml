@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="RoomPlanner@OpenShift" resourceRoot="" soapui-version="4.6.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="RoomPlannerSoapServiceServiceSoapBinding" type="wsdl" bindingName="{http://roomplanner/}RoomPlannerSoapServiceServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="file:/C:/Grails/Projects/HMS-JQ/src/java/roomPlanner.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\Grails\Projects\HMS-JQ\src\java\roomPlanner.wsdl"><con:part><con:url>file:\C:\Grails\Projects\HMS-JQ\src\java\roomPlanner.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="RoomPlannerSoapServiceService" targetNamespace="http://roomplanner/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://roomplanner/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://roomplanner/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="doPlan" type="tns:doPlan"/>
+      <xs:element name="doPlanResponse" type="tns:doPlanResponse"/>
+      <xs:complexType name="doPlan">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="license" type="tns:license"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="roomList" type="tns:room"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="roomCategoryList" type="tns:roomCategory"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="reservationList" type="tns:reservation"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="roomAssignmentList" type="tns:roomAssignment"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="license">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="key" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="room">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="roomCategory" type="tns:roomCategory"/>
+          <xs:element minOccurs="0" name="name" type="xs:string"/>
+          <xs:element minOccurs="0" name="adults" type="xs:int"/>
+          <xs:element minOccurs="0" name="nonSmoking" type="xs:boolean"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:long"/>
+      </xs:complexType>
+      <xs:complexType name="roomCategory">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="name" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:long"/>
+      </xs:complexType>
+      <xs:complexType name="reservation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="roomCategory" type="tns:roomCategory"/>
+          <xs:element minOccurs="0" name="bookingInterval" type="xs:string"/>
+          <xs:element minOccurs="0" name="adults" type="xs:int"/>
+          <xs:element minOccurs="0" name="nonSmoking" type="xs:boolean"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:long"/>
+      </xs:complexType>
+      <xs:complexType name="roomAssignment">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="room" type="tns:room"/>
+          <xs:element minOccurs="0" name="reservation" type="tns:reservation"/>
+          <xs:element minOccurs="0" name="moveable" type="xs:boolean"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:long"/>
+      </xs:complexType>
+      <xs:complexType name="doPlanResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="plan" type="tns:plan"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="plan">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="roomAssignments" type="tns:roomAssignment"/>
+          <xs:element minOccurs="0" name="score" type="tns:score"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="score">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="feasible" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="hardScoreConstraints" type="xs:double"/>
+          <xs:element minOccurs="0" name="softScoreConstraints" type="xs:double"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="scoreDetails" type="tns:scoreDetail"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="scoreDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="constraintName" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="roomAssignments" type="tns:roomAssignment"/>
+          <xs:element minOccurs="0" name="weight" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="doPlan">
+    <wsdl:part element="tns:doPlan" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="doPlanResponse">
+    <wsdl:part element="tns:doPlanResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="RoomPlannerSoapService">
+    <wsdl:operation name="doPlan">
+      <wsdl:input message="tns:doPlan" name="doPlan"></wsdl:input>
+      <wsdl:output message="tns:doPlanResponse" name="doPlanResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RoomPlannerSoapServiceServiceSoapBinding" type="tns:RoomPlannerSoapService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="doPlan">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="doPlan">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="doPlanResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RoomPlannerSoapServiceService">
+    <wsdl:port binding="tns:RoomPlannerSoapServiceServiceSoapBinding" name="RoomPlannerSoapServicePort">
+      <soap:address location="http://localhost:8080/RoomPlanner/services/roomPlannerSoap"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://planner.roombix.ru/services/roomPlannerSoap</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="doPlan" bindingOperationName="doPlan" type="Request-Response" outputName="doPlanResponse" inputName="doPlan" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://planner.roombix.ru/services/roomPlannerSoap</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:room="http://roomplanner/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <room:doPlan>
+         <!--Optional:-->
+         <license>
+            <!--Optional:-->
+            <key>?</key>
+         </license>
+         <!--Zero or more repetitions:-->
+         <roomList id="?">
+            <!--Optional:-->
+            <roomCategory id="?">
+               <!--Optional:-->
+               <name>?</name>
+            </roomCategory>
+            <!--Optional:-->
+            <name>?</name>
+            <!--Optional:-->
+            <adults>?</adults>
+            <!--Optional:-->
+            <nonSmoking>?</nonSmoking>
+         </roomList>
+         <!--Zero or more repetitions:-->
+         <roomCategoryList id="?">
+            <!--Optional:-->
+            <name>?</name>
+         </roomCategoryList>
+         <!--Zero or more repetitions:-->
+         <reservationList id="?">
+            <!--Optional:-->
+            <roomCategory id="?">
+               <!--Optional:-->
+               <name>?</name>
+            </roomCategory>
+            <!--Optional:-->
+            <bookingInterval>?</bookingInterval>
+            <!--Optional:-->
+            <adults>?</adults>
+            <!--Optional:-->
+            <nonSmoking>?</nonSmoking>
+         </reservationList>
+         <!--Zero or more repetitions:-->
+         <roomAssignmentList id="?">
+            <!--Optional:-->
+            <room id="?">
+               <!--Optional:-->
+               <roomCategory id="?">
+                  <!--Optional:-->
+                  <name>?</name>
+               </roomCategory>
+               <!--Optional:-->
+               <name>?</name>
+               <!--Optional:-->
+               <adults>?</adults>
+               <!--Optional:-->
+               <nonSmoking>?</nonSmoking>
+            </room>
+            <!--Optional:-->
+            <reservation id="?">
+               <!--Optional:-->
+               <roomCategory id="?">
+                  <!--Optional:-->
+                  <name>?</name>
+               </roomCategory>
+               <!--Optional:-->
+               <bookingInterval>?</bookingInterval>
+               <!--Optional:-->
+               <adults>?</adults>
+               <!--Optional:-->
+               <nonSmoking>?</nonSmoking>
+            </reservation>
+            <!--Optional:-->
+            <moveable>?</moveable>
+         </roomAssignmentList>
+      </room:doPlan>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://roomplanner/RoomPlannerSoapService/doPlan"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="RoomPlannerSoapServiceServiceSoapBinding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="doPlan TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="doPlan"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>RoomPlannerSoapServiceServiceSoapBinding</con:interface><con:operation>doPlan</con:operation><con:request name="doPlan" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://planner.roombix.ru/services/roomPlannerSoap</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:room="http://roomplanner/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <room:doPlan>
+
+	<license>
+		<key>XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</key>
+	</license>
+
+         <!--Room Categories-->
+         <roomCategoryList id="1"/>
+         <roomCategoryList id="2"/>
+         <roomCategoryList id="3"/>
+         <roomCategoryList id="4"/>
+         <roomCategoryList id="5"/>
+
+         <!--Rooms-->
+         <roomList id="1">
+            <roomCategory id="1"/>
+            <adults>1</adults>
+         </roomList>
+         <roomList id="2">
+            <roomCategory id="2"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="3">
+            <roomCategory id="3"/>
+            <adults>3</adults>
+         </roomList>
+         <roomList id="4">
+            <roomCategory id="4"/>
+            <adults>4</adults>
+         </roomList>
+         <roomList id="5">
+            <roomCategory id="5"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="6">
+            <roomCategory id="1"/>
+            <adults>1</adults>
+         </roomList>
+         <roomList id="7">
+            <roomCategory id="2"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="8">
+            <roomCategory id="3"/>
+            <adults>3</adults>
+         </roomList>
+         <roomList id="9">
+            <roomCategory id="4"/>
+            <adults>4</adults>
+         </roomList>
+         <roomList id="10">
+            <roomCategory id="5"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="11">
+            <roomCategory id="1"/>
+            <adults>1</adults>
+         </roomList>
+         <roomList id="12">
+            <roomCategory id="2"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="13">
+            <roomCategory id="3"/>
+            <adults>3</adults>
+         </roomList>
+         <roomList id="14">
+            <roomCategory id="4"/>
+            <adults>4</adults>
+         </roomList>
+         <roomList id="15">
+            <roomCategory id="5"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="16">
+            <roomCategory id="1"/>
+            <adults>1</adults>
+         </roomList>
+         <roomList id="17">
+            <roomCategory id="2"/>
+            <adults>2</adults>
+         </roomList>
+         <roomList id="18">
+            <roomCategory id="3"/>
+            <adults>3</adults>
+         </roomList>
+         <roomList id="19">
+            <roomCategory id="4"/>
+            <adults>4</adults>
+         </roomList>
+         <roomList id="20">
+            <roomCategory id="5"/>
+            <adults>2</adults>
+         </roomList>
+
+         
+         <!--Zero or more repetitions:-->
+         <reservationList id="1">
+            <roomCategory id="1"/>
+            <bookingInterval>10000-20000</bookingInterval>
+            <adults>2</adults>
+         </reservationList>
+         <reservationList id="2">
+            <roomCategory id="2"/>
+            <bookingInterval>10000-20000</bookingInterval>
+            <adults>3</adults>
+         </reservationList>
+         <reservationList id="3">
+            <roomCategory id="3"/>
+            <bookingInterval>10000-20000</bookingInterval>
+            <adults>1</adults>
+         </reservationList>
+         <reservationList id="4">
+            <roomCategory id="4"/>
+            <bookingInterval>10000-20000</bookingInterval>
+            <adults>3</adults>
+         </reservationList>
+         <reservationList id="5">
+            <roomCategory id="5"/>
+            <bookingInterval>10000-20000</bookingInterval>
+            <adults>4</adults>
+         </reservationList>
+
+      </room:doPlan>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>184f4c1f-d814-4124-9adb-4bb4d445d0a6</con:username><con:password>qAEX2X2NKXYhvvtz</con:password><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://roomplanner/RoomPlannerSoapService/doPlan" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="LoadTest 1"><con:settings/><con:threadCount>5</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>60</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>

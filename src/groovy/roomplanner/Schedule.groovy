@@ -7,8 +7,8 @@ import org.drools.core.WorkingMemory
 
 import org.optaplanner.core.api.domain.solution.PlanningSolution
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty
+import org.optaplanner.core.api.domain.value.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore
-import org.optaplanner.core.impl.score.constraint.ConstraintOccurrence
 import org.optaplanner.core.impl.score.director.ScoreDirector
 import org.optaplanner.core.impl.score.director.drools.DroolsScoreDirector
 import org.optaplanner.core.impl.solution.Solution
@@ -36,6 +36,7 @@ class Schedule implements Solution<HardSoftScore> {
 		this.roomAssignments = roomAssignments
 	}
 	
+	@ValueRangeProvider(id="roomRange")
 	public List<Room> getRooms() {
 		return rooms;
 	}
@@ -142,29 +143,26 @@ class Schedule implements Solution<HardSoftScore> {
 		return hashCodeBuilder.toHashCode();
 	}
 
-	// public List<ScoreDetail> getScoreDetailList() {
-	// 	if (!(this.scoreDirector instanceof DroolsScoreDirector)) {
-	// 		return null;
-	// 	}
-	// 	Map<String, ScoreDetail> scoreDetailMap = new HashMap<String, ScoreDetail>();
-	// 	WorkingMemory workingMemory = ((DroolsScoreDirector) this.scoreDirector).getWorkingMemory();
-	// 	if (workingMemory == null) {
-	// 		return Collections.emptyList();
-	// 	}
-	// 	Iterator<ConstraintOccurrence> it = (Iterator<ConstraintOccurrence>) workingMemory.iterateObjects(
-	// 			new ClassObjectFilter(ConstraintOccurrence.class));
-	// 	while (it.hasNext()) {
-	// 		ConstraintOccurrence constraintOccurrence = it.next();
-	// 		ScoreDetail scoreDetail = scoreDetailMap.get(constraintOccurrence.getRuleId());
-	// 		if (scoreDetail == null) {
-	// 			scoreDetail = new ScoreDetail(constraintOccurrence.getRuleId(), constraintOccurrence.getConstraintType(), constraintOccurrence.getCauses());
-	// 			scoreDetailMap.put(constraintOccurrence.getRuleId(), scoreDetail);
-	// 		}
-	// 		scoreDetail.addConstraintOccurrence(constraintOccurrence);
-	// 	}
-	// 	List<ScoreDetail> scoreDetailList = new ArrayList<ScoreDetail>(scoreDetailMap.values());
-	// 	Collections.sort(scoreDetailList);
-	// 	return scoreDetailList;
-	// }
- 
+	def getScoreDetailList() {
+		def result = []
+		// Get score constraint occurences
+		scoreDirector.getConstraintMatchTotals().each() { constraintMatchTotal ->
+		    def constraintName = constraintMatchTotal.getConstraintName();
+			def weightTotal = constraintMatchTotal.getWeightTotalAsNumber();
+			log.trace("Constraint: \"$constraintName\" Total weight: $weightTotal")
+		    constraintMatchTotal.getConstraintMatchSet().each() { constraintMatch ->
+		        def justificationList = constraintMatch.getJustificationList();
+		        def weight = constraintMatch.getWeightAsNumber();
+		        log.trace("  Weight: $weight [$justificationList]")
+
+		        result << new ScoreDetail(
+		        	constraintName: constraintName,
+		        	roomAssignments: justificationList,
+		        	weight: weight,
+		        	)
+	    	}
+		}
+		result
+	}
+
 }

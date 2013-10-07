@@ -1,24 +1,25 @@
 package roomplanner
 
-import javax.xml.bind.annotation.XmlAccessType
-import javax.xml.bind.annotation.XmlAccessorType
-import javax.xml.bind.annotation.XmlAttribute
-import javax.xml.bind.annotation.XmlElement
+import roomplanner.api.RoomCategory as RoomCategoryDto
 
-@XmlAccessorType(XmlAccessType.NONE)
-class RoomCategory implements Serializable {
+class RoomCategory {
+	Long id
 
-	@XmlAttribute	Long id
-	@XmlElement		String name
-	
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		"RoomCategory: " + id +
-		" Name: " + name
+	/**
+		Creates Domain object from DTO
+	*/
+	static RoomCategory fromDto(RoomCategoryDto dto) {
+		new RoomCategory( 
+			id: dto.id
+		) 
 	}
 
+	/**
+		Renders object to DTO
+	*/
+	RoomCategoryDto toDto() {
+		new RoomCategoryDto(
+			id: id
+		)
+	}
 }

@@ -1,34 +1,24 @@
 package roomplanner
 
-import javax.xml.bind.annotation.XmlAccessType
-import javax.xml.bind.annotation.XmlAccessorType
-import javax.xml.bind.annotation.XmlAttribute
-import javax.xml.bind.annotation.XmlElement
-
 import org.apache.commons.lang.builder.EqualsBuilder
 import org.apache.commons.lang.builder.HashCodeBuilder
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity
 import org.optaplanner.core.api.domain.variable.PlanningVariable
-import org.optaplanner.core.api.domain.value.ValueRange
-import org.optaplanner.core.api.domain.value.ValueRangeType
 
 @PlanningEntity(/*difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)*/)
-@XmlAccessorType(XmlAccessType.NONE)
-class RoomAssignment implements Serializable {
+class RoomAssignment {
 
-	@XmlAttribute	Long id
-	@XmlElement		Room room
-	@XmlElement		Reservation reservation
-	@XmlElement		Boolean moveable = true
+	Long id
+	Room room
+	Reservation reservation
+	Boolean moveable = true
 
-	
-	@PlanningVariable(/*strengthComparatorClass = RoomStrengthComparator.class*/)
-	@ValueRange(type = ValueRangeType.FROM_SOLUTION_PROPERTY, solutionProperty = "rooms")
+	@PlanningVariable(valueRangeProviderRefs=["roomRange"]/*strengthComparatorClass = RoomStrengthComparator.class*/)
 	public Room getRoom() {
 		return room
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
@@ -81,11 +71,6 @@ class RoomAssignment implements Serializable {
 				.append(room)
 				.append(moveable)
 				.toHashCode();
-	}
-
-	@Override
-	public String toString() {
-		return reservation.toString() + " @ " + room.toString();
 	}
 
 }

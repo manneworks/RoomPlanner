@@ -111,8 +111,8 @@ grails.project.dependency.resolution = {
         }
         //test ":build-test-data:2.0.5"
 
-       runtime ":roomplanner-api:0.5.26"
-       runtime ":roombix-ui:0.1.12"
+        runtime ":roomplanner-api:0.5-SNAPSHOT"
+        runtime ":roombix-ui:0.1-SNAPSHOT"
     }
 }
 

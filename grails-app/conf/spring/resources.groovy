@@ -4,11 +4,4 @@ import grails.util.Environment
 beans = {
 	customLoggingInInterceptor(roomplanner.utils.CustomLoggingInInterceptor)
     customLoggingOutInterceptor(roomplanner.utils.CustomLoggingOutInterceptor)
-
- //    Environment.executeForCurrentEnvironment {
-	
-	// 	test {
-	// 		roomPlannerRemoteServiceClient(roomplanner.remote.RoomPlannerRemoteService)
-	// 	}
-	// }
 }

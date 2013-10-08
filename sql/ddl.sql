@@ -27,6 +27,7 @@
         id bigint not null auto_increment,
         version bigint not null,
         `password` varchar(255) not null,
+        realm_code bigint,
         username varchar(255) not null,
         primary key (id)
     );

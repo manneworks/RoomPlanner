@@ -23,7 +23,7 @@ class SecurityFilters {
                     def user = SystemUser.findByUsernameAndPassword(credentials[0],credentials[1])  
 
                     if (!user) {  
-                        log.error("User $credentials not known")
+                        log.error("User $credentials are not known")
                         response.status = 401
                         return false
                     }

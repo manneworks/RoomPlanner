@@ -64,7 +64,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
         runtime 'mysql:mysql-connector-java:5.1.26'
 
-        compile 'org.optaplanner:optaplanner-core:6.0.0.CR4'
+        compile 'org.optaplanner:optaplanner-core:6.0.0.CR5'
         compile 'joda-time:joda-time:2.3'
 
         // WSS4J
@@ -86,7 +86,7 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.3.6"
 
         //runtime ":hibernate:3.6.10.1" 
-        runtime ":hibernate4:4.1.11.1"
+        runtime ":hibernate4:4.1.11.2"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"

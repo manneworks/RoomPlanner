@@ -22,7 +22,7 @@ class RoomPlannerServiceSpec extends Specification {
 		given: 
 			def license = new roomplanner.api.License(key: "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX")
     	when: 
-    		def plan = roomPlannerService.doPlan(license,[],[],[],[])
+    		def plan = roomPlannerService.doPlan(license,[],[],[],[], null)
 
     	then:
     		plan != null
@@ -37,7 +37,7 @@ class RoomPlannerServiceSpec extends Specification {
 			def license = new roomplanner.api.License(key: "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX")
 			def count = PlannerRequest.list().size()
     	when: 
-    		def plan = roomPlannerService.doPlan(license,[],[],[],[])
+    		def plan = roomPlannerService.doPlan(license,[],[],[],[], null)
 
     	then:
     		plan != null
@@ -50,7 +50,7 @@ class RoomPlannerServiceSpec extends Specification {
     		def (roomCategories, rooms, reservations) = buildHotelData()
 
     	when: 
-    		def plan = roomPlannerService.doPlan(license, roomCategories, rooms, reservations, [])
+    		def plan = roomPlannerService.doPlan(license, roomCategories, rooms, reservations, [], null)
 		
 		then:
 			plan != null
@@ -73,7 +73,7 @@ class RoomPlannerServiceSpec extends Specification {
     				)
     		}
     	when: 
-    		def plan = roomPlannerService.doPlan(license, roomCategories, rooms, reservations, roomAssignments)
+    		def plan = roomPlannerService.doPlan(license, roomCategories, rooms, reservations, roomAssignments, null)
 		
 		then:
 			plan != null

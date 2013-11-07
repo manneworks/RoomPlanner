@@ -18,10 +18,11 @@ class RoomPlannerRemoteService implements roomplanner.api.IRoomPlannerService {
 		def roomCategoriesDto, 
 		def roomsDto, 
 		def reservationsDto, 
-		def roomAssignmentsDto
+		def roomAssignmentsDto,
+		def pricelistDto
 	) {
 
-		roomPlannerService.doPlan(license, roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto)
+		roomPlannerService.doPlan(license, roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto, pricelistDto)
 
     }
 

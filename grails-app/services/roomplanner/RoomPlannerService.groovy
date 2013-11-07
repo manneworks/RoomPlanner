@@ -12,7 +12,8 @@ import roomplanner.api.RoomAssignment as RoomAssignmentDto
 import roomplanner.api.Plan as PlanDto
 import roomplanner.api.Score as ScoreDto
 import roomplanner.api.ScoreDetail as ScoreDetailDto
-
+import roomplanner.api.Pricelist as PricelistDto
+import roomplanner.api.PricelistItem as PricelistItemDto
 
 class RoomPlannerService {
 
@@ -21,7 +22,7 @@ class RoomPlannerService {
     /**
 
     */
-    def doPlan(def license, def roomCategoriesDto, def roomsDto, def reservationsDto, def roomAssignmentsDto) {
+    def doPlan(def license, def roomCategoriesDto, def roomsDto, def reservationsDto, def roomAssignmentsDto, def pricelistDto) {
 
 		def startNano = System.nanoTime()
 		def timestamp = new Date()

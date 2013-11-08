@@ -86,7 +86,7 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.3.8"
 
         //runtime ":hibernate:3.6.10.1" 
-        runtime ":hibernate4:4.1.11.2"
+        runtime ":hibernate4:4.1.11.3"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"

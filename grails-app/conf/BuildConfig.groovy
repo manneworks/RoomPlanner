@@ -45,8 +45,6 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
 
-        mavenRepo 'http://192.168.0.37:8080/artifactory/HMS'
-
         grailsPlugins()
         grailsHome()
         mavenLocal()
@@ -58,18 +56,19 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
-        
+
+        mavenRepo 'http://192.168.0.37:8080/artifactory/HMS'
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-        runtime 'mysql:mysql-connector-java:5.1.26'
+        runtime 'mysql:mysql-connector-java:5.1.27'
 
         compile 'org.optaplanner:optaplanner-core:6.0.0.CR5'
         compile 'joda-time:joda-time:2.3'
 
         // WSS4J
-        compile 'org.apache.ws.security:wss4j:1.6.7'
-        compile 'org.apache.cxf:cxf-rt-ws-security:2.6.2'
+        compile 'org.apache.ws.security:wss4j:1.6.12'
+        compile 'org.apache.cxf:cxf-rt-ws-security:2.7.7'
 
         test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
     }

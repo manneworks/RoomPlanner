@@ -65,6 +65,7 @@ grails.project.dependency.resolution = {
 
         compile 'org.optaplanner:optaplanner-core:6.0.0.CR5'
         compile 'joda-time:joda-time:2.3'
+        //compile 'joda-time:joda-time-hibernate:1.3'
 
         // WSS4J
         compile 'org.apache.ws.security:wss4j:1.6.12'

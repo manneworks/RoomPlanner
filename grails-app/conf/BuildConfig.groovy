@@ -86,14 +86,14 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.3.8"
 
         //runtime ":hibernate:3.6.10.1" 
-        runtime ":hibernate4:4.1.11.3"
+        runtime ":hibernate4:4.1.11.4"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"
         //runtime ":yui-minify-resources:0.1.4"
 
-        build ":tomcat:7.0.42"
+        build ":tomcat:7.0.47"
 
         test (":spock:0.7") {
             exclude "spock-grails-support"
@@ -116,9 +116,12 @@ grails.project.dependency.resolution = {
     }
 }
 
-codenarc.reports = {
+codenarc {
+    extraIncludeDirs = ['grails-app/jobs']
+    reports = {
     Jenkins('xml') {                    
         outputFile = 'target/analysis-reports/CodeNarcReport.xml'
-        title = 'CodeNarc Analysis Report'             
+        title = 'CodeNarc Analysis Report'
     }
 }
+

@@ -93,7 +93,7 @@ grails.project.dependency.resolution = {
         //runtime ":cached-resources:1.0"
         //runtime ":yui-minify-resources:0.1.4"
 
-        build ":tomcat:7.0.47"
+        build ":tomcat:7.0.42"
 
         test (":spock:0.7") {
             exclude "spock-grails-support"
@@ -119,9 +119,10 @@ grails.project.dependency.resolution = {
 codenarc {
     extraIncludeDirs = ['grails-app/jobs']
     reports = {
-    Jenkins('xml') {                    
-        outputFile = 'target/analysis-reports/CodeNarcReport.xml'
-        title = 'CodeNarc Analysis Report'
+        Jenkins('xml') {                    
+            outputFile = 'target/analysis-reports/CodeNarcReport.xml'
+            title = 'CodeNarc Analysis Report'
+        }
     }
 }
 

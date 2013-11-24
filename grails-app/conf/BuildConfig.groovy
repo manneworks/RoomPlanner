@@ -93,7 +93,7 @@ grails.project.dependency.resolution = {
         //runtime ":cached-resources:1.0"
         //runtime ":yui-minify-resources:0.1.4"
 
-        build ":tomcat:7.0.42"
+        build ":tomcat:7.0.47"
 
         test (":spock:0.7") {
             exclude "spock-grails-support"

@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="RoomPlanner@OpenShift" resourceRoot="" soapui-version="4.6.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="RoomPlannerSoapServiceServiceSoapBinding" type="wsdl" bindingName="{http://roomplanner/}RoomPlannerSoapServiceServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="file:/C:/Grails/Projects/HMS-JQ/src/java/roomPlanner.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\Grails\Projects\HMS-JQ\src\java\roomPlanner.wsdl"><con:part><con:url>file:\C:\Grails\Projects\HMS-JQ\src\java\roomPlanner.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="RoomPlannerSoapServiceService" targetNamespace="http://roomplanner/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://roomplanner/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<con:soapui-project activeEnvironment="Default" name="RoomPlanner@OpenShift" resourceRoot="" soapui-version="4.6.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="RoomPlannerSoapServiceServiceSoapBinding" type="wsdl" bindingName="{http://roomplanner/}RoomPlannerSoapServiceServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="file:/home/vlad/Grails/Projects/HMS-JQ/src/java/roomPlanner.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/vlad/Grails/Projects/HMS-JQ/src/java/roomPlanner.wsdl"><con:part><con:url>file:/home/vlad/Grails/Projects/HMS-JQ/src/java/roomPlanner.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="RoomPlannerSoapServiceService" targetNamespace="http://roomplanner/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://roomplanner/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
   <wsdl:types>
     <xs:schema elementFormDefault="unqualified" targetNamespace="http://roomplanner/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:element name="doPlan" type="tns:doPlan"/>
       <xs:element name="doPlanResponse" type="tns:doPlanResponse"/>
+      <xs:element name="getStatus" type="tns:getStatus"/>
+      <xs:element name="getStatusResponse" type="tns:getStatusResponse"/>
+      <xs:complexType name="getStatus">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="getStatusResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="status" type="tns:status"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="status">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="uptime" type="xs:long"/>
+          <xs:element minOccurs="0" name="requestsServed" type="xs:long"/>
+        </xs:sequence>
+      </xs:complexType>
       <xs:complexType name="doPlan">
         <xs:sequence>
           <xs:element minOccurs="0" name="license" type="tns:license"/>
@@ -11,6 +27,7 @@
           <xs:element maxOccurs="unbounded" minOccurs="0" name="roomCategoryList" type="tns:roomCategory"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="reservationList" type="tns:reservation"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="roomAssignmentList" type="tns:roomAssignment"/>
+          <xs:element minOccurs="0" name="priceList" type="tns:pricelist"/>
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="license">
@@ -50,6 +67,21 @@
         </xs:sequence>
         <xs:attribute name="id" type="xs:long"/>
       </xs:complexType>
+      <xs:complexType name="pricelist">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="licenseId" type="xs:long"/>
+          <xs:element minOccurs="0" name="fromDate" type="xs:string"/>
+          <xs:element minOccurs="0" name="toDate" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="items" type="tns:pricelistItem"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="pricelistItem">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="onDate" type="xs:string"/>
+          <xs:element minOccurs="0" name="rate" type="xs:decimal"/>
+          <xs:element minOccurs="0" name="roomId" type="xs:long"/>
+        </xs:sequence>
+      </xs:complexType>
       <xs:complexType name="doPlanResponse">
         <xs:sequence>
           <xs:element minOccurs="0" name="plan" type="tns:plan"/>
@@ -81,10 +113,20 @@
   <wsdl:message name="doPlan">
     <wsdl:part element="tns:doPlan" name="parameters"></wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getStatusResponse">
+    <wsdl:part element="tns:getStatusResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getStatus">
+    <wsdl:part element="tns:getStatus" name="parameters"></wsdl:part>
+  </wsdl:message>
   <wsdl:message name="doPlanResponse">
     <wsdl:part element="tns:doPlanResponse" name="parameters"></wsdl:part>
   </wsdl:message>
   <wsdl:portType name="RoomPlannerSoapService">
+    <wsdl:operation name="getStatus">
+      <wsdl:input message="tns:getStatus" name="getStatus"></wsdl:input>
+      <wsdl:output message="tns:getStatusResponse" name="getStatusResponse"></wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="doPlan">
       <wsdl:input message="tns:doPlan" name="doPlan"></wsdl:input>
       <wsdl:output message="tns:doPlanResponse" name="doPlanResponse"></wsdl:output>
@@ -92,6 +134,15 @@
   </wsdl:portType>
   <wsdl:binding name="RoomPlannerSoapServiceServiceSoapBinding" type="tns:RoomPlannerSoapService">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getStatus">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getStatus">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getStatusResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="doPlan">
       <soap:operation soapAction="" style="document"/>
       <wsdl:input name="doPlan">
@@ -107,7 +158,7 @@
       <soap:address location="http://localhost:8080/RoomPlanner/services/roomPlannerSoap"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://planner.roombix.ru/services/roomPlannerSoap</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="doPlan" bindingOperationName="doPlan" type="Request-Response" outputName="doPlanResponse" inputName="doPlan" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://planner.roombix.ru/services/roomPlannerSoap</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:room="http://roomplanner/">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://planner.roombix.ru/services/roomPlannerSoap</con:endpoint><con:endpoint>http://localhost:8080/RoomPlanner/services/roomPlannerSoap</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="doPlan" bindingOperationName="doPlan" type="Request-Response" outputName="doPlanResponse" inputName="doPlan" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://planner.roombix.ru/services/roomPlannerSoap</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:room="http://roomplanner/">
    <soapenv:Header/>
    <soapenv:Body>
       <room:doPlan>
@@ -182,9 +233,32 @@
             <!--Optional:-->
             <moveable>?</moveable>
          </roomAssignmentList>
+         <!--Optional:-->
+         <priceList>
+            <!--Optional:-->
+            <licenseId>?</licenseId>
+            <!--Optional:-->
+            <fromDate>?</fromDate>
+            <!--Optional:-->
+            <toDate>?</toDate>
+            <!--Zero or more repetitions:-->
+            <items>
+               <!--Optional:-->
+               <onDate>?</onDate>
+               <!--Optional:-->
+               <rate>?</rate>
+               <!--Optional:-->
+               <roomId>?</roomId>
+            </items>
+         </priceList>
       </room:doPlan>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://roomplanner/RoomPlannerSoapService/doPlan"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="RoomPlannerSoapServiceServiceSoapBinding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="doPlan TestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="doPlan"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>RoomPlannerSoapServiceServiceSoapBinding</con:interface><con:operation>doPlan</con:operation><con:request name="doPlan" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://planner.roombix.ru/services/roomPlannerSoap</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>184f4c1f-d814-4124-9adb-4bb4d445d0a6</con:username><con:password>qAEX2X2NKXYhvvtz</con:password><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://roomplanner/RoomPlannerSoapService/doPlan"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getStatus" bindingOperationName="getStatus" type="Request-Response" outputName="getStatusResponse" inputName="getStatus" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://planner.roombix.ru/services/roomPlannerSoap</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:room="http://roomplanner/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <room:getStatus/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>184f4c1f-d814-4124-9adb-4bb4d445d0a6</con:username><con:password>qAEX2X2NKXYhvvtz</con:password><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://roomplanner/RoomPlannerSoapService/getStatus"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="RoomPlannerSoapServiceServiceSoapBinding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RoomPlannerTestCase" searchProperties="true"><con:settings/><con:testStep type="request" name="doPlan"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>RoomPlannerSoapServiceServiceSoapBinding</con:interface><con:operation>doPlan</con:operation><con:request name="doPlan" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://planner.roombix.ru/services/roomPlannerSoap</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:room="http://roomplanner/">
    <soapenv:Header/>
    <soapenv:Body>
@@ -313,4 +387,4 @@
 
       </room:doPlan>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:username>184f4c1f-d814-4124-9adb-4bb4d445d0a6</con:username><con:password>qAEX2X2NKXYhvvtz</con:password><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://roomplanner/RoomPlannerSoapService/doPlan" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="LoadTest 1"><con:settings/><con:threadCount>5</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>60</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>184f4c1f-d814-4124-9adb-4bb4d445d0a6</con:username><con:password>qAEX2X2NKXYhvvtz</con:password><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://roomplanner/RoomPlannerSoapService/doPlan" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="LoadTest 1"><con:settings/><con:threadCount>5</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>60</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:loadTest name="LoadTest 2"><con:settings/><con:threadCount>5</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>60</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>

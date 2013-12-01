@@ -19,6 +19,7 @@ import roomplanner.api.Status as StatusDto
 class RoomPlannerService {
 
 	def grailsApplication
+	def adminService
 
     /**
 
@@ -65,9 +66,12 @@ class RoomPlannerService {
 
     */
     def getStatus() {
+
+		def uptime = (System.nanoTime() - grailsApplication.config.startNanoTime) / 1000000L
+
     	new StatusDto(
-    		uptime: 0,
-    		requestsServed: 0
+    		uptime: uptime,
+    		requestsServed: adminService.requestsServed()
     		)
     }
 

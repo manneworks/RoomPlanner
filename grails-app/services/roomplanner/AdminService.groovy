@@ -70,4 +70,8 @@ class AdminService {
 		log.trace("...done.")
 		systemUser
     }
+
+    def requestsServed() {
+    	PlannerRequest.list().size()
+    }
 }

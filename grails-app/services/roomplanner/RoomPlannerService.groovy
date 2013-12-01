@@ -14,6 +14,7 @@ import roomplanner.api.Score as ScoreDto
 import roomplanner.api.ScoreDetail as ScoreDetailDto
 import roomplanner.api.Pricelist as PricelistDto
 import roomplanner.api.PricelistItem as PricelistItemDto
+import roomplanner.api.Status as StatusDto
 
 class RoomPlannerService {
 
@@ -58,6 +59,16 @@ class RoomPlannerService {
 		}
 		planDto
 
+    }
+
+    /**
+
+    */
+    def getStatus() {
+    	new StatusDto(
+    		uptime: 0,
+    		requestsServed: 0
+    		)
     }
 
     /**

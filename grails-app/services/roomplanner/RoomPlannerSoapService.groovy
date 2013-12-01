@@ -15,6 +15,7 @@ import roomplanner.api.RoomAssignment as RoomAssignmentDto
 import roomplanner.api.Plan as PlanDto
 import roomplanner.api.License as LicenseDto
 import roomplanner.api.Pricelist as PricelistDto
+import roomplanner.api.Status as StatusDto
 
 @GrailsCxfEndpoint(
 	expose = EndpointType.JAX_WS,
@@ -50,5 +51,11 @@ class RoomPlannerSoapService {
 
 		roomPlannerService.doPlan(licenseDto, roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto, pricelistDto)
 
+    }
+
+    @WebMethod( operationName = 'getStatus' )
+    @WebResult( name = 'status')
+    StatusDto getStatus() {
+    	roomPlannerService.getStatus()
     }
 }

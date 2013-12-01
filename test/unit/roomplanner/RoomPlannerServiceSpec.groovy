@@ -18,6 +18,13 @@ class RoomPlannerServiceSpec extends Specification {
 		roomPlannerService = new RoomPlannerService(grailsApplication: grailsApplication)
 	}
 
+	def 'Check getStatus method' () {
+		when:
+			def status = roomPlannerService.getStatus()
+		then:
+			status != null
+	}
+
 	def 'Empty parameters returns empty plan' () {
 		given: 
 			def license = new roomplanner.api.License(key: "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX")

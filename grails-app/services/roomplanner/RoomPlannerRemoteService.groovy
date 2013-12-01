@@ -26,4 +26,9 @@ class RoomPlannerRemoteService implements roomplanner.api.IRoomPlannerService {
 
     }
 
+    @Override
+    def getStatus() {
+    	roomPlannerService.getStatus()
+    }
+
 }

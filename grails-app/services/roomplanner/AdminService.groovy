@@ -5,6 +5,8 @@ import grails.transaction.Transactional
 //@Transactional
 class AdminService {
 
+	def grailsApplication 
+	
 	def createPartner(def username = null, def password = null) {
 
 		if (username == null) {
@@ -72,6 +74,35 @@ class AdminService {
     }
 
     def requestsServed() {
-    	PlannerRequest.list().size()
+    	def startNanoTime = Setting.findByKey('startNanoTime')
+    	PlannerRequest.countByTimestampGreaterThan(new Long(startNanoTime?.value))
+    }
+
+    def requestsServedTotal() {
+    	PlannerRequest.count()
+    }
+
+    def uptime() {
+ 	    def startNanoTime = Setting.findByKey('startNanoTime')
+    	def uptime = (startNanoTime != null) ? uptime = (long)(System.nanoTime() - new Long(startNanoTime.value)) / 1000000L : 0
+    	uptime
+    }
+
+    def getStatus() {
+    	def optaplannerVersion
+    	def applicationVersion = grailsApplication.metadata['app.version']
+    	def uptime = uptime()
+    	def requestsServed = requestsServed()
+    	def requestsServedTotal = requestsServedTotal()
+    	def javaVersion
+
+    	[
+    		optaplannerVersion: optaplannerVersion,
+    		applicationVersion: applicationVersion,
+    		uptime: uptime,
+    		requestsServed: requestsServed,
+    		requestsServedTotal: requestsServedTotal,
+    		javaVersion: javaVersion
+    	]
     }
 }

@@ -2,9 +2,8 @@ package roomplanner
 
 class PlannerRequest {
 
-	Date 	timestamp
+	Long	timestamp
 	String 	licenseKey
-//	String 	user
 	Long 	requestDuration
 
     static constraints = {

@@ -27,7 +27,6 @@ class RoomPlannerService {
     def doPlan(def license, def roomCategoriesDto, def roomsDto, def reservationsDto, def roomAssignmentsDto, def pricelistDto) {
 
 		def startNano = System.nanoTime()
-		def timestamp = new Date()
 
 		def (roomCategories, rooms, reservations, roomAssignments) = 
 			convertFromDto(
@@ -54,7 +53,7 @@ class RoomPlannerService {
 
 			new PlannerRequest(
 				licenseKey: license.key,
-				timestamp: timestamp,
+				timestamp: startNano,
 				requestDuration: (endNano - startNano)
 				).save(flush:true)
 		}
@@ -67,9 +66,7 @@ class RoomPlannerService {
     */
     def getStatus() {
 
-    	def startNanoTime = Setting.findByKey('startNanoTime')
-    	
-    	def uptime = (startNanoTime != null) ? uptime = (long)(System.nanoTime() - new Long(startNanoTime.value)) / 1000000L : 0
+    	def uptime = adminService.uptime()
     	def requestsServed = adminService.requestsServed()
     	new StatusDto(
     		uptime: uptime,

@@ -23,7 +23,9 @@ class BootStrap {
 
     def init = { servletContext ->
 
-			new Setting(key: 'startNanoTime', value: System.nanoTime()).save()
+    		def startNanoTimeInstance = Setting.findOrCreateByKey('startNanoTime')
+			startNanoTimeInstance.value = System.nanoTime()
+			startNanoTimeInstance.save()
 
 			def adminService = new AdminService()
 

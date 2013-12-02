@@ -9,4 +9,9 @@ class Setting {
     	key unique: true
     	value nullable: true
     }
+
+    static mapping = {
+		key column: '`key`'
+		value column: '`value`'
+	}
 }

@@ -33,7 +33,7 @@ class RoomPlannerService {
 			convertFromDto(
 				roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto
 			)
-				 
+				 RoomPlannerService
 		log.trace("Rooms: " + rooms)
 		log.trace("RoomCategories: " + roomCategories)
 		log.trace("Reservations: " + reservations)
@@ -67,7 +67,7 @@ class RoomPlannerService {
     */
     def getStatus() {
 
-		def uptime = (System.nanoTime() - grailsApplication.config.startNanoTime) / 1000000L
+		def uptime = (System.nanoTime() - new Long(grailsApplication.config.startNanoTime)) / 1000000L
 
     	new StatusDto(
     		uptime: uptime,

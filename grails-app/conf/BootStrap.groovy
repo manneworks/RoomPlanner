@@ -2,6 +2,7 @@
 import grails.util.GrailsUtil
 import roomplanner.AdminService
 import roomplanner.Partner
+import roomplanner.Setting
 
 import org.apache.ws.security.handler.WSHandlerConstants
 import org.apache.ws.security.WSConstants
@@ -18,13 +19,11 @@ import javax.xml.namespace.QName
 
 class BootStrap {
 
-	def grailsApplication
-
 	ServerFactoryBean roomPlannerSoapServiceFactory
 
     def init = { servletContext ->
 
-			grailsApplication.config.startNanoTime = System.nanoTime()	
+			new Setting(key: 'startNanoTime', value: System.nanoTime()).save()
 
 			def adminService = new AdminService()
 

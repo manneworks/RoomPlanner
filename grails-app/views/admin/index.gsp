@@ -7,9 +7,15 @@
 </content>
 
 <content tag="main">
-<div>
-    <legend>Admin page</legend>
-</div> 
+<div class="row show-grid">
+<div class="col-lg-9">
+    <legend><i class="fa fa-building-o"></i> Requests</legend>
+</div>
+<div class="col-lg-3">
+    <legend><i class="fa fa-bar-chart-o"></i> Status</legend>
+</div>
+</div>
+
 </content>
 
 </g:applyLayout>

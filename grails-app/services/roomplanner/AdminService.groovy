@@ -2,6 +2,8 @@ package roomplanner
 
 import grails.transaction.Transactional
 
+import command.ListParams
+
 //@Transactional
 class AdminService {
 
@@ -74,22 +76,32 @@ class AdminService {
     }
 
     def requestsServed() {
-    	def startNanoTime = Setting.findByKey('startNanoTime')
-    	PlannerRequest.countByTimestampGreaterThan(new Long(startNanoTime?.value))
+    	def startTime = Setting.findByKey('startTime')
+    	PlannerRequest.countByTimestampGreaterThan(new Long(startTime?.value))
     }
 
     def requestsServedTotal() {
     	PlannerRequest.count()
     }
 
+    def getRequestList(ListParams listParams) {
+        listParams.sort = 'timestamp'
+        listParams.order ='desc'
+        PlannerRequest.list(listParams.params)
+    }
+
     def uptime() {
- 	    def startNanoTime = Setting.findByKey('startNanoTime')
-    	def uptime = (startNanoTime != null) ? uptime = (long)(System.nanoTime() - new Long(startNanoTime.value)) / 1000000L : 0
+ 	    def startTime = Setting.findByKey('startTime')
+    	def uptime = (startTime != null) ? uptime = (long)(System.currentTimeMillis() - new Long(startTime.value)) : 0
     	uptime
     }
 
     def getStatus() {
-    	def optaplannerVersion
+    	def optaplannerVersion = grailsApplication.config.roomplanner.optaplanner.version
+        def hibernateVersion = grailsApplication.config.roomplanner.hibernate.version
+        def roomplannerApiVersion = grailsApplication.config.roomplanner.roomplannerApi.version
+        def roombixUiVersion = grailsApplication.config.roomplanner.roombixUi.version
+        def mysqlConnectorVersion = grailsApplication.config.roomplanner.mysql.connector.version
     	def applicationVersion = grailsApplication.metadata['app.version']
     	def uptime = uptime()
     	def requestsServed = requestsServed()
@@ -102,7 +114,11 @@ class AdminService {
     		uptime: uptime,
     		requestsServed: requestsServed,
     		requestsServedTotal: requestsServedTotal,
-    		javaVersion: javaVersion
+    		javaVersion: javaVersion,
+            roomplannerApiVersion: roomplannerApiVersion,
+            roombixUiVersion: roombixUiVersion,
+            hibernateVersion: hibernateVersion,
+            mysqlConnectorVersion: mysqlConnectorVersion
     	]
     }
 }

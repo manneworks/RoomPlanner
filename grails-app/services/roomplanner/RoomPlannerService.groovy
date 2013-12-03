@@ -26,7 +26,7 @@ class RoomPlannerService {
     */
     def doPlan(def license, def roomCategoriesDto, def roomsDto, def reservationsDto, def roomAssignmentsDto, def pricelistDto) {
 
-		def startNano = System.nanoTime()
+		def startTime = System.currentTimeMillis()
 
 		def (roomCategories, rooms, reservations, roomAssignments) = 
 			convertFromDto(
@@ -49,12 +49,12 @@ class RoomPlannerService {
 			log.error("Error solving", e)
 		}
 		finally {
-			def endNano = System.nanoTime()
+			def endTime = System.currentTimeMillis()
 
 			new PlannerRequest(
 				licenseKey: license.key,
-				timestamp: startNano,
-				requestDuration: (endNano - startNano)
+				timestamp: startTime,
+				requestDuration: (endTime - startTime)
 				).save(flush:true)
 		}
 		planDto

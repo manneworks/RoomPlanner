@@ -31,6 +31,40 @@ else {
     grails.server.port.http = 80
 }
 
+// Code snapshot to access config variables
+// def directory = new File(getClass().protectionDomain.codeSource.location.path).parent
+// def config = new ConfigSlurper(grailsSettings.grailsEnv).parse(new File(directory + File.separator + "Config.groovy").toURI().toURL())
+// println config.bootstrapPath
+
+/**
+    Define versions
+*/
+def mysqlConnectorVersion = '5.1.27'
+def optaplannerVersion = '6.0.0.Final'
+def hibernateVersion = '4.1.11.4'
+def roomplannerApiVersion = '0.5-SNAPSHOT'
+def roombixUiVersion = '0.1-SNAPSHOT'
+
+/**
+    Set configuration values
+*/
+roomplanner {
+    mysql {
+        connector.version = mysqlConnectorVersion
+    }
+    optaplanner {
+        version = optaplannerVersion
+    }
+    hibernate {
+        version = hibernateVersion
+    }
+    roomplannerApi {
+        version = roomplannerApiVersion
+    }
+    roombixUi {
+        version = roombixUiVersion
+    }
+}
 
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
@@ -59,12 +93,13 @@ grails.project.dependency.resolution = {
 
         mavenRepo 'http://192.168.0.37:8080/artifactory/HMS'
     }
+
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-        runtime 'mysql:mysql-connector-java:5.1.27'
+        runtime "mysql:mysql-connector-java:$mysqlConnectorVersion"
 
-        compile 'org.optaplanner:optaplanner-core:6.0.0.Final'
-        compile 'joda-time:joda-time:2.3'
+        compile "org.optaplanner:optaplanner-core:$optaplannerVersion"
+        compile "joda-time:joda-time:2.3"
         //compile 'joda-time:joda-time-hibernate:1.3'
 
         // WSS4J
@@ -86,7 +121,7 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.3.8"
 
         //runtime ":hibernate:3.6.10.1" 
-        runtime ":hibernate4:4.1.11.4"
+        runtime ":hibernate4:$hibernateVersion"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
@@ -111,8 +146,8 @@ grails.project.dependency.resolution = {
         }
         //test ":build-test-data:2.0.5"
 
-        runtime ":roomplanner-api:0.5-SNAPSHOT"
-        runtime ":roombix-ui:0.1-SNAPSHOT"
+        runtime ":roomplanner-api:$roomplannerApiVersion"
+        runtime ":roombix-ui:$roombixUiVersion"
     }
 }
 

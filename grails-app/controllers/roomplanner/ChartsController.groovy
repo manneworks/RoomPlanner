@@ -2,5 +2,9 @@ package roomplanner
 
 class ChartsController {
 
-    def index() { }
+	def statisticService
+
+    def index() { 
+    	def chartData = statisticService.getDurationDistribution()
+    }
 }

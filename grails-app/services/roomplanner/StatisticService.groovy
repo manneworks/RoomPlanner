@@ -9,19 +9,19 @@ class StatisticService {
 
 	    def maxDuration = PlannerRequest.createCriteria().get {
 	    		projections {
-	        		max "duration"
+	        		max "requestDuration"
 	    		}
 			} as Long
 
 	    def minDuration = PlannerRequest.createCriteria().get {
 	    		projections {
-	        		min "duration"
+	        		min "requestDuration"
 	    		}
 			} as Long
 
 		def colCount = 10
 
-			
+		log.debug("Max: $maxDuration ms; Min: $minDuration ms")
 
     }
 }

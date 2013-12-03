@@ -1,6 +1,7 @@
 <g:applyLayout name="twoblocks">
 <head>
 <title><g:message code="title.superuser.index" /></title>
+<asset:javascript src="chart.js"/>
 </head>
 
 <content tag="top"> 

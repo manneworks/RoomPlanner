@@ -41,7 +41,8 @@ class BootStrap {
 	            protected void verifyPlaintextPassword(UsernameToken usernameToken, RequestData data) 
 	            throws WSSecurityException {
 	             	log.trace("Checking user credentials [$usernameToken.name]:[$usernameToken.password]...")
-	             	if (!adminService.checkPartner(usernameToken.name, usernameToken.password)) {
+	             	def partner = adminService.checkPartner(usernameToken.name, usernameToken.password)
+	             	if (!partner) {
 	                    throw new WSSecurityException("Wrong partner credentials")
 	                } 
 	                log.trace("...done.")

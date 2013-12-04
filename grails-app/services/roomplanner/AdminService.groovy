@@ -43,7 +43,7 @@ class AdminService {
 	}
 
     def checkPartner(def username, def password) {
-    	Partner.findByUsernameAndPasswordAndEnabled(username, password, true) != null
+    	Partner.findByUsernameAndPasswordAndEnabled(username, password, true)
     }
 
     private def generatePassword() {
@@ -90,6 +90,16 @@ class AdminService {
         PlannerRequest.list(listParams.params)
     }
 
+    def getPartnerCount() {
+        Partner.count()
+    }
+
+    def getPartnerList(ListParams listParams) {
+        listParams.sort = 'id'
+        listParams.order ='asc'
+        Partner.list(listParams.params)
+    }
+
     def uptime() {
  	    def startTime = Setting.findByKey('startTime')
     	def uptime = (startTime != null) ? uptime = (long)(System.currentTimeMillis() - new Long(startTime.value)) : 0
@@ -107,6 +117,7 @@ class AdminService {
     	def requestsServed = requestsServed()
     	def requestsServedTotal = requestsServedTotal()
     	def javaVersion
+        def partnerCount = getPartnerCount()
 
     	[
     		optaplannerVersion: optaplannerVersion,
@@ -118,7 +129,26 @@ class AdminService {
             roomplannerApiVersion: roomplannerApiVersion,
             roombixUiVersion: roombixUiVersion,
             hibernateVersion: hibernateVersion,
-            mysqlConnectorVersion: mysqlConnectorVersion
+            mysqlConnectorVersion: mysqlConnectorVersion,
+            partnerCount: partnerCount
     	]
     }
+
+    def deletePartner(def id) {
+        def partnerInstance = Partner.get(id)
+        partnerInstance.delete(flush:true)
+    }
+
+    def disablePartner(def id) {
+        def partnerInstance = Partner.get(id)
+        partnerInstance.enabled = false
+        partnerInstance.save(flush:true)
+    }
+
+    def enablePartner(def id) {
+        def partnerInstance = Partner.get(id)
+        partnerInstance.enabled = true
+        partnerInstance.save(flush:true)
+    }
+
 }

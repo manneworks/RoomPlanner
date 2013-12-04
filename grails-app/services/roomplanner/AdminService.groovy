@@ -43,7 +43,7 @@ class AdminService {
 	}
 
     def checkPartner(def username, def password) {
-    	Partner.findByUsernameAndPasswordAndEnabled(username, password, true) != null
+    	Partner.findByUsernameAndPasswordAndEnabled(username, password, true)
     }
 
     private def generatePassword() {

@@ -23,5 +23,7 @@ class StatisticService {
 
 		log.debug("Max: $maxDuration ms; Min: $minDuration ms")
 
+		
+
     }
 }

@@ -38,10 +38,10 @@ class AdminServiceSpec extends Specification {
 
 		then:
 			Partner.list().size() == 1
-			adminService.checkPartner("abc","def") == true
-			adminService.checkPartner("abc","xyz") == false
-			adminService.checkPartner("xyz","def") == false
-			adminService.checkPartner("opq","rst") == false
+			adminService.checkPartner("abc","def") != null
+			adminService.checkPartner("abc","xyz") == null
+			adminService.checkPartner("xyz","def") == null
+			adminService.checkPartner("opq","rst") == null
 
 		cleanup:
 			p.delete(flush:true)
@@ -72,8 +72,8 @@ class AdminServiceSpec extends Specification {
 			assert p != null
 
 		then:
-			adminService.checkPartner(username,password) == true
-			adminService.checkPartner("test","test") == false
+			adminService.checkPartner(username,password) != null	
+			adminService.checkPartner("test","test") == null
 
 		cleanup:
 			p.delete(flush:true)

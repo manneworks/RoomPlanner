@@ -17,4 +17,8 @@ class AdminController {
     		status: statusMap
     	]
     }
+
+    def showRequestDetail() {
+    	
+    }
 }

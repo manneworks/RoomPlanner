@@ -10,7 +10,7 @@
 
 <content tag="main">
 <div class="row show-grid">
-<div class="col-lg-9">
+<div class="col-lg-8">
     <legend><i class="fa fa-bolt"></i> Requests</legend>
 
     <table class="table table-condensed">
@@ -26,7 +26,7 @@
 	<g:each var="item" in="${requestInstanceList}" status="i">
     	<!-- render items here -->
     	<tr>
-    		<td>${i+1}</td>
+    		<td><g:link action="showRequestDetail" id="${item.id}"><code>${i+1}</code></g:link></td>
     		<td>${item.licenseKey}</td>
     		<td>${new Date((long)(item.timestamp))}</td>
     		<td>${(long)(item.requestDuration)} ms</td>
@@ -41,7 +41,7 @@
         </div>
     </div>
 </div>
-<div class="col-lg-3">
+<div class="col-lg-4">
     <legend><i class="fa fa-bar-chart-o"></i> Status</legend>
     <ul class="list-unstyled">
         <li>Uptime: ${MillisToSpanConverter.getDurationBreakdown(new Long(status.uptime))}</li> 
@@ -57,6 +57,10 @@
         <li>Hibernate version: ${status.hibernateVersion}</li> 
         <li>MySQL Connector version: ${status.mysqlConnectorVersion}</li> 
         <li>Java version: ${status.javaVersion}</li> 
+    </ul>
+    <h4>Partners</h4>
+    <ul class="list-unstyled">
+        <li>Count: ${status.partnerCount}</li> 
     </ul>
 </div>
 </div>

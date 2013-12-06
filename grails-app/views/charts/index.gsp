@@ -12,6 +12,7 @@
 <div class="col-lg-6">
     <legend><i class="fa fa-clock-o"></i> Request duration</legend>
     <canvas id="requestDurationChart" width="500" height="250"></canvas>
+    <h5 class="text-right">Min/Avg/Max: ${chart1MinValue}/${chart1AvgValue}/${chart1MaxValue} ms</h5>
 </div>
 <div class="col-lg-6">
     <legend><i class="fa fa-tachometer"></i> Request count</legend>
@@ -34,21 +35,21 @@
 $(document).ready(function() {
     var ctx1 = $("#requestDurationChart").get(0).getContext("2d");
     var data1 = {
-            labels : ["January","February","March","April","May","June","July"],
+            labels : ${chart1Labels},
             datasets : [
-                {
-                    fillColor : "rgba(220,220,220,0.5)",
-                    strokeColor : "rgba(220,220,220,1)",
-                    pointColor : "rgba(220,220,220,1)",
-                    pointStrokeColor : "#fff",
-                    data : [65,59,90,81,56,55,40]
-                },
+                // {
+                //     fillColor : "rgba(220,220,220,0.5)",
+                //     strokeColor : "rgba(220,220,220,1)",
+                //     pointColor : "rgba(220,220,220,1)",
+                //     pointStrokeColor : "#fff",
+                //     data : [65,59,90,81,56,55,40]
+                // },
                 {
                     fillColor : "rgba(151,187,205,0.5)",
                     strokeColor : "rgba(151,187,205,1)",
                     pointColor : "rgba(151,187,205,1)",
                     pointStrokeColor : "#fff",
-                    data : [28,48,40,19,96,27,100]
+                    data : ${chart1Values}
                 }
             ]
         };

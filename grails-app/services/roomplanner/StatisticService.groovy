@@ -2,6 +2,8 @@ package roomplanner
 
 import grails.transaction.Transactional
 
+import org.joda.time.DateTime
+
 //@Transactional
 class StatisticService {
 
@@ -64,5 +66,37 @@ class StatisticService {
 			labels: labels,
 			values: values
 		]
+    }
+
+    def getRequestCountDistribution() {
+
+    	def dateNow = new DateTime()
+
+    	// show monthly chart for last year
+    	def range = (12..0)
+
+    	def labels = range.collect { "'" + dateNow.minusMonths(it).toString("dd.MM.yyyy") + "'" } 
+    	def values = range.collect {
+    		PlannerRequest.countByTimestampBetween(
+    			dateNow.minusMonths(it+1).getMillis(),
+    			dateNow.minusMonths(it).getMillis()
+    		)
+    	}
+
+    	def maxCount = values.max()
+    	def minCount = values.min()
+    	def avgCount = (long) (values.sum()/range.size())
+
+		log.trace("Values: $values")
+		log.trace("Labels: $labels")
+		log.trace("Max: $maxCount; Min: $minCount; Avg: $avgCount")
+
+    	[
+    		maxCount: maxCount,
+    		minCount: minCount,
+    		avgCount: avgCount,
+    		labels: labels,
+    		values: values
+    	]
     }
 }

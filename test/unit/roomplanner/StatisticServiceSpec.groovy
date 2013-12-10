@@ -113,4 +113,24 @@ class StatisticServiceSpec extends Specification {
 			graphData.values.size() == 2
 	}
 
+	def 'check request count chart' () {
+		given:
+			assert statisticService != null
+			def millisInAYear = 1000L*60L*60L*24L*365L
+			def rnd = new Random()
+			(100..rnd.nextInt(1000)+100).each {
+				new PlannerRequest(
+					licenseKey: "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+					timestamp: System.currentTimeMillis() - rnd.nextLong() % millisInAYear,
+					requestDuration: rnd.nextInt(1000),
+					).save(flush:true)
+			}
+		
+		when: 
+			def graphData = statisticService.getRequestCountDistribution()
+		
+		then:
+			graphData.labels.size() == 13
+			graphData.values.size() == 13
+	}
 }

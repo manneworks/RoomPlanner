@@ -23,49 +23,50 @@ class BootStrap {
 
     def init = { servletContext ->
 
-    		def startTimeInstance = Setting.findOrCreateByKey('startTime')
-			startTimeInstance.value = System.currentTimeMillis()
-			startTimeInstance.save()
+		def startTimeInstance = Setting.findOrCreateByKey('startTime')
+		startTimeInstance.value = System.currentTimeMillis()
+		startTimeInstance.save()
 
-			def adminService = new AdminService()
+		def adminService = new AdminService()
 
-			//Register some wss4j security
-			log.trace("Register WSS4J security stuff...")
-	        Map<String, Object> inProps = [:];
-	        inProps.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
-	        inProps.put(WSHandlerConstants.PASSWORD_TYPE, WSConstants.PW_TEXT);
-	        Map<QName, Validator> validatorMap = new HashMap<QName, Validator>();
-	        
-	        validatorMap.put(WSSecurityEngine.USERNAME_TOKEN, new UsernameTokenValidator() {
-	            @Override
-	            protected void verifyPlaintextPassword(UsernameToken usernameToken, RequestData data) 
-	            throws WSSecurityException {
-	             	log.trace("Checking user credentials [$usernameToken.name]:[$usernameToken.password]...")
-	             	def partner = adminService.checkPartner(usernameToken.name, usernameToken.password)
-	             	if (!partner) {
-	                    throw new WSSecurityException("Wrong partner credentials")
-	                } 
-	                log.trace("...done.")
-	            }
-	        });
+		//Register some wss4j security
+		log.trace("Register WSS4J security stuff...")
+        Map<String, Object> inProps = [:];
+        inProps.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
+        inProps.put(WSHandlerConstants.PASSWORD_TYPE, WSConstants.PW_TEXT);
+        Map<QName, Validator> validatorMap = new HashMap<QName, Validator>();
+        
+        validatorMap.put(WSSecurityEngine.USERNAME_TOKEN, new UsernameTokenValidator() {
+            @Override
+            protected void verifyPlaintextPassword(UsernameToken usernameToken, RequestData data) 
+            throws WSSecurityException {
+             	log.trace("Checking user credentials [$usernameToken.name]:[$usernameToken.password]...")
+             	def partner = adminService.checkPartner(usernameToken.name, usernameToken.password)
+             	if (!partner) {
+                    throw new WSSecurityException("Wrong partner credentials")
+                } 
+                log.trace("...done.")
+            }
+        });
 
-	        inProps.put(WSS4JInInterceptor.VALIDATOR_MAP, validatorMap);
-	        roomPlannerSoapServiceFactory.getInInterceptors().add(new WSS4JInInterceptor(inProps))
-	        log.trace("...done.")
+        inProps.put(WSS4JInInterceptor.VALIDATOR_MAP, validatorMap);
+        roomPlannerSoapServiceFactory.getInInterceptors().add(new WSS4JInInterceptor(inProps))
+        log.trace("...done.")
 
-			switch (GrailsUtil.environment) {
-				case "development":
-					adminService.createPartner(
-						"184f4c1f-d814-4124-9adb-4bb4d445d0a6",
-						"qAEX2X2NKXYhvvtz"
-					)
-					adminService.createSystemUser(
-						"planner",
-						"test"
-					)
-					break
-			}
-
+		switch (GrailsUtil.environment) {
+			case "development":
+				adminService.createPartner(
+					"184f4c1f-d814-4124-9adb-4bb4d445d0a6",
+					"qAEX2X2NKXYhvvtz"
+				)
+				adminService.createSystemUser(
+					"planner",
+					"test"
+				)
+				break
+		}
+		
+		log.info("Application started...")
     }
 
 

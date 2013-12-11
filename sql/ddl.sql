@@ -3,6 +3,8 @@
 
     drop table if exists planner_request;
 
+    drop table if exists setting;
+
     drop table if exists system_user;
 
     create table partner (
@@ -19,7 +21,15 @@
         version bigint not null,
         license_key varchar(255) not null,
         request_duration bigint not null,
-        `timestamp` datetime not null,
+        `timestamp` bigint not null,
+        primary key (id)
+    );
+
+    create table setting (
+        id bigint not null auto_increment,
+        version bigint not null,
+        `key` varchar(255) not null,
+        `value` varchar(255),
         primary key (id)
     );
 

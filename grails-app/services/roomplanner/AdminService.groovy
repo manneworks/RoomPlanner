@@ -90,6 +90,11 @@ class AdminService {
         PlannerRequest.list(listParams.params)
     }
 
+    def getRecentRequestList() {
+        def listParams = new ListParams(max:10, sort: 'timestamp', order: 'desc')
+        PlannerRequest.list(listParams.params)
+    }
+
     def getPartnerCount() {
         Partner.count()
     }

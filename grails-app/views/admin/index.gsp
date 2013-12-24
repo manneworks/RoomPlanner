@@ -26,18 +26,16 @@
 	<g:each var="item" in="${requestInstanceList}" status="i">
     	<!-- render items here -->
     	<tr>
-    		<td><g:link action="showRequestDetail" id="${item.id}"><code>${i+1}</code></g:link></td>
+    		<td><g:link controller="request" action="showRequestDetail" id="${item.id}"><code>${i+1}</code></g:link></td>
     		<td>${item.licenseKey}</td>
     		<td>${new Date((long)(item.timestamp))}</td>
     		<td>${(long)(item.requestDuration)} ms</td>
 	</g:each>    
 	</tbody>	
 	</table>
-    <div class="row" id="pagination">
+    <div class="row">
     	<div class="col-lg-12">
-    		<g:paginate next="Forward" prev="Back"
-            		maxsteps="0" controller="admin"
-            		action="index" total="${requestInstanceCount}" />
+            <g:link controller="request">All requests</g:link>
         </div>
     </div>
 </div>

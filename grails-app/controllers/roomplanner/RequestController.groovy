@@ -2,17 +2,17 @@ package roomplanner
 
 import command.ListParams
 
-class AdminController {
+class RequestController {
 
 	def adminService
 
-    def index() {
+    def index(ListParams listParams) {
     	
-    	def requestInstanceList = adminService.getRecentRequestList()
-    	def statusMap = adminService.getStatus()
+    	def requestInstanceList = adminService.getRequestList(listParams)
+    	def requestInstanceCount = adminService.requestsServedTotal()
     	[
     		requestInstanceList: requestInstanceList,
-    		status: statusMap
+    		requestInstanceCount: requestInstanceCount,
     	]
     }
 

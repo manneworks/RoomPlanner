@@ -39,8 +39,8 @@ else {
 /**
     Define versions
 */
-def mysqlConnectorVersion = '5.1.27'
-def optaplannerVersion = '6.0.0.Final'
+def mysqlConnectorVersion = '5.1.28'
+def optaplannerVersion = '6.0.1.Final'
 def hibernateVersion = '4.1.11.4'
 def roomplannerApiVersion = '0.5-SNAPSHOT'
 def roombixUiVersion = '0.1-SNAPSHOT'
@@ -135,7 +135,7 @@ grails.project.dependency.resolution = {
             export = false
         }   
 
-        test (":codenarc:0.19") {
+        test (":codenarc:0.20") {
             export = false
         }
 

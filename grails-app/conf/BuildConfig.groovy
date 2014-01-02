@@ -140,7 +140,7 @@ grails.project.dependency.resolution = {
         }
 
         if (env == 'jenkins') {
-            test (":code-coverage:1.2.6") {
+            test (":code-coverage:1.2.7") {
                 export = false
             }
         }

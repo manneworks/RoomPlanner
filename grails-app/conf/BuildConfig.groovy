@@ -116,7 +116,7 @@ grails.project.dependency.resolution = {
         compile ":quartz2:2.1.6.2"
         
         //compile ":asset-pipeline:1.0.4"
-        compile ":less-asset-pipeline:1.2.0"
+        compile ":less-asset-pipeline:1.2.1"
 
         runtime ":database-migration:1.3.8"
 

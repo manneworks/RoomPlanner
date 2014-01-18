@@ -41,7 +41,7 @@ else {
 */
 def mysqlConnectorVersion = '5.1.28'
 def optaplannerVersion = '6.0.1.Final'
-def hibernateVersion = '4.1.11.4'
+def hibernateVersion = '4.1.11.7'
 def roomplannerApiVersion = '0.5-SNAPSHOT'
 def roombixUiVersion = '0.1-SNAPSHOT'
 
@@ -116,7 +116,7 @@ grails.project.dependency.resolution = {
         compile ":quartz2:2.1.6.2"
         
         //compile ":asset-pipeline:1.0.4"
-        compile ":less-asset-pipeline:1.2.1"
+        compile ":less-asset-pipeline:1.5.0"
 
         runtime ":database-migration:1.3.8"
 
@@ -128,7 +128,7 @@ grails.project.dependency.resolution = {
         //runtime ":cached-resources:1.0"
         //runtime ":yui-minify-resources:0.1.4"
 
-        build ":tomcat:7.0.47"
+        build ":tomcat:7.0.50"
 
         test (":spock:0.7") {
             exclude "spock-grails-support"

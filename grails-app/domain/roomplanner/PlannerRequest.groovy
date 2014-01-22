@@ -10,7 +10,7 @@ class PlannerRequest {
     }
 
    	static mapping = {
-		timestamp column: '`timestamp`'
+		timestamp column: '`TIMESTAMP`'
 	}
 
 }

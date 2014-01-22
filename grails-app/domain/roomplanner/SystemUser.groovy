@@ -13,6 +13,6 @@ class SystemUser {
     }
 
    	static mapping = {
-		password column: '`password`'
+		password column: '`PASSWORD`'
 	}
 }

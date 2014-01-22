@@ -41,7 +41,6 @@ else {
 */
 def mysqlConnectorVersion = '5.1.28'
 def optaplannerVersion = '6.0.1.Final'
-def hibernateVersion = '4.1.11.7'
 def roomplannerApiVersion = '0.5-SNAPSHOT'
 def roombixUiVersion = '0.1-SNAPSHOT'
 
@@ -54,9 +53,6 @@ roomplanner {
     }
     optaplanner {
         version = optaplannerVersion
-    }
-    hibernate {
-        version = hibernateVersion
     }
     roomplannerApi {
         version = roomplannerApiVersion
@@ -97,6 +93,7 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
         runtime "mysql:mysql-connector-java:$mysqlConnectorVersion"
+        // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
 
         compile "org.optaplanner:optaplanner-core:$optaplannerVersion"
         compile "joda-time:joda-time:2.3"
@@ -120,8 +117,8 @@ grails.project.dependency.resolution = {
 
         runtime ":database-migration:1.3.8"
 
-        //runtime ":hibernate:3.6.10.1" 
-        runtime ":hibernate4:$hibernateVersion"
+        runtime ":hibernate:3.6.10.7" 
+        //runtime ":hibernate4:4.1.11.7"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"

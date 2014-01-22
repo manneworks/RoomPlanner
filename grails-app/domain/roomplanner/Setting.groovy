@@ -11,7 +11,7 @@ class Setting {
     }
 
     static mapping = {
-		key column: '`key`'
-		value column: '`value`'
+		key column: '`KEY`'
+		value column: '`VALUE`'
 	}
 }

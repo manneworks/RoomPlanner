@@ -12,7 +12,7 @@ class Partner {
     }
 
    	static mapping = {
-		password column: '`password`'
+		password column: '`PASSWORD`'
 	}
 
 }

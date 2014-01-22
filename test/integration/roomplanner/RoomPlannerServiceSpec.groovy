@@ -1,10 +1,15 @@
 package roomplanner
 
-import grails.plugin.spock.IntegrationSpec
+import grails.test.mixin.*
+import spock.lang.*
 
-class RoomPlannerServiceSpec extends IntegrationSpec {
+class RoomPlannerServiceSpec extends Specification {
 
 	def roomPlannerService
+
+	def setup() {
+		roomPlannerService = new RoomPlannerService()
+	}
 
 	def 'Check getStatus method' () {
 		when:

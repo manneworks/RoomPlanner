@@ -66,11 +66,11 @@ class RoomPlannerService {
     */
     def getStatus() {
 
-    	def uptime = adminService.uptime()
-    	def requestsServed = adminService.requestsServed()
+    	def status = adminService.getStatus()
+
     	new StatusDto(
-    		uptime: uptime,
-    		requestsServed: requestsServed
+    		uptime: status.uptime,
+    		requestsServed: status.requestsServed
     		)
     }
 

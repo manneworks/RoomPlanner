@@ -9,6 +9,8 @@ class RoomPlannerServiceSpec extends Specification {
 
 	def setup() {
 		roomPlannerService = new RoomPlannerService()
+		roomPlannerService.adminService = new AdminService()
+		roomPlannerService.adminService.grailsApplication = new org.codehaus.groovy.grails.commons.DefaultGrailsApplication()		
 	}
 
 	def 'Check getStatus method' () {

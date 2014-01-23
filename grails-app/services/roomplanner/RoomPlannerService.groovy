@@ -32,7 +32,7 @@ class RoomPlannerService {
 			convertFromDto(
 				roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto
 			)
-				 RoomPlannerService
+
 		log.trace("Rooms: " + rooms)
 		log.trace("RoomCategories: " + roomCategories)
 		log.trace("Reservations: " + reservations)

@@ -3,6 +3,8 @@
 	<name>RoomPlanner</name>
 	<comment></comment>
 	<projects>
+		<project>roombix-ui</project>
+		<project>roomplanner-api</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

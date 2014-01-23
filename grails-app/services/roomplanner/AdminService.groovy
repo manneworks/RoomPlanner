@@ -3,7 +3,6 @@ package roomplanner
 import grails.transaction.Transactional
 
 import command.ListParams
-import utils.StatisticsHelper
 
 //@Transactional
 class AdminService {

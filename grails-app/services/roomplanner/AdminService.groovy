@@ -3,6 +3,7 @@ package roomplanner
 import grails.transaction.Transactional
 
 import command.ListParams
+import utils.StatisticsHelper
 
 //@Transactional
 class AdminService {
@@ -106,9 +107,9 @@ class AdminService {
     }
 
     def uptime() {
- 	    def startTime = Setting.findByKey('startTime')
-    	def uptime = (startTime != null) ? uptime = (long)(System.currentTimeMillis() - new Long(startTime.value)) : 0
-    	uptime
+        def startTime = Setting.findByKey('startTime')
+     	def uptime = (startTime != null) ? (long)(System.currentTimeMillis() - new Long(startTime.value)) : 0
+        uptime
     }
 
     def getStatus() {
@@ -121,7 +122,7 @@ class AdminService {
     	def uptime = uptime()
     	def requestsServed = requestsServed()
     	def requestsServedTotal = requestsServedTotal()
-    	def javaVersion
+    	def javaVersion = System.getProperty('java.version')
         def partnerCount = getPartnerCount()
 
     	[

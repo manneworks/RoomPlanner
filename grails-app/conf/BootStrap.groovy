@@ -19,6 +19,8 @@ import javax.xml.namespace.QName
 
 class BootStrap {
 
+    def grailsApplication
+
 	ServerFactoryBean roomPlannerSoapServiceFactory
 
     def init = { servletContext ->
@@ -67,6 +69,15 @@ class BootStrap {
 		}
 		
 		log.info("Application started...")
+
+
+        def applicationConfig = grailsApplication.config
+        def httpPort = grailsApplication.config.grails.server.port.http
+        def optaplannerVersion = grailsApplication.config.roomplanner.optaplanner.version
+
+        log.debug("ApplicationConfig: $applicationConfig")
+        log.debug("Http port: $httpPort")
+        log.debug("Optaplanner version: $optaplannerVersion")
     }
 
 

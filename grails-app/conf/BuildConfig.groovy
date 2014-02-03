@@ -49,7 +49,9 @@ def roombixUiVersion = '0.1-SNAPSHOT'
 */
 roomplanner {
     mysql {
-        connector.version = mysqlConnectorVersion
+        connector {
+            version = mysqlConnectorVersion
+        }
     }
     optaplanner {
         version = optaplannerVersion
@@ -61,7 +63,9 @@ roomplanner {
         version = roombixUiVersion
     }
 }
+/**
 
+*/
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies

@@ -39,30 +39,15 @@ else {
 /**
     Define versions
 */
-def mysqlConnectorVersion = '5.1.28'
-def optaplannerVersion = '6.0.1.Final'
-def roomplannerApiVersion = '0.5-SNAPSHOT'
-def roombixUiVersion = '0.1-SNAPSHOT'
 
-/**
-    Set configuration values
-*/
-roomplanner {
-    mysql {
-        connector {
-            version = mysqlConnectorVersion
-        }
-    }
-    optaplanner {
-        version = optaplannerVersion
-    }
-    roomplannerApi {
-        version = roomplannerApiVersion
-    }
-    roombixUi {
-        version = roombixUiVersion
-    }
-}
+def directory = new File(getClass().protectionDomain.codeSource.location.path).parent
+def systemConfig = new ConfigSlurper(grailsSettings.grailsEnv).parse(new File(directory + File.separator + "SystemConfig.groovy").toURI().toURL())
+
+def optaplannerVersion = systemConfig.roomplanner.optaplanner.version
+def mysqlConnectorVersion = systemConfig.roomplanner.mysql.connector.version
+def roombixUiVersion = systemConfig.roomplanner.roombixUi.version
+def roomplannerApiVersion = systemConfig.roomplanner.roomplannerApi.version
+
 /**
 
 */

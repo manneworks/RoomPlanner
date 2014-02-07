@@ -112,11 +112,15 @@ class AdminService {
     }
 
     def getStatus() {
-    	def optaplannerVersion = grailsApplication.config.roomplanner.optaplanner.version
-        def hibernateVersion = grailsApplication.config.roomplanner.hibernate.version
-        def roomplannerApiVersion = grailsApplication.config.roomplanner.roomplannerApi.version
-        def roombixUiVersion = grailsApplication.config.roomplanner.roombixUi.version
-        def mysqlConnectorVersion = grailsApplication.config.roomplanner.mysql.connector.version
+
+        Class scriptClass = getClass().classLoader.loadClass('SystemConfig')
+        def systemConfig = new ConfigSlurper().parse(scriptClass)
+
+    	def optaplannerVersion = systemConfig.roomplanner.optaplanner.version
+        def hibernateVersion = systemConfig.roomplanner.hibernate.version
+        def roomplannerApiVersion = systemConfig.roomplanner.roomplannerApi.version
+        def roombixUiVersion = systemConfig.roomplanner.roombixUi.version
+        def mysqlConnectorVersion = systemConfig.roomplanner.mysql.connector.version
     	def applicationVersion = grailsApplication.metadata['app.version']
     	def uptime = uptime()
     	def requestsServed = requestsServed()

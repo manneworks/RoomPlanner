@@ -137,6 +137,10 @@ grails.project.dependency.resolution = {
     }
 }
 
+coverage {
+   exclusions = ["**/SystemConfig*"]
+}
+
 codenarc {
     extraIncludeDirs = ['grails-app/jobs']
     reports = {

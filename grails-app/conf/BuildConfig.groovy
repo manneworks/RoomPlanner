@@ -39,9 +39,15 @@ else {
 /**
     Define versions
 */
-
-def directory = new File(getClass().protectionDomain.codeSource.location.path).parent
-def systemConfig = new ConfigSlurper(grailsSettings.grailsEnv).parse(new File(directory + File.separator + "SystemConfig.groovy").toURI().toURL())
+def configName
+def systemConfig
+try {
+    def directory = new File(getClass().protectionDomain.codeSource.location.path).parent
+    systemConfig = new ConfigSlurper(grailsSettings.grailsEnv).parse(new File(directory + File.separator + "SystemConfig.groovy").toURI().toURL())
+} catch (Exception e) {
+    def myClassLoader = new URLClassLoader([ classesDir.toURI().toURL()] as URL[], rootLoader) 
+    systemConfig = new ConfigSlurper(grailsSettings.grailsEnv).parse(myClassLoader.loadClass("SystemConfig"))
+}
 
 def optaplannerVersion = systemConfig.roomplanner.optaplanner.version
 def mysqlConnectorVersion = systemConfig.roomplanner.mysql.connector.version

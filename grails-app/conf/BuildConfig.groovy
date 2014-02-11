@@ -10,7 +10,7 @@ grails.project.source.level = 1.6
 
 grails.project.fork = [
     // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
-    //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+    // compile: [maxMemory: 512, minMemory: 128, debug: false, maxPerm: 256, daemon:true],
 
     // configure settings for the test-app JVM, uses the daemon by default
     test: false, //[maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
@@ -40,19 +40,19 @@ else {
     Define versions
 */
 def configName
-def systemConfig
-try {
-    def directory = new File(getClass().protectionDomain.codeSource.location.path).parent
-    systemConfig = new ConfigSlurper(grailsSettings.grailsEnv).parse(new File(directory + File.separator + "SystemConfig.groovy").toURI().toURL())
-} catch (Exception e) {
-    def myClassLoader = new URLClassLoader([ classesDir.toURI().toURL()] as URL[], rootLoader) 
-    systemConfig = new ConfigSlurper(grailsSettings.grailsEnv).parse(myClassLoader.loadClass("SystemConfig"))
-}
+def systemConfig = new ConfigObject()
+// try {
+//     def directory = new File(getClass().protectionDomain.codeSource.location.path).parent
+//     systemConfig = new ConfigSlurper(grailsSettings.grailsEnv).parse(new File(directory + File.separator + "SystemConfig.groovy").toURI().toURL())
+// } catch (Exception e) {
+//     def myClassLoader = new URLClassLoader([ classesDir.toURI().toURL()] as URL[], rootLoader) 
+//     systemConfig = new ConfigSlurper(grailsSettings.grailsEnv).parse(myClassLoader.loadClass("SystemConfig"))
+// }
 
-def optaplannerVersion = systemConfig.roomplanner.optaplanner.version
-def mysqlConnectorVersion = systemConfig.roomplanner.mysql.connector.version
-def roombixUiVersion = systemConfig.roomplanner.roombixUi.version
-def roomplannerApiVersion = systemConfig.roomplanner.roomplannerApi.version
+def optaplannerVersion = "6.0.1.Final" //systemConfig.roomplanner.optaplanner.version
+def mysqlConnectorVersion = "5.1.29" //systemConfig.roomplanner.mysql.connector.version
+def roombixUiVersion = "0.2-SNAPSHOT" //systemConfig.roomplanner.roombixUi.version
+def roomplannerApiVersion = "0.5-SNAPSHOT" //systemConfig.roomplanner.roomplannerApi.version
 
 /**
 

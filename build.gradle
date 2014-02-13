@@ -31,7 +31,7 @@ repositories {
 grails {
   grailsVersion = '2.3.5'
   groovyVersion = '2.1.9'
-  springLoadedVersion '1.1.3'
+  springLoadedVersion '1.1.4'
 }
 
 configurations {
@@ -65,6 +65,8 @@ dependencies {
     test "org.grails.plugins:code-coverage:1.2.7"
     
     gmetrics "org.gmetrics:GMetrics:0.5"
+
+    codenarc 'org.codenarc:CodeNarc:0.20'
 } 
 
 import org.grails.gradle.plugin.tasks.GrailsTask
@@ -84,8 +86,21 @@ task war(type: GrailsTask) {
 }
 
 task codenarc(type: CodeNarc) {
-  source = fileTree(dir: "grails-app", include: "**/*.groovy*")
+  source = fileTree(dir: "grails-app", include: "**/*.groovy*") + fileTree(dir: "src/groovy", include: "**/*.groovy")
   configFile = file("codenarc.groovy")
+  ignoreFailures = true
+}
+
+// configure codenarc for each of the source sets
+sourceSets.each { sourceSet ->
+    def name = sourceSet.name
+    // this set should only have one element for each source set
+    def codenarcTasks = project.getTasksByName("codenarc${name.capitalize()}", false)
+    codenarcTasks.each { task ->
+        task.reports.xml.enabled = true
+        task.reports.html.enabled = true
+        task.onlyIf { !project.hasProperty('nocodenarc') }
+    }
 }
 
 tasks.withType(CodeNarc) {
@@ -97,12 +112,6 @@ tasks.withType(CodeNarc) {
 
 // tasks.'grails-war'.mustRunAfter stdTest
 // assemble.dependsOn stdTest
-
-// tasks.withType(org.grails.gradle.plugin.tasks.GrailsTask) { Task t ->
-//     t.jvmOptions {
-//         jvmArgs "-Xmx384mx", "-XX:MaxPermSize=256m"
-//     }
-// }
 
 def gmetricsResultsDir = "${project.reporting.baseDir.path}/metrics"
 def includes = ['grails-app/**/*.groovy', 'src/**/*.groovy']
@@ -116,9 +125,9 @@ task metrics << {
   ant.taskdef(name: 'gmetrics', classname: 'org.gmetrics.ant.GMetricsTask', classpath: configurations.gmetrics.asPath)
   ant.gmetrics() {
   //ant.gmetrics(metricSetFile: 'file:gmetrics_config.groovy') {
-      report(type: 'org.gmetrics.report.BasicHtmlReportWriter') {
-      //report(type: 'org.gmetrics.report.XmlReportWriter') {        
-            option(name: 'outputFile', value: "$gmetricsResultsDir/gmetrics_report.html")
+      //report(type: 'org.gmetrics.report.BasicHtmlReportWriter') {
+      report(type: 'org.gmetrics.report.XmlReportWriter') {        
+            option(name: 'outputFile', value: "$gmetricsResultsDir/gmetrics_report.xml")
             option(name: 'title', value: 'RoomPlanner Application Code Metrics')
       }
       
@@ -126,9 +135,10 @@ task metrics << {
   }
 }
 
-metrics.dependsOn {
-    [testUnit, initReporting]
-}
+// metrics.dependsOn {
+//     [testUnit, initReporting]
+// }
+
 // private List gmetricsConfigureIncludes(gmetricsConfig) {
 //     List includes = []
 

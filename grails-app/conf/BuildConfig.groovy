@@ -51,7 +51,7 @@ def systemConfig = new ConfigObject()
 
 def optaplannerVersion = "6.0.1.Final" //systemConfig.roomplanner.optaplanner.version
 def mysqlConnectorVersion = "5.1.29" //systemConfig.roomplanner.mysql.connector.version
-def roombixUiVersion = "0.2-SNAPSHOT" //systemConfig.roomplanner.roombixUi.version
+def roombixUiVersion = "0.1-SNAPSHOT" //systemConfig.roomplanner.roombixUi.version
 def roomplannerApiVersion = "0.5-SNAPSHOT" //systemConfig.roomplanner.roomplannerApi.version
 
 /**

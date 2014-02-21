@@ -108,11 +108,11 @@ grails.project.dependency.resolution = {
         compile ":quartz2:2.1.6.2"
         
         //compile ":asset-pipeline:1.0.4"
-        compile ":less-asset-pipeline:1.5.0"
+        compile ":less-asset-pipeline:1.5.2"
 
         runtime ":database-migration:1.3.8"
 
-        runtime ":hibernate:3.6.10.7" 
+        runtime ":hibernate:3.6.10.8" 
         //runtime ":hibernate4:4.1.11.7"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities

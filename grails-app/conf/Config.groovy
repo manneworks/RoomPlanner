@@ -38,6 +38,9 @@ grails.mime.types = [
 // Whether debug resources
 //grails.resources.debug = true
 
+grails.assets.less.compiler = 'less4j'
+grails.assets.minifyJs = false
+grails.assets.minifyCss = false
 grails.assets.excludes = [
   "bootstrap/*.less",
   "font-awesome/*.less"
@@ -119,6 +122,8 @@ log4j = {
            'grails.app.bootstrap',
            'grails.app.services.roomplanner',
            'roomplanner'
+
+    debug  'asset.pipeline'
 
     off    'org.hibernate.tool.hbm2ddl'
 }

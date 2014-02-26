@@ -123,8 +123,6 @@ log4j = {
            'grails.app.services.roomplanner',
            'roomplanner'
 
-    debug  'asset.pipeline'
-
     off    'org.hibernate.tool.hbm2ddl'
 }
 

@@ -118,6 +118,8 @@ log4j = {
 
     error  'org.apache.cxf'
 
+    debug  'grails.app.filters'
+
     debug  'grails.app.conf', 
            'grails.app.bootstrap',
            'grails.app.services.roomplanner',

@@ -7,13 +7,13 @@ import spock.lang.*
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
 @TestFor(SystemUser)
-@Mock([SystemUser])
 class SystemUserSpec extends Specification {
 
 	def adminService
 
 	def setup() {
 		adminService = new AdminService()
+		adminService.grailsApplication = new org.codehaus.groovy.grails.commons.DefaultGrailsApplication()
 	}
 
 	def cleanup() {

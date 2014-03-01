@@ -8,7 +8,7 @@ dataSource {
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = false
-    cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory' // Hibernate 3
+    cache.region.factory_class = 'net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory' // Hibernate 3
 //    cache.region.factory_class = 'org.hibernate.cache.ehcache.EhCacheRegionFactory' // Hibernate 4
     format_sql = true
     use_sql_comments = true
@@ -43,6 +43,12 @@ environments {
             url = "jdbc:mysql://localhost:3306/planner"
         }
     }
+    // migration {
+    //     dataSource {
+    //         dbCreate = "update"
+    //         url = "jdbc:h2:file:migrationDb;MVCC=TRUE"
+    //     }
+    // }
     production {
         dataSource {
             jndiName = "java:comp/env/jdbc/MysqlDS"

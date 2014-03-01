@@ -20,12 +20,22 @@ class SecurityFilters {
                     def encodedPair = authString - 'Basic '  
                     def decodedPair = new String(new sun.misc.BASE64Decoder().decodeBuffer(encodedPair))
                     def credentials = decodedPair.split(':')  
-                    log.debug("Try credentials: $credentials")
+                    log.trace("Try credentials: $credentials")
                     
-                    def username = credentials?.getAt(0)
-                    def password = credentials?.getAt(1)
+                    def username, password
+                    try {
+                        username = credentials?.getAt(0)
+                    } catch (Exception e) {
+                        username = null
+                    }
+                    try {
+                        password = credentials?.getAt(1)    
+                    } catch (Exception e) {
+                        password = null
+                    }
+                    
 
-                    log.debug("Looking for [$username]/[$password]")
+                    log.trace("Looking for [$username]/[$password]")
                     def user = SystemUser.findByUsernameAndPassword(username, password)  
 
                     if (!user) {  
@@ -34,16 +44,13 @@ class SecurityFilters {
                         response.addHeader("WWW-Authenticate", "Basic realm=\"Secured Area\"")
                         return false
                     }
+                    log.trace("Found [$username]/[$password]")
                     
-                    // response.setHeader('Cache-Control', 'no-cache, no-store')
-                    // response.setDateHeader('Expires', (new Date()-1).time )
-                    // response.setHeader('Pragma', 'no-cache')                    
-
                     return true
 
                 } catch (Exception e) {
                     log.error("Error processing Basic HTTP Authenication", e)
-                    response.status = 403
+                    response.status = 500
                     return false
                 }                
             }  

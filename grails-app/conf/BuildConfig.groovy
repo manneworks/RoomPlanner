@@ -82,7 +82,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
 
-        //mavenRepo 'http://192.168.0.37:8080/artifactory/HMS'
+        mavenRepo 'http://192.168.0.37:8080/artifactory/HMS'
     }
 
     dependencies {
@@ -102,7 +102,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        runtime ":database-migration:1.3.6"
+        runtime ":database-migration:1.3.8"
         runtime ":hibernate:3.6.10.8" 
         //runtime ":hibernate4:4.3.1.2"
 

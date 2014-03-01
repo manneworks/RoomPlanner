@@ -82,7 +82,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
 
-        mavenRepo 'http://192.168.0.37:8080/artifactory/HMS'
+        //mavenRepo 'http://192.168.0.37:8080/artifactory/HMS'
     }
 
     dependencies {
@@ -95,29 +95,29 @@ grails.project.dependency.resolution = {
         //compile 'joda-time:joda-time-hibernate:1.3'
 
         // WSS4J
-        compile 'org.apache.ws.security:wss4j:1.6.12'
-        compile 'org.apache.cxf:cxf-rt-ws-security:2.7.7'
+        compile 'org.apache.ws.security:wss4j:1.6.14'
+        compile 'org.apache.cxf:cxf-rt-ws-security:2.7.10'
 
         test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
     }
 
     plugins {
+        runtime ":database-migration:1.3.6"
+        runtime ":hibernate:3.6.10.8" 
+        //runtime ":hibernate4:4.3.1.2"
+
+        build ":tomcat:7.0.50.1"
+
+        compile ':cache:1.1.1'
         compile ":cxf:1.1.1"
         compile ":remoting:1.3"
-        compile ":quartz2:2.1.6.2"
-        runtime ":database-migration:1.3.8"
-        runtime ":hibernate:3.6.10.8" 
-        //runtime ":hibernate4:4.1.11.7"
+        compile ":quartz:1.0.1"
+        //compile ":quartz2:2.1.6.2"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"
         //runtime ":yui-minify-resources:0.1.4"
-
-        // compile ":asset-pipeline:1.6.1"
-        // compile ":less-asset-pipeline:1.5.3"
-
-        build ":tomcat:7.0.50.1"
 
         test (":spock:0.7") {
             exclude "spock-grails-support"

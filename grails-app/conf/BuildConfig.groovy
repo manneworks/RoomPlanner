@@ -13,7 +13,7 @@ grails.project.fork = [
     // compile: [maxMemory: 512, minMemory: 128, debug: false, maxPerm: 256, daemon:true],
 
     // configure settings for the test-app JVM, uses the daemon by default
-    test: [maxMemory: 1024, minMemory: 256, debug: false, maxPerm: 768, daemon:true],
+    test: false, //[maxMemory: 1024, minMemory: 256, debug: false, maxPerm: 768, daemon:true],
     // configure settings for the run-app JVM
     run: false, //[maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
     // configure settings for the run-war JVM
@@ -103,7 +103,7 @@ grails.project.dependency.resolution = {
 
     plugins {
         runtime ":database-migration:1.3.8"
-        runtime ":hibernate:3.6.10.8" 
+        compile ":hibernate:3.6.10.8" 
         //runtime ":hibernate4:4.3.1.2"
 
         build ":tomcat:7.0.52.1"

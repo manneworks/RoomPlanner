@@ -103,7 +103,7 @@ grails.project.dependency.resolution = {
 
     plugins {
         runtime ":database-migration:1.3.8"
-        runtime ":hibernate:3.6.10.9" 
+        runtime ":hibernate:3.6.10.8" 
         //runtime ":hibernate4:4.3.1.2"
 
         build ":tomcat:7.0.52.1"

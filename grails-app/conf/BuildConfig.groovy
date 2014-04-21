@@ -82,7 +82,9 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
 
-        mavenRepo 'http://192.168.0.37:8080/artifactory/HMS'
+        if (env in ['jenkins', 'prod']) {
+          mavenRepo 'http://192.168.0.37:8080/artifactory/HMS'
+        }
     }
 
     dependencies {

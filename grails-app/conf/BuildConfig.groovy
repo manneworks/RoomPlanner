@@ -50,7 +50,7 @@ def systemConfig = new ConfigObject()
 // }
 
 def optaplannerVersion = "6.0.1.Final" //systemConfig.roomplanner.optaplanner.version
-def mysqlConnectorVersion = "5.1.29" //systemConfig.roomplanner.mysql.connector.version
+def mysqlConnectorVersion = "5.1.30" //systemConfig.roomplanner.mysql.connector.version
 def roombixUiVersion = "0.1-SNAPSHOT" //systemConfig.roomplanner.roombixUi.version
 def roomplannerApiVersion = "0.5-SNAPSHOT" //systemConfig.roomplanner.roomplannerApi.version
 
@@ -97,7 +97,7 @@ grails.project.dependency.resolution = {
         //compile 'joda-time:joda-time-hibernate:1.3'
 
         // WSS4J
-        compile 'org.apache.ws.security:wss4j:1.6.14'
+        compile 'org.apache.ws.security:wss4j:1.6.15'
         compile 'org.apache.cxf:cxf-rt-ws-security:2.7.10'
 
         test "org.spockframework:spock-grails-support:0.7-groovy-2.0"

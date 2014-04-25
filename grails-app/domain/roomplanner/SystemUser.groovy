@@ -1,5 +1,8 @@
 package roomplanner
 
+import groovy.transform.ToString
+
+@ToString(includeNames = true, includeFields = true)
 class SystemUser {
 
 	Long realmCode

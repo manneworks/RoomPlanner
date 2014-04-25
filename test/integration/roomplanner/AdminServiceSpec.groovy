@@ -3,6 +3,7 @@ package roomplanner
 import grails.test.mixin.*
 import spock.lang.*
 
+@Mock([Setting, PlannerRequest])
 class AdminServiceSpec extends Specification {
 
 	def adminService

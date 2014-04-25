@@ -3,6 +3,7 @@ package roomplanner
 import grails.test.mixin.*
 import spock.lang.*
 
+@Mock([Setting, PlannerRequest])
 class RoomPlannerServiceSpec extends Specification {
 
 	def roomPlannerService

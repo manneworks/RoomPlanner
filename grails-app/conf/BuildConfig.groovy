@@ -110,7 +110,7 @@ grails.project.dependency.resolution = {
 
         build ":tomcat:7.0.52.1"
 
-        compile ':cache:1.1.3'
+        compile ':cache:1.1.5'
         compile ":cxf:1.1.1"
         compile ":remoting:1.3"
         compile ":quartz:1.0.1"

@@ -16,9 +16,6 @@ class SystemUserSpec extends Specification {
 		adminService = new AdminService()
 	}
 
-	def cleanup() {
-	}
-
 	void "Test object search"() {
 		given:
 			adminService.createSystemUser(

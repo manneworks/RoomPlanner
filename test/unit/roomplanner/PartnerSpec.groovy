@@ -10,12 +10,6 @@ import spock.lang.*
 @TestFor(Partner)
 class PartnerSpec extends Specification {
 
-	def setup() {
-	}
-
-	def cleanup() {
-	}
-
 	def 'Check object creation'() {
 		when:
 			Partner p = new Partner(

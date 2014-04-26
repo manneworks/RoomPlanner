@@ -16,9 +16,6 @@ class SystemUserSpec extends Specification {
 		adminService.grailsApplication = new org.codehaus.groovy.grails.commons.DefaultGrailsApplication()
 	}
 
-	def cleanup() {
-	}
-
 	void "Test object search"() {
 		given:
 			adminService.createSystemUser(

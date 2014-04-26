@@ -5,7 +5,6 @@ import org.optaplanner.core.impl.heuristic.selector.move.factory.MoveListFactory
 import org.optaplanner.core.impl.solution.Solution
 
 import roomplanner.Room
-import roomplanner.RoomAssignment
 import roomplanner.RoomChangeMove
 import roomplanner.Schedule
 

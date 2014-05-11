@@ -10,8 +10,8 @@
     create table partner (
         id bigint not null auto_increment,
         version bigint not null,
-        enabled boolean not null,
-        `password` varchar(255) not null,
+        enabled bit not null,
+        `PASSWORD` varchar(255) not null,
         username varchar(255) not null,
         primary key (id)
     );
@@ -21,29 +21,32 @@
         version bigint not null,
         license_key varchar(255) not null,
         request_duration bigint not null,
-        `timestamp` bigint not null,
+        `TIMESTAMP` bigint not null,
         primary key (id)
     );
 
     create table setting (
         id bigint not null auto_increment,
         version bigint not null,
-        `key` varchar(255) not null,
-        `value` varchar(255),
+        `KEY` varchar(255) not null,
+        `VALUE` varchar(255),
         primary key (id)
     );
 
     create table system_user (
         id bigint not null auto_increment,
         version bigint not null,
-        `password` varchar(255) not null,
+        `PASSWORD` varchar(255) not null,
         realm_code bigint,
         username varchar(255) not null,
         primary key (id)
     );
 
     alter table partner 
-        add constraint uc_partner_1 unique (username);
+        add constraint UK_pc69bebkrf0aqiiyjrb2683m2  unique (username);
+
+    alter table setting 
+        add constraint UK_jtfd2bh4aetvc6palq0pw2bnx  unique (`KEY`);
 
     alter table system_user 
-        add constraint uc_system_user_1 unique (username);
+        add constraint UK_74y7xiqrvp39wycn0ron4xq4h  unique (username);

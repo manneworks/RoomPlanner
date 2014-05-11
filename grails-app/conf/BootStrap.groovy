@@ -25,12 +25,12 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        switch (GrailsUtil.environment) {
-            case ["development", "test", "production", "jenkins"]:
+        // switch (GrailsUtil.environment) {
+        //     case ["development", "test", "production", "jenkins"]:
                     def startTimeInstance = Setting.findOrCreateByKey('startTime')
             		startTimeInstance.value = System.currentTimeMillis()
             		startTimeInstance.save()
-        }
+        // }
 
 		def adminService = new AdminService()
 

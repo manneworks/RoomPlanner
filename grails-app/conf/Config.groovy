@@ -126,10 +126,26 @@ log4j = {
            'roomplanner'
 
     off    'org.hibernate.tool.hbm2ddl'
+
+    info   'liquibase'
 }
 
 solver {
   configurationXML = "/drools/roomScheduleSolverConfig.xml"
+}
+
+/**
+    Database migration
+*/  
+environments {
+  prestaging {
+    grails.plugin.databasemigration.updateOnStart = true
+    grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.groovy']
+  }
+  production {
+    grails.plugin.databasemigration.updateOnStart = true
+    grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.groovy']
+  }
 }
 
 // Uncomment and edit the following lines to start using Grails encoding & escaping improvements

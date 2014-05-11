@@ -49,6 +49,16 @@ environments {
     //         url = "jdbc:h2:file:migrationDb;MVCC=TRUE"
     //     }
     // }
+    staging {
+        dataSource {
+            pooled = true
+            driverClassName = "com.mysql.jdbc.Driver"
+            username = "planner"
+            password = "planner"
+            //dbCreate = "update"
+            url = "jdbc:mysql://srv:3306/planner"
+        }
+    }
     production {
         dataSource {
             jndiName = "java:comp/env/jdbc/MysqlDS"

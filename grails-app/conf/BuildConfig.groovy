@@ -104,14 +104,13 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        runtime ":database-migration:1.4.0"
         //compile ":hibernate:3.6.10.13" 
-        compile ":hibernate4:4.3.5.1"
+        compile ":hibernate4:4.3.5.2"
 
         build ":tomcat:7.0.52.1"
+        //build ":tomcat8:8.0.5"
 
-        compile ':cache:1.1.5'
-        compile ":cxf:1.1.1"
+        compile ":cxf:1.1.3"
         compile ":remoting:1.3"
         compile ":quartz:1.0.1"
         //compile ":quartz2:2.1.6.2"
@@ -121,12 +120,16 @@ grails.project.dependency.resolution = {
         //runtime ":cached-resources:1.0"
         //runtime ":yui-minify-resources:0.1.4"
 
+        runtime ":database-migration:1.4.0"
+
+        compile ':cache:1.1.6'
+
         test (":spock:0.7") {
             exclude "spock-grails-support"
             export = false
         }   
 
-        test (":codenarc:0.20") {
+        test (":codenarc:0.21") {
             export = false
         }
 
@@ -142,10 +145,8 @@ grails.project.dependency.resolution = {
     }
 }
 
-//grails.plugin.location.'roombix-ui' = '../roombix-ui'
-
 coverage {
-   exclusions = ["**/SystemConfig*"]
+   exclusions = ["**/SystemConfig*", "**/changelog*"]
 }
 
 codenarc {

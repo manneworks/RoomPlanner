@@ -184,7 +184,7 @@ class RoomPlannerService {
 			createRoomAssignmentList(unsolvedSchedule)	
 			
 			//printClassPath(this.getClass().getClassLoader())
-
+/**/
 			Solver solver = null
 			synchronized (this) {
 
@@ -230,6 +230,7 @@ class RoomPlannerService {
 				solvedSchedule.scoreDirector.setWorkingSolution(solvedSchedule)
 				solvedSchedule.scoreDirector.calculateScore()
 			} // synchronized
+/**/			
 		} catch (Exception e) {
 			log.error("Error solving", e)
 		}

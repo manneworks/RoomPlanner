@@ -103,11 +103,13 @@ log4j = {
            'org.codehaus.groovy.grails.web.mapping',        // URL mapping
            'org.codehaus.groovy.grails.commons',            // core / classloading
            'org.codehaus.groovy.grails.plugins',            // plugins
-           'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           //'net.sf.ehcache.hibernate',
-           'org.hibernate.cache.ehcache'
+           'org.springframework'
+    
+    error  'org.hibernate'
+    error  'org.codehaus.groovy.grails.orm.hibernate'       // hibernate integration
+
+    error  'net.sf.ehcache'
+    error  'org.hibernate.cache.ehcache'
 		   
     error  'grails.app'
 
@@ -120,9 +122,10 @@ log4j = {
 
     debug  'grails.app.filters'
 
-    debug  'grails.app.conf', 
-           'grails.app.bootstrap',
-           'grails.app.services.roomplanner',
+    info   'grails.app.conf', 
+           'grails.app.bootstrap'
+
+    debug  'grails.app.services.roomplanner',
            'roomplanner'
 
     off    'org.hibernate.tool.hbm2ddl'

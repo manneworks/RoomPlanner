@@ -12,6 +12,9 @@ class PlannerRequest {
 	Long 	requestDuration
 
     static constraints = {
+    	timestamp nullable: false
+    	licenseKey nullable: false
+    	requestDuration nullable: false
     }
 
    	static mapping = {

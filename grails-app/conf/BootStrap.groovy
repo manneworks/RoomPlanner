@@ -24,6 +24,7 @@ class BootStrap {
 	ServerFactoryBean roomPlannerSoapServiceFactory
 
     def init = { servletContext ->
+        log.trace("BootStrap started...")
 
         // switch (GrailsUtil.environment) {
         //     case ["development", "test", "production", "jenkins"]:

@@ -82,6 +82,8 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
 
+        mavenRepo 'http://repo.spring.io/milestone'
+
         if (env in ['jenkins', 'prod']) {
           mavenRepo 'http://192.168.0.37:8080/artifactory/HMS'
         }
@@ -98,7 +100,9 @@ grails.project.dependency.resolution = {
 
         // WSS4J
         compile 'org.apache.ws.security:wss4j:1.6.15'
-        compile 'org.apache.cxf:cxf-rt-ws-security:2.7.10'
+        compile ('org.apache.cxf:cxf-rt-ws-security:2.7.11') {
+            exclude "ehcache-core"
+        } 
 
         test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
     }
@@ -123,6 +127,7 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.4.0"
 
         compile ':cache:1.1.6'
+        //compile ':cache-ehcache:1.0.1'
 
         test (":spock:0.7") {
             exclude "spock-grails-support"

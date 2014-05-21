@@ -100,7 +100,7 @@ grails.project.dependency.resolution = {
 
         // WSS4J
         compile 'org.apache.ws.security:wss4j:1.6.15'
-        compile ('org.apache.cxf:cxf-rt-ws-security:2.7.11') {
+        compile ('org.apache.cxf:cxf-rt-ws-security:2.6.2') {
             exclude "ehcache-core"
         } 
 

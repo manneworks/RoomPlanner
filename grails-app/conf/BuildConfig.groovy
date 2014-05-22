@@ -109,9 +109,9 @@ grails.project.dependency.resolution = {
 
     plugins {
         //compile ":hibernate:3.6.10.13" 
-        compile ":hibernate4:4.3.5.2"
+        compile ":hibernate4:4.3.5.4-SNAPSHOT"
 
-        build ":tomcat:7.0.52.1"
+        build ":tomcat:7.0.53"
         //build ":tomcat8:8.0.5"
 
         compile ":cxf:1.1.3"
@@ -126,7 +126,7 @@ grails.project.dependency.resolution = {
 
         runtime ":database-migration:1.4.0"
 
-        compile ':cache:1.1.6'
+        compile ':cache:1.1.7-SNAPSHOT'
         //compile ':cache-ehcache:1.0.1'
 
         test (":spock:0.7") {

@@ -50,7 +50,7 @@ def systemConfig = new ConfigObject()
 // }
 
 def optaplannerVersion = "6.0.1.Final" //systemConfig.roomplanner.optaplanner.version
-def mysqlConnectorVersion = "5.1.30" //systemConfig.roomplanner.mysql.connector.version
+def mysqlConnectorVersion = "5.1.31" //systemConfig.roomplanner.mysql.connector.version
 def roombixUiVersion = "0.1-SNAPSHOT" //systemConfig.roomplanner.roombixUi.version
 def roomplannerApiVersion = "0.5-SNAPSHOT" //systemConfig.roomplanner.roomplannerApi.version
 
@@ -100,7 +100,7 @@ grails.project.dependency.resolution = {
 
         // WSS4J
         compile 'org.apache.ws.security:wss4j:1.6.15'
-        compile ('org.apache.cxf:cxf-rt-ws-security:2.6.2') {
+        compile ('org.apache.cxf:cxf-rt-ws-security:2.6.6') {
             exclude "ehcache-core"
         } 
 
@@ -114,9 +114,9 @@ grails.project.dependency.resolution = {
         build ":tomcat:7.0.53"
         //build ":tomcat8:8.0.5"
 
-        compile ":cxf:1.1.3"
+        compile ":cxf:2.0"
         compile ":remoting:1.3"
-        compile ":quartz:1.0.1"
+        compile ":quartz:1.0.2"
         //compile ":quartz2:2.1.6.2"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities

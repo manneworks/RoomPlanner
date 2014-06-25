@@ -8,19 +8,19 @@ import roomplanner.Room
 import roomplanner.RoomChangeMove
 import roomplanner.Schedule
 
-public class RoomChangeMoveFactory implements MoveListFactory {
+public class RoomChangeMoveFactory implements MoveListFactory<Schedule> {
 
-	@Override
 	public List<Move> createMoveList(Solution solution) {
-        Schedule schedule = (Schedule) solution;
-        List<Move> moveList = new ArrayList<Move>();
+        Schedule schedule = (Schedule) solution
+        List<Move> moveList = new ArrayList<Move>()
 
 		schedule.roomAssignments.each { roomAssignment ->
 			schedule.rooms.each { toRoom ->
 				moveList << new RoomChangeMove(roomAssignment, toRoom)
 			}
 		}
-        return moveList;
+        
+        moveList
 	}
 }
 	

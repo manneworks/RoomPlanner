@@ -10,7 +10,7 @@ import org.joda.time.*
  */
 @TestFor(RoomPlannerService)
 @Mock(PlannerRequest)
-class RoomPlannerServiceSpec extends Specification {
+class RoomPlannerServiceUnitSpec extends Specification {
 
 	def roomPlannerService
 

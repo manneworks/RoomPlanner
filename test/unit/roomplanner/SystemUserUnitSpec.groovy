@@ -8,7 +8,7 @@ import spock.lang.*
  */
 @TestFor(SystemUser)
 @Mock([SystemUser])
-class SystemUserSpec extends Specification {
+class SystemUserUnitSpec extends Specification {
 
 	def adminService
 

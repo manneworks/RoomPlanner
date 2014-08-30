@@ -1,8 +1,8 @@
 package factory
 
-import org.optaplanner.core.impl.move.Move
+import org.optaplanner.core.impl.heuristic.move.Move
 import org.optaplanner.core.impl.heuristic.selector.move.factory.MoveListFactory;
-import org.optaplanner.core.impl.solution.Solution
+import org.optaplanner.core.api.domain.solution.Solution
 
 import roomplanner.Room
 import roomplanner.RoomChangeMove

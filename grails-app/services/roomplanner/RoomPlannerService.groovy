@@ -1,7 +1,6 @@
 package roomplanner
 
 import org.optaplanner.core.api.solver.SolverFactory
-import org.optaplanner.core.config.solver.XmlSolverFactory
 import org.optaplanner.core.api.solver.Solver
 import org.optaplanner.core.impl.score.director.ScoreDirector
 
@@ -195,10 +194,12 @@ class RoomPlannerService {
 					solver = configValue
 				} else {
 		    		log.trace("Configure solver")
-					SolverFactory solverFactory = new XmlSolverFactory()
+					SolverFactory solverFactory = null
 
 					try {
- 						solverFactory.configure(grailsApplication.config.solver.configurationXML)
+						String solverConfig = grailsApplication.config.solver.configurationXML
+						log.trace("Configure solver from $solverConfig")
+ 						solverFactory = SolverFactory.createFromXmlResource(solverConfig)
 					} catch (Exception e) {
 						log.error("Cannot configure solver: " + e.message)
 						throw new Exception()
@@ -220,8 +221,7 @@ class RoomPlannerService {
 				log.trace("Start solving")
 
 				unsolvedSchedule.scoreDirector.setWorkingSolution(unsolvedSchedule);
-				solver.setPlanningProblem(unsolvedSchedule);
-				solver.solve();
+				solver.solve(unsolvedSchedule);
 			 
 				solvedSchedule = (Schedule) solver.getBestSolution();
 

@@ -134,7 +134,7 @@ log4j = {
 }
 
 solver {
-  configurationXML = "/drools/roomScheduleSolverConfig.xml"
+  configurationXML = "drools/roomScheduleSolverConfig.xml"
 }
 
 /**

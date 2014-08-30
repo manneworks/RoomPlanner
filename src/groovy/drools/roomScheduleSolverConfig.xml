@@ -2,15 +2,15 @@
 <solver>
   <environmentMode>PRODUCTION</environmentMode>
   <solutionClass>roomplanner.Schedule</solutionClass>
-  <planningEntityClass>roomplanner.RoomAssignment</planningEntityClass>
+  <entityClass>roomplanner.RoomAssignment</entityClass>
   <scoreDirectorFactory>
     <scoreDefinitionType>HARD_SOFT</scoreDefinitionType>
-    <scoreDrl>/drools/roomPlanner.drl</scoreDrl>
+    <scoreDrl>drools/roomPlanner.drl</scoreDrl>
   </scoreDirectorFactory>
 
 
   <termination>
-    <maximumSecondsSpend>10</maximumSecondsSpend>
+    <secondsSpentLimit>10</secondsSpentLimit>
   </termination>
 
   <constructionHeuristic>
@@ -24,11 +24,11 @@
   <!-- </customSolverPhase> -->
 
   <localSearch>
-  	<termination>
+<!--   	<termination>
   		<terminationCompositionStyle>OR</terminationCompositionStyle>
   		<scoreAttained>0hard/0soft</scoreAttained>
   		<maximumUnimprovedStepCount>5</maximumUnimprovedStepCount>
-  	</termination>
+  	</termination> -->
     <!-- <unionMoveSelector> -->
       <!-- <changeMoveSelector/> -->
       <!-- <swapMoveSelector/> -->    

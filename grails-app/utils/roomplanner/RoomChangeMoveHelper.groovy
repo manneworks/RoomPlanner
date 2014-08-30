@@ -6,9 +6,9 @@ class RoomChangeMoveHelper {
 
 	public static void moveRoomAssignment(ScoreDirector scoreDirector, RoomAssignment roomAssignment,
 	Room toRoom) {
-		scoreDirector.beforeVariableChanged(roomAssignment, "roomAssignment");
+		scoreDirector.beforeVariableChanged(roomAssignment, "room");
 		roomAssignment.setRoom(toRoom);
-		scoreDirector.afterVariableChanged(roomAssignment, "roomAssignemt");
+		scoreDirector.afterVariableChanged(roomAssignment, "room");
 	}
 
 	private RoomChangeMoveHelper() {

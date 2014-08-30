@@ -4,7 +4,7 @@ import groovy.transform.EqualsAndHashCode
 
 import org.apache.commons.lang.ObjectUtils
 
-import org.optaplanner.core.impl.move.Move
+import org.optaplanner.core.impl.heuristic.move.Move
 import org.optaplanner.core.impl.score.director.ScoreDirector
 
 @EqualsAndHashCode

@@ -49,8 +49,8 @@ def systemConfig = new ConfigObject()
 //     systemConfig = new ConfigSlurper(grailsSettings.grailsEnv).parse(myClassLoader.loadClass("SystemConfig"))
 // }
 
-def optaplannerVersion = "6.0.1.Final" //systemConfig.roomplanner.optaplanner.version
-def mysqlConnectorVersion = "5.1.31" //systemConfig.roomplanner.mysql.connector.version
+def optaplannerVersion = "6.1.0.Final" //systemConfig.roomplanner.optaplanner.version
+def mysqlConnectorVersion = "5.1.32" //systemConfig.roomplanner.mysql.connector.version
 def roombixUiVersion = "0.1-SNAPSHOT" //systemConfig.roomplanner.roombixUi.version
 def roomplannerApiVersion = "0.5-SNAPSHOT" //systemConfig.roomplanner.roomplannerApi.version
 

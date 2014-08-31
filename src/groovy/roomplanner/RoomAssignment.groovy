@@ -6,7 +6,13 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 import org.optaplanner.core.api.domain.entity.PlanningEntity
 import org.optaplanner.core.api.domain.variable.PlanningVariable
 
-@PlanningEntity(/*difficultyWeightFactoryClass = QueenDifficultyWeightFactory.class)*/)
+import com.thoughtworks.xstream.annotations.XStreamAlias
+
+import roomplanner.solver.RoomStrengthComparator
+import roomplanner.solver.RoomAssignmentDifficultyWeightFactory
+
+@PlanningEntity(difficultyWeightFactoryClass = RoomAssignmentDifficultyWeightFactory.class)
+@XStreamAlias("RoomAssignment")
 class RoomAssignment {
 
 	Long id
@@ -14,7 +20,7 @@ class RoomAssignment {
 	Reservation reservation
 	Boolean moveable = true
 
-	@PlanningVariable(valueRangeProviderRefs=["roomRange"]/*strengthComparatorClass = RoomStrengthComparator.class*/)
+	@PlanningVariable(valueRangeProviderRefs=["roomRange"], strengthComparatorClass = RoomStrengthComparator.class)
 	public Room getRoom() {
 		return room
 	}

@@ -95,6 +95,9 @@ grails.project.dependency.resolution = {
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
 
         compile "org.optaplanner:optaplanner-core:$optaplannerVersion"
+        test "org.optaplanner:optaplanner-benchmark:$optaplannerVersion"
+        test 'com.thoughtworks.xstream:xstream:1.4.7'
+
         compile "joda-time:joda-time:2.3"
         //compile 'joda-time:joda-time-hibernate:1.3'
 

@@ -2,6 +2,9 @@ package roomplanner
 
 import roomplanner.api.RoomCategory as RoomCategoryDto
 
+import com.thoughtworks.xstream.annotations.XStreamAlias
+
+@XStreamAlias("RoomCategory")
 class RoomCategory {
 	Long id
 

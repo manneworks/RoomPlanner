@@ -11,6 +11,7 @@ import org.optaplanner.core.impl.score.buildin.hardsoft.HardSoftScoreDefinition
 import org.optaplanner.core.impl.score.director.ScoreDirector
 
 import com.thoughtworks.xstream.annotations.XStreamAlias
+import com.thoughtworks.xstream.annotations.XStreamOmitField
 import com.thoughtworks.xstream.annotations.XStreamConverter
 import org.optaplanner.persistence.xstream.impl.score.XStreamScoreConverter
 
@@ -23,6 +24,7 @@ class Schedule implements Solution<HardSoftScore> {
 	@XStreamConverter(value = XStreamScoreConverter.class, types = [HardSoftScoreDefinition.class])
 	HardSoftScore score
 
+	@XStreamOmitField
 	ScoreDirector scoreDirector
 	
 	private List<Room> rooms = new ArrayList<Room>()

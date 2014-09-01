@@ -115,8 +115,9 @@ log4j = {
 
     warn   'org.mortbay.log'
 
-    error  'org.optaplanner',
-           'org.kie'
+    debug  'org.optaplanner'
+    debug  'org.kie'
+    debug  'org.optaplanner.benchmark'
 
     error  'org.apache.cxf'
 

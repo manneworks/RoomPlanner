@@ -1,270 +1,129 @@
-<roomplanner.Schedule id="1">
+<Schedule id="1">
   <id>1</id>
   <rooms id="2">
-    <roomplanner.Room id="3">
+    <Room id="3">
       <id>1</id>
       <roomCategory id="4">
-        <id>3</id>
-      </roomCategory>
-      <name>JZtvYMyz</name>
-      <adults>2</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="5">
-      <id>2</id>
-      <roomCategory id="6">
         <id>4</id>
       </roomCategory>
-      <name>NPaqvHBr</name>
-      <adults>2</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="7">
-      <id>3</id>
-      <roomCategory id="8">
-        <id>2</id>
-      </roomCategory>
-      <name>IJMQBE[\</name>
+      <name>JlVWCCw\</name>
       <adults>1</adults>
       <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="9">
-      <id>4</id>
-      <roomCategory reference="8"/>
-      <name>UNPpremm</name>
-      <adults>2</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="10">
-      <id>5</id>
-      <roomCategory id="11">
+    </Room>
+    <Room id="5">
+      <id>2</id>
+      <roomCategory id="6">
         <id>5</id>
       </roomCategory>
-      <name>mWIlxQVM</name>
-      <adults>2</adults>
+      <name>GoSdECS]</name>
+      <adults>1</adults>
       <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="12">
-      <id>6</id>
-      <roomCategory id="13">
+    </Room>
+    <Room id="7">
+      <id>3</id>
+      <roomCategory reference="6"/>
+      <name>JuIkZXBm</name>
+      <adults>3</adults>
+      <nonSmoking>true</nonSmoking>
+    </Room>
+    <Room id="8">
+      <id>4</id>
+      <roomCategory id="9">
         <id>1</id>
       </roomCategory>
-      <name>HMuNvaba</name>
-      <adults>1</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="14">
-      <id>7</id>
-      <roomCategory reference="6"/>
-      <name>lcALtJ\R</name>
-      <adults>3</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="15">
-      <id>8</id>
-      <roomCategory reference="11"/>
-      <name>lfJQU[PQ</name>
+      <name>xDMU`Jmg</name>
       <adults>2</adults>
       <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="16">
-      <id>9</id>
-      <roomCategory reference="6"/>
-      <name>aUjJIGuo</name>
-      <adults>3</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="17">
-      <id>10</id>
-      <roomCategory reference="8"/>
-      <name>uim_wpgO</name>
-      <adults>3</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="18">
-      <id>11</id>
-      <roomCategory reference="11"/>
-      <name>adfmUdGz</name>
-      <adults>2</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="19">
-      <id>12</id>
-      <roomCategory reference="6"/>
-      <name>XmgSj`AI</name>
-      <adults>2</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="20">
-      <id>13</id>
-      <roomCategory reference="13"/>
-      <name>]AZkNJQw</name>
-      <adults>3</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="21">
-      <id>14</id>
-      <roomCategory reference="11"/>
-      <name>sweZjNp\</name>
-      <adults>1</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-    <roomplanner.Room id="22">
-      <id>15</id>
-      <roomCategory reference="8"/>
-      <name>FTrujsro</name>
-      <adults>3</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Room>
-  </rooms>
-  <reservations id="23">
-    <roomplanner.Reservation id="24">
-      <id>1</id>
-      <roomCategory reference="4"/>
-      <bookingInterval id="25">
-        <iChronology class="org.joda.time.chrono.ISOChronology" id="26" resolves-to="org.joda.time.chrono.ISOChronology$Stub" serialization="custom">
-          <org.joda.time.chrono.ISOChronology_-Stub>
-            <org.joda.time.tz.CachedDateTimeZone id="27" resolves-to="org.joda.time.DateTimeZone$Stub" serialization="custom">
-              <org.joda.time.DateTimeZone_-Stub>
-                <string>Europe/Moscow</string>
-              </org.joda.time.DateTimeZone_-Stub>
-            </org.joda.time.tz.CachedDateTimeZone>
-          </org.joda.time.chrono.ISOChronology_-Stub>
-        </iChronology>
-        <iStartMillis>1409385600000</iStartMillis>
-        <iEndMillis>1409644800000</iEndMillis>
-      </bookingInterval>
-      <adults>3</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Reservation>
-    <roomplanner.Reservation id="28">
-      <id>2</id>
-      <roomCategory reference="8"/>
-      <bookingInterval id="29">
-        <iChronology class="org.joda.time.chrono.ISOChronology" reference="26"/>
-        <iStartMillis>1409644800000</iStartMillis>
-        <iEndMillis>1409817600000</iEndMillis>
-      </bookingInterval>
-      <adults>3</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Reservation>
-    <roomplanner.Reservation id="30">
-      <id>3</id>
-      <roomCategory reference="11"/>
-      <bookingInterval id="31">
-        <iChronology class="org.joda.time.chrono.ISOChronology" reference="26"/>
-        <iStartMillis>1409472000000</iStartMillis>
-        <iEndMillis>1409990400000</iEndMillis>
-      </bookingInterval>
-      <adults>2</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Reservation>
-    <roomplanner.Reservation id="32">
-      <id>4</id>
-      <roomCategory reference="13"/>
-      <bookingInterval id="33">
-        <iChronology class="org.joda.time.chrono.ISOChronology" reference="26"/>
-        <iStartMillis>1409212800000</iStartMillis>
-        <iEndMillis>1409817600000</iEndMillis>
-      </bookingInterval>
-      <adults>1</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Reservation>
-    <roomplanner.Reservation id="34">
+    </Room>
+    <Room id="10">
       <id>5</id>
-      <roomCategory reference="11"/>
-      <bookingInterval id="35">
-        <iChronology class="org.joda.time.chrono.ISOChronology" reference="26"/>
-        <iStartMillis>1409472000000</iStartMillis>
-        <iEndMillis>1409990400000</iEndMillis>
-      </bookingInterval>
-      <adults>3</adults>
+      <roomCategory reference="9"/>
+      <name>AgWsD]pZ</name>
+      <adults>2</adults>
       <nonSmoking>true</nonSmoking>
-    </roomplanner.Reservation>
-    <roomplanner.Reservation id="36">
+    </Room>
+    <Room id="11">
       <id>6</id>
-      <roomCategory reference="11"/>
-      <bookingInterval id="37">
-        <iChronology class="org.joda.time.chrono.ISOChronology" reference="26"/>
-        <iStartMillis>1409299200000</iStartMillis>
-        <iEndMillis>1409472000000</iEndMillis>
-      </bookingInterval>
-      <adults>2</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Reservation>
-    <roomplanner.Reservation id="38">
-      <id>7</id>
-      <roomCategory reference="13"/>
-      <bookingInterval id="39">
-        <iChronology class="org.joda.time.chrono.ISOChronology" reference="26"/>
-        <iStartMillis>1409558400000</iStartMillis>
-        <iEndMillis>1410163200000</iEndMillis>
-      </bookingInterval>
+      <roomCategory reference="9"/>
+      <name>brcdTbhP</name>
       <adults>3</adults>
       <nonSmoking>true</nonSmoking>
-    </roomplanner.Reservation>
-    <roomplanner.Reservation id="40">
+    </Room>
+    <Room id="12">
+      <id>7</id>
+      <roomCategory id="13">
+        <id>2</id>
+      </roomCategory>
+      <name>ljNMUXYC</name>
+      <adults>3</adults>
+      <nonSmoking>true</nonSmoking>
+    </Room>
+    <Room id="14">
       <id>8</id>
-      <roomCategory reference="13"/>
-      <bookingInterval id="41">
-        <iChronology class="org.joda.time.chrono.ISOChronology" reference="26"/>
-        <iStartMillis>1409212800000</iStartMillis>
-        <iEndMillis>1409299200000</iEndMillis>
-      </bookingInterval>
-      <adults>2</adults>
+      <roomCategory reference="9"/>
+      <name>jBrpCq]]</name>
+      <adults>3</adults>
       <nonSmoking>true</nonSmoking>
-    </roomplanner.Reservation>
-    <roomplanner.Reservation id="42">
+    </Room>
+    <Room id="15">
       <id>9</id>
-      <roomCategory reference="8"/>
-      <bookingInterval id="43">
-        <iChronology class="org.joda.time.chrono.ISOChronology" reference="26"/>
-        <iStartMillis>1409558400000</iStartMillis>
-        <iEndMillis>1409731200000</iEndMillis>
-      </bookingInterval>
-      <adults>2</adults>
+      <roomCategory reference="4"/>
+      <name>BGLPkZxH</name>
+      <adults>3</adults>
       <nonSmoking>true</nonSmoking>
-    </roomplanner.Reservation>
-    <roomplanner.Reservation id="44">
+    </Room>
+    <Room id="16">
       <id>10</id>
-      <roomCategory reference="8"/>
-      <bookingInterval id="45">
-        <iChronology class="org.joda.time.chrono.ISOChronology" reference="26"/>
-        <iStartMillis>1409126400000</iStartMillis>
-        <iEndMillis>1409558400000</iEndMillis>
-      </bookingInterval>
+      <roomCategory reference="6"/>
+      <name>APZiSrEH</name>
+      <adults>1</adults>
+      <nonSmoking>true</nonSmoking>
+    </Room>
+    <Room id="17">
+      <id>11</id>
+      <roomCategory reference="9"/>
+      <name>iBX[REoz</name>
+      <adults>1</adults>
+      <nonSmoking>true</nonSmoking>
+    </Room>
+    <Room id="18">
+      <id>12</id>
+      <roomCategory id="19">
+        <id>3</id>
+      </roomCategory>
+      <name>gORmsb\L</name>
       <adults>2</adults>
       <nonSmoking>true</nonSmoking>
-    </roomplanner.Reservation>
-    <roomplanner.Reservation id="46">
-      <id>11</id>
+    </Room>
+    <Room id="20">
+      <id>13</id>
+      <roomCategory reference="6"/>
+      <name>mwtrrMPB</name>
+      <adults>1</adults>
+      <nonSmoking>true</nonSmoking>
+    </Room>
+    <Room id="21">
+      <id>14</id>
+      <roomCategory reference="6"/>
+      <name>X_bhHgku</name>
+      <adults>3</adults>
+      <nonSmoking>true</nonSmoking>
+    </Room>
+    <Room id="22">
+      <id>15</id>
       <roomCategory reference="13"/>
-      <bookingInterval id="47">
-        <iChronology class="org.joda.time.chrono.ISOChronology" reference="26"/>
-        <iStartMillis>1409126400000</iStartMillis>
-        <iEndMillis>1409731200000</iEndMillis>
-      </bookingInterval>
-      <adults>1</adults>
+      <name>Y]SqcMZl</name>
+      <adults>2</adults>
       <nonSmoking>true</nonSmoking>
-    </roomplanner.Reservation>
-    <roomplanner.Reservation id="48">
-      <id>12</id>
-      <roomCategory reference="11"/>
-      <bookingInterval id="49">
-        <iChronology class="org.joda.time.chrono.ISOChronology" reference="26"/>
-        <iStartMillis>1409212800000</iStartMillis>
-        <iEndMillis>1409731200000</iEndMillis>
-      </bookingInterval>
-      <adults>1</adults>
-      <nonSmoking>true</nonSmoking>
-    </roomplanner.Reservation>
-  </reservations>
-  <roomCategories id="50">
-    <roomplanner.RoomCategory reference="13"/>
-    <roomplanner.RoomCategory reference="8"/>
-    <roomplanner.RoomCategory reference="4"/>
-    <roomplanner.RoomCategory reference="6"/>
-    <roomplanner.RoomCategory reference="11"/>
+    </Room>
+  </rooms>
+  <reservations id="23"/>
+  <roomCategories id="24">
+    <RoomCategory reference="9"/>
+    <RoomCategory reference="13"/>
+    <RoomCategory reference="19"/>
+    <RoomCategory reference="4"/>
+    <RoomCategory reference="6"/>
   </roomCategories>
-  <roomAssignments id="51"/>
-</roomplanner.Schedule>
+  <roomAssignments id="25"/>
+</Schedule>

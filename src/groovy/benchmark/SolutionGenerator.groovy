@@ -16,7 +16,14 @@ class SolutionGenerator {
 
 	static def generate() {
 		XStream xstream = new XStream()
+		// tune up
 		xstream.setMode(XStream.ID_REFERENCES);
+		xstream.processAnnotations(Schedule.class);
+		xstream.processAnnotations(RoomCategory.class);
+		xstream.processAnnotations(Room.class);
+		xstream.processAnnotations(Reservation.class);
+		xstream.processAnnotations(RoomAssignment.class);
+
 		Schedule solution = generateRandomData(15, 12)
 		String xml = xstream.toXML(solution)
 
@@ -53,30 +60,30 @@ class SolutionGenerator {
 		}
 		
 		// generate rooms
-		for (i in 1..NUMBER_OF_ROOMS) {
-			Room r = new Room(
-				id: i,
-				name: randomString(8),
-				roomCategory: roomCategories[seed.nextInt(roomCategories.size())],
-				adults: seed.nextInt(ADULTS_MAX)+1
-			)
-			rooms << r
-		}
+		// for (i in 1..NUMBER_OF_ROOMS) {
+		// 	Room r = new Room(
+		// 		id: i,
+		// 		name: randomString(8),
+		// 		roomCategory: roomCategories[seed.nextInt(roomCategories.size())],
+		// 		adults: seed.nextInt(ADULTS_MAX)+1
+		// 	)
+		// 	rooms << r
+		// }
 		
 		// generate reservations
-		DateTime nowDate = DateTime.now()
-		for (i in 1..NUMBER_OF_RESERVATIONS) {
-			DateTime fromDate = nowDate.minusDays(MAX_DURATION_DAYS).plusDays(seed.nextInt(MAX_DURATION_DAYS)+3).withTime(12,0,0,0)
-			DateTime toDate = fromDate.plusDays(seed.nextInt(MAX_DURATION_DAYS)+1).withTime(12,0,0,0)
+		// DateTime nowDate = DateTime.now()
+		// for (i in 1..NUMBER_OF_RESERVATIONS) {
+		// 	DateTime fromDate = nowDate.minusDays(MAX_DURATION_DAYS).plusDays(seed.nextInt(MAX_DURATION_DAYS)+3).withTime(12,0,0,0)
+		// 	DateTime toDate = fromDate.plusDays(seed.nextInt(MAX_DURATION_DAYS)+1).withTime(12,0,0,0)
 
-			Reservation r = new Reservation(
-				id: i,
-				bookingInterval: new Interval(fromDate.toDate().getTime(), toDate.toDate().getTime()),
-				roomCategory: roomCategories[seed.nextInt(roomCategories.size())],
-				adults: seed.nextInt(ADULTS_MAX)+1
-			)
-			reservations << r
-		}
+		// 	Reservation r = new Reservation(
+		// 		id: i,
+		// 		bookingInterval: new Interval(fromDate.toDate().getTime(), toDate.toDate().getTime()),
+		// 		roomCategory: roomCategories[seed.nextInt(roomCategories.size())],
+		// 		adults: seed.nextInt(ADULTS_MAX)+1
+		// 	)
+		// 	reservations << r
+		// }
 
 		// generate roomAssignments
 

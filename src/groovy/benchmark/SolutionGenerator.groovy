@@ -10,34 +10,25 @@ import roomplanner.Room
 import roomplanner.Reservation
 import roomplanner.RoomAssignment
 
-import com.thoughtworks.xstream.XStream
+import roomplanner.dao.ScheduleDao
 
 class SolutionGenerator {
 
 	static def generate() {
-		XStream xstream = new XStream()
-		// tune up
-		xstream.setMode(XStream.ID_REFERENCES);
-		xstream.processAnnotations(Schedule.class);
-		xstream.processAnnotations(RoomCategory.class);
-		xstream.processAnnotations(Room.class);
-		xstream.processAnnotations(Reservation.class);
-		xstream.processAnnotations(RoomAssignment.class);
-
-		Schedule solution = generateRandomData(15, 12)
-		String xml = xstream.toXML(solution)
+		Schedule solution = generateRandomData(5, 20, 10)
 
 		def directory = 'src/groovy/benchmark/data'
 		def fileName = 'sample'
 		def extension = '.xml'
 
-		new File("$directory/$fileName$extension").withWriter { out ->
-   			out.println xml
-		}
+		File file = new File("$directory/$fileName$extension")
+
+		ScheduleDao scheduleDao = new ScheduleDao()
+		scheduleDao.writeSolution(solution, file)
 	}
 
-	static def generateRandomData(def roomCount, def reservationCount) {
-		int NUMBER_OF_CATEGORIES = 5
+	static def generateRandomData(def roomCategoryCount, def roomCount, def reservationCount) {
+		int NUMBER_OF_CATEGORIES = roomCategoryCount
 		int NUMBER_OF_ROOMS = roomCount
 		int NUMBER_OF_RESERVATIONS = reservationCount
 		
@@ -60,30 +51,30 @@ class SolutionGenerator {
 		}
 		
 		// generate rooms
-		// for (i in 1..NUMBER_OF_ROOMS) {
-		// 	Room r = new Room(
-		// 		id: i,
-		// 		name: randomString(8),
-		// 		roomCategory: roomCategories[seed.nextInt(roomCategories.size())],
-		// 		adults: seed.nextInt(ADULTS_MAX)+1
-		// 	)
-		// 	rooms << r
-		// }
+		for (i in 1..NUMBER_OF_ROOMS) {
+			Room r = new Room(
+				id: i,
+				name: randomString(8),
+				roomCategory: roomCategories[seed.nextInt(roomCategories.size())],
+				adults: seed.nextInt(ADULTS_MAX)+1
+			)
+			rooms << r
+		}
 		
 		// generate reservations
-		// DateTime nowDate = DateTime.now()
-		// for (i in 1..NUMBER_OF_RESERVATIONS) {
-		// 	DateTime fromDate = nowDate.minusDays(MAX_DURATION_DAYS).plusDays(seed.nextInt(MAX_DURATION_DAYS)+3).withTime(12,0,0,0)
-		// 	DateTime toDate = fromDate.plusDays(seed.nextInt(MAX_DURATION_DAYS)+1).withTime(12,0,0,0)
+		DateTime nowDate = DateTime.now()
+		for (i in 1..NUMBER_OF_RESERVATIONS) {
+			DateTime fromDate = nowDate.minusDays(MAX_DURATION_DAYS).plusDays(seed.nextInt(MAX_DURATION_DAYS)+3).withTime(12,0,0,0)
+			DateTime toDate = fromDate.plusDays(seed.nextInt(MAX_DURATION_DAYS)+1).withTime(12,0,0,0)
 
-		// 	Reservation r = new Reservation(
-		// 		id: i,
-		// 		bookingInterval: new Interval(fromDate.toDate().getTime(), toDate.toDate().getTime()),
-		// 		roomCategory: roomCategories[seed.nextInt(roomCategories.size())],
-		// 		adults: seed.nextInt(ADULTS_MAX)+1
-		// 	)
-		// 	reservations << r
-		// }
+			Reservation r = new Reservation(
+				id: i,
+				bookingInterval: new Interval(fromDate.toDate().getTime(), toDate.toDate().getTime()),
+				roomCategory: roomCategories[seed.nextInt(roomCategories.size())],
+				adults: seed.nextInt(ADULTS_MAX)+1
+			)
+			reservations << r
+		}
 
 		// generate roomAssignments
 
@@ -96,6 +87,8 @@ class SolutionGenerator {
 			reservations: reservations,
 			roomAssignments: roomAssignments
 			)
+
+		createRoomAssignmentList(solution)
 		
 		solution
 	}
@@ -109,4 +102,20 @@ class SolutionGenerator {
 		}	
 		result
 	}
+
+	private static void createRoomAssignmentList(Schedule schedule) {
+	List<Reservation> reservationList = schedule.reservations;
+	List<RoomAssignment> roomAssignmentList = new ArrayList<RoomAssignment>(reservationList.size());
+	long id = 0L;
+	reservationList.each() { reservation ->
+		RoomAssignment roomAssignment = new RoomAssignment();
+		roomAssignment.id = id;
+		id++;
+		roomAssignment.reservation = reservation;
+		roomAssignment.moveable = true;
+		// Notice that we leave the PlanningVariable properties on null
+		roomAssignmentList.add(roomAssignment);
+	}
+	schedule.roomAssignments.addAll(roomAssignmentList);
+}
 }

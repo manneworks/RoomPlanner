@@ -23,4 +23,31 @@
   <solverBenchmarkBluePrint>
     <solverBenchmarkBluePrintType>ALL_CONSTRUCTION_HEURISTIC_TYPES</solverBenchmarkBluePrintType>
   </solverBenchmarkBluePrint>
+
+  <solverBenchmark>
+    <name>Custom</name>
+    <solver>
+      <termination>
+        <secondsSpentLimit>10</secondsSpentLimit>
+      </termination>
+      <constructionHeuristic>
+        <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+      </constructionHeuristic>
+      <localSearch>
+        <moveListFactory>
+          <moveListFactoryClass>factory.RoomChangeMoveFactory</moveListFactoryClass>
+        </moveListFactory>
+     
+        <acceptor>
+          <entityTabuSize>7</entityTabuSize>
+          <solutionTabuSize>1000</solutionTabuSize>
+          <undoMoveTabuSize>5</undoMoveTabuSize>
+        </acceptor>
+        <forager>
+          <pickEarlyType>FIRST_BEST_SCORE_IMPROVING</pickEarlyType>
+          <acceptedCountLimit>100</acceptedCountLimit>
+        </forager>
+      </localSearch>
+    </solver>
+  </solverBenchmark>
 </plannerBenchmark>

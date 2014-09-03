@@ -10,32 +10,33 @@ class RoomAssignmentDifficultyWeightFactory
         implements SelectionSorterWeightFactory<Schedule, RoomAssignment> {
 
     Comparable createSorterWeight(Schedule schedule, RoomAssignment roomAssignment) {
-        int hardDisallowedCount = 0;
-        int softDisallowedCount = 0;
+        def roomSizeCountMap = [:]
+        def roomTypeCountMap = [:]
         // for (Room room : schedule.getRoomList()) {
         //     hardDisallowedCount += (room.countHardDisallowedAdmissionPart(bedDesignation.getAdmissionPart())
         //             * room.getCapacity());
         //     softDisallowedCount += (room.countSoftDisallowedAdmissionPart(bedDesignation.getAdmissionPart())
         //             * room.getCapacity());
         // }
-        return new RoomAssignmentDifficultyWeight(roomAssignment, hardDisallowedCount, softDisallowedCount);
+        new RoomAssignmentDifficultyWeight(roomAssignment, roomSizeCountMap, roomTypeCountMap)
     }
 
     static class RoomAssignmentDifficultyWeight implements Comparable<RoomAssignmentDifficultyWeight> {
 
-        private final RoomAssignment roomAssignment;
-        private int hardDisallowedCount;
-        private int softDisallowedCount;
+        RoomAssignment roomAssignment
+        def roomSizeCountMap
+        def roomTypeCountMap
 
         public RoomAssignmentDifficultyWeight(RoomAssignment roomAssignment,
-                int hardDisallowedCount, int softDisallowedCount) {
-            this.roomAssignment = roomAssignment;
-            this.hardDisallowedCount = hardDisallowedCount;
-            this.softDisallowedCount = softDisallowedCount;
+                def roomSizeCountMap, def roomTypeCountMap) {
+            this.roomAssignment = roomAssignment
+            this.roomSizeCountMap = roomSizeCountMap
+            this.roomTypeCountMap = roomTypeCountMap
         }
 
         public int compareTo(RoomAssignmentDifficultyWeight other) {
             return new CompareToBuilder()
+                    .append(roomAssignment.reservation.bookingInterval.toDurationMillis(), other.roomAssignment.reservation.bookingInterval.toDurationMillis())
                     .append(roomAssignment.id, other.roomAssignment.id)
                     .toComparison();
         }

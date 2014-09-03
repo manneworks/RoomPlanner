@@ -15,7 +15,7 @@ import roomplanner.dao.ScheduleDao
 class SolutionGenerator {
 
 	static def generate() {
-		Schedule solution = generateRandomData(5, 20, 25)
+		Schedule solution = generateRandomData(3, 25, 25)
 
 		def directory = 'src/groovy/benchmark/data'
 		def fileName = 'sample'

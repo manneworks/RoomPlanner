@@ -1,7 +1,10 @@
-package roomplanner
+package planner
 
 import grails.test.mixin.*
 import spock.lang.*
+
+import roomplanner.SystemUser
+import roomplanner.AdminService
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions

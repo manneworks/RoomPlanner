@@ -1,7 +1,9 @@
-package roomplanner
+package planner
 
 import grails.test.mixin.*
 import spock.lang.*
+
+import roomplanner.RoomPlannerRemoteService
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions

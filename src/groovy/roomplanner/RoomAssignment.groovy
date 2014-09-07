@@ -20,7 +20,7 @@ class RoomAssignment {
 	Reservation reservation
 	Boolean moveable = true
 
-	@PlanningVariable(valueRangeProviderRefs=["roomRange"], strengthComparatorClass = RoomStrengthComparator.class)
+	@PlanningVariable(nullable = true, valueRangeProviderRefs = ["roomRange"], strengthComparatorClass = RoomStrengthComparator.class)
 	public Room getRoom() {
 		return room
 	}

@@ -196,6 +196,58 @@
 
          <!--Room Categories-->
          <roomCategoryList id="1"/>
+ 
+         <!--Rooms-->
+         <roomList id="1">
+            <roomCategory id="1"/>
+            <adults>1</adults>
+         </roomList>
+         <roomList id="2">
+            <roomCategory id="1"/>
+            <adults>2</adults>
+         </roomList>
+         
+         <!--Zero or more repetitions:-->
+         <reservationList id="1">
+            <roomCategory id="1"/>
+            <bookingInterval>1-2</bookingInterval>
+            <adults>2</adults>
+         </reservationList>
+         <reservationList id="2">
+            <roomCategory id="1"/>
+            <bookingInterval>1-4</bookingInterval>
+            <adults>1</adults>
+         </reservationList>
+         <reservationList id="3">
+            <roomCategory id="1"/>
+            <bookingInterval>5-8</bookingInterval>
+            <adults>1</adults>
+         </reservationList>
+         <reservationList id="4">
+            <roomCategory id="1"/>
+            <bookingInterval>5-6</bookingInterval>
+            <adults>2</adults>
+         </reservationList>
+         <reservationList id="5">
+            <roomCategory id="1"/>
+            <bookingInterval>9-12</bookingInterval>
+            <adults>2</adults>
+         </reservationList>
+
+      </room:doPlan>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:username>184f4c1f-d814-4124-9adb-4bb4d445d0a6</con:username><con:password>qAEX2X2NKXYhvvtz</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="LoadTest 1"><con:settings/><con:threadCount>5</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>20</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase 2" searchProperties="true"><con:settings/><con:testStep type="request" name="Test Request t1 r2 b6 p0"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>RoomPlannerSoapServiceServiceSoapBinding</con:interface><con:operation>doPlan</con:operation><con:request name="Test Request t1 r2 b6 p0" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/RoomPlanner/services/roomPlannerSoap</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:room="http://roomplanner/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <room:doPlan>
+
+	<license>
+		<key>XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</key>
+	</license>
+
+         <!--Room Categories-->
+         <roomCategoryList id="1"/>
          <roomCategoryList id="2"/>
          <roomCategoryList id="3"/>
          <roomCategoryList id="4"/>
@@ -210,79 +262,6 @@
             <roomCategory id="2"/>
             <adults>2</adults>
          </roomList>
-         <roomList id="3">
-            <roomCategory id="3"/>
-            <adults>3</adults>
-         </roomList>
-         <roomList id="4">
-            <roomCategory id="4"/>
-            <adults>4</adults>
-         </roomList>
-         <roomList id="5">
-            <roomCategory id="5"/>
-            <adults>2</adults>
-         </roomList>
-         <roomList id="6">
-            <roomCategory id="1"/>
-            <adults>1</adults>
-         </roomList>
-         <roomList id="7">
-            <roomCategory id="2"/>
-            <adults>2</adults>
-         </roomList>
-         <roomList id="8">
-            <roomCategory id="3"/>
-            <adults>3</adults>
-         </roomList>
-         <roomList id="9">
-            <roomCategory id="4"/>
-            <adults>4</adults>
-         </roomList>
-         <roomList id="10">
-            <roomCategory id="5"/>
-            <adults>2</adults>
-         </roomList>
-         <roomList id="11">
-            <roomCategory id="1"/>
-            <adults>1</adults>
-         </roomList>
-         <roomList id="12">
-            <roomCategory id="2"/>
-            <adults>2</adults>
-         </roomList>
-         <roomList id="13">
-            <roomCategory id="3"/>
-            <adults>3</adults>
-         </roomList>
-         <roomList id="14">
-            <roomCategory id="4"/>
-            <adults>4</adults>
-         </roomList>
-         <roomList id="15">
-            <roomCategory id="5"/>
-            <adults>2</adults>
-         </roomList>
-         <roomList id="16">
-            <roomCategory id="1"/>
-            <adults>1</adults>
-         </roomList>
-         <roomList id="17">
-            <roomCategory id="2"/>
-            <adults>2</adults>
-         </roomList>
-         <roomList id="18">
-            <roomCategory id="3"/>
-            <adults>3</adults>
-         </roomList>
-         <roomList id="19">
-            <roomCategory id="4"/>
-            <adults>4</adults>
-         </roomList>
-         <roomList id="20">
-            <roomCategory id="5"/>
-            <adults>2</adults>
-         </roomList>
-
          
          <!--Zero or more repetitions:-->
          <reservationList id="1">
@@ -310,7 +289,12 @@
             <bookingInterval>10000-20000</bookingInterval>
             <adults>4</adults>
          </reservationList>
+         <reservationList id="6">
+            <roomCategory id="5"/>
+            <bookingInterval>10000-20000</bookingInterval>
+            <adults>4</adults>
+         </reservationList>
 
       </room:doPlan>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:username>184f4c1f-d814-4124-9adb-4bb4d445d0a6</con:username><con:password>qAEX2X2NKXYhvvtz</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="LoadTest 1"><con:settings/><con:threadCount>5</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>20</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:credentials><con:username>184f4c1f-d814-4124-9adb-4bb4d445d0a6</con:username><con:password>qAEX2X2NKXYhvvtz</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

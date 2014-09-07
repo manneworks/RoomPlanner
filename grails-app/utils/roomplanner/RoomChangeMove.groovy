@@ -49,6 +49,6 @@ class RoomChangeMove implements Move {
 	 */
 	@Override
 	public String toString() {
-		return "Move Room " + roomAssignment.getRoom().getId().toString() + " => Room " + toRoom.getId().toString()
+		return "Move Room " + roomAssignment.room?.id.toString() + " => Room " + toRoom?.id.toString()
 	}
 }

@@ -2,10 +2,14 @@ package roomplanner
 
 import filters.SecurityFilters
 
-import grails.test.mixin.Mock
+import grails.test.mixin.TestMixin
+import grails.test.mixin.support.GrailsUnitTestMixin
 import spock.lang.Specification
+import grails.test.mixin.TestFor
+import grails.test.mixin.Mock
 
 @Mock(SecurityFilters)
+@TestMixin(GrailsUnitTestMixin)
 class SecurityFiltersSpec extends Specification {
 
 	def setup() {

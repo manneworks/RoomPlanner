@@ -27,6 +27,10 @@ class RoomPlannerService {
 
 		def startTime = System.currentTimeMillis()
 
+		// if (true/*log.isDebugEnabled()*/) {
+  //   		printInputProblem(roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto)
+		// }
+
 		def (roomCategories, rooms, reservations, roomAssignments) = 
 			convertFromDto(
 				roomCategoriesDto, roomsDto, reservationsDto, roomAssignmentsDto
@@ -56,6 +60,11 @@ class RoomPlannerService {
 				requestDuration: (endTime - startTime)
 				).save(flush:true)
 		}
+
+		// if (true/*log.isDebugEnabled()*/) {
+ 	// 	   printSolution(planDto);
+		// }
+
 		planDto
 
     }
@@ -131,7 +140,7 @@ class RoomPlannerService {
 				roomAssignments << 
 			new RoomAssignmentDto(
 				id: roomAssignment.id,
-				room: roomsDto.find { it.id == roomAssignment.room.id },
+				room: roomsDto.find { it.id == roomAssignment.room?.id },
 				reservation: reservationsDto.find { it.id == roomAssignment.reservation.id },
 				moveable: roomAssignment.moveable
 				)
@@ -155,7 +164,7 @@ class RoomPlannerService {
 		planDto.roomAssignments <<
 			new RoomAssignmentDto(
 				id: roomAssignment.id,
-				room: roomsDto.find { it.id == roomAssignment.room.id },
+				room: roomsDto.find { it.id == roomAssignment.room?.id },
 				reservation: reservationsDto.find { it.id == roomAssignment.reservation.id },
 				moveable: roomAssignment.moveable
 				)
@@ -273,4 +282,56 @@ class RoomPlannerService {
 	    }
 	}
 
+	/**
+
+	*/
+	private void printInputProblem(def roomCategories, def rooms, def reservations, def roomAssignments) {
+
+		log.debug("")
+		log.debug("ROOM CATEGORIES")
+		log.debug("===============")
+		roomCategories.each() {
+			log.debug("RoomCategory [id:$it.id, name:$it.name]")
+		}
+		log.debug("")
+		log.debug("ROOMS")
+		log.debug("=====")
+		rooms.each() {
+			log.debug("Room [id:$it.id, rc:$it.roomCategory.id, name:$it.name, size:$it.adults]")
+		}
+		log.debug("")
+		log.debug("RESERVATIONS")
+		log.debug("============")
+		reservations.each() {
+			log.debug("Reservation [id:$it.id, rc.$it.roomCategory.id, adults:$it.adults, period: ]")
+		}
+		log.debug("")
+		log.debug("ROOM ASSIGNMENTS")
+		log.debug("================")
+		roomAssignments.each() {
+			log.debug("RoomAssignment [id:$it.id, reservation:$it.reservation.id, room:$it.room.id]")
+		}
+
+	}
+
+	/**
+
+	*/
+	private void printSolution(def solution) {
+
+		log.debug("SOLUTION")
+		log.debug("========")
+
+		log.debug("Score: [${solution.score.hardScoreConstraints}hard/${solution.score.softScoreConstraints}soft] Feasible: ${solution.score.feasible}")
+
+		log.debug("")
+		log.debug("ROOM ASSIGNMENTS")
+		log.debug("================")
+		solution.roomAssignments.each() {
+			log.debug("RoomAssignment [id:$it.id, reservation:$it.reservation.id, room:$it.room.id]")
+		}
+
+
+
+	}
 }

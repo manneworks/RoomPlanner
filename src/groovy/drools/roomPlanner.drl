@@ -21,9 +21,8 @@ global HardSoftScoreHolder scoreHolder;
 rule "Overlapping periods"
 dialect "mvel"
 when
-    $ra1 : RoomAssignment(room != null, $room : room, $i : reservation.bookingInterval)
-    $ra2 : RoomAssignment(room == $room, reservation.bookingInterval.overlaps($i))
-    eval($ra1 != $ra2)
+    $ra1 : RoomAssignment(room != null, $room : room, $i : reservation.bookingInterval, $id : id)
+    $ra2 : RoomAssignment(room == $room, reservation.bookingInterval.overlaps($i), id != $id)
 then
     scoreHolder.addHardConstraintMatch(kcontext, -1)
 end
@@ -49,6 +48,20 @@ then
         (-1*($roomAssignment.reservation.roomCategory.id - $roomAssignment.room.roomCategory.id)).intValue()
     )
 end
+
+// Assign every reservation to a room, unless the dataset is overconstrained
+rule "Assign every reservation"
+when
+    $roomAssignment : RoomAssignment(
+        room == null, 
+        $i : reservation.bookingInterval
+    )
+then
+    scoreHolder.addHardConstraintMatch(kcontext,
+        -10
+    )
+end
+
 
 // ############################################################################
 // Soft constraints

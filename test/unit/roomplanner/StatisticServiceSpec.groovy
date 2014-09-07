@@ -1,13 +1,17 @@
 package roomplanner
 
-import grails.test.mixin.*
-import spock.lang.*
+import grails.test.mixin.TestMixin
+import grails.test.mixin.support.GrailsUnitTestMixin
+import spock.lang.Specification
+import grails.test.mixin.TestFor
+import grails.test.mixin.Mock
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(StatisticService)
 @Mock([PlannerRequest])
+@TestMixin(GrailsUnitTestMixin)
 class StatisticServiceSpec extends Specification {
 
 	def statisticService

@@ -1,13 +1,15 @@
 package roomplanner
 
-import grails.test.mixin.*
-import spock.lang.*
+import grails.test.mixin.TestMixin
+import grails.test.mixin.support.GrailsUnitTestMixin
+import grails.test.mixin.Mock
+import spock.lang.Specification
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(AdminService)
 @Mock([Partner, SystemUser])
+@TestMixin(GrailsUnitTestMixin)
 class AdminServiceUnitSpec extends Specification {
 
 	def adminService

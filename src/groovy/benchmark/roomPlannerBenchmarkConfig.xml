@@ -20,9 +20,9 @@
     </solver>
   </inheritedSolverBenchmark>
 
-  <solverBenchmarkBluePrint>
+<!--   <solverBenchmarkBluePrint>
     <solverBenchmarkBluePrintType>ALL_CONSTRUCTION_HEURISTIC_TYPES</solverBenchmarkBluePrintType>
-  </solverBenchmarkBluePrint>
+  </solverBenchmarkBluePrint> -->
 
   <solverBenchmark>
     <name>Custom</name>
@@ -34,6 +34,11 @@
         <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
       </constructionHeuristic>
       <localSearch>
+        <termination>
+          <terminationCompositionStyle>OR</terminationCompositionStyle>
+          <bestScoreLimit>0hard/0soft</bestScoreLimit>
+          <unimprovedStepCountLimit>3</unimprovedStepCountLimit>
+        </termination>
         <moveListFactory>
           <moveListFactoryClass>factory.RoomChangeMoveFactory</moveListFactoryClass>
         </moveListFactory>

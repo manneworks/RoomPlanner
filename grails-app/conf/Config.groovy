@@ -115,18 +115,18 @@ log4j = {
 
     warn   'org.mortbay.log'
 
-    debug  'org.optaplanner'
-    debug  'org.kie'
-    debug  'org.optaplanner.benchmark'
+    info   'org.optaplanner'
+    info   'org.kie'
+    info   'org.optaplanner.benchmark'
 
     error  'org.apache.cxf'
 
-    debug  'grails.app.filters'
+    info   'grails.app.filters'
 
     info   'grails.app.conf', 
            'grails.app.bootstrap'
 
-    debug  'grails.app.services.roomplanner',
+    info   'grails.app.services.roomplanner',
            'roomplanner'
 
     off    'org.hibernate.tool.hbm2ddl'

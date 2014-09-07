@@ -1,9 +1,13 @@
-package roomplanner
+package planner
 
 import grails.test.mixin.TestMixin
 import grails.test.mixin.support.GrailsUnitTestMixin
 import grails.test.mixin.Mock
 import spock.lang.Specification
+
+import roomplanner.AdminService
+import roomplanner.Partner
+import roomplanner.SystemUser
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions

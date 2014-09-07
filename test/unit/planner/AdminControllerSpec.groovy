@@ -1,4 +1,4 @@
-package roomplanner
+package planner
 
 import grails.test.mixin.TestMixin
 import grails.test.mixin.support.GrailsUnitTestMixin

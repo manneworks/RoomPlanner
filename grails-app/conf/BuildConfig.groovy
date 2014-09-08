@@ -141,11 +141,11 @@ grails.project.dependency.resolution = {
             export = false
         }
 
-        if (env == 'jenkins') {
-            test (":code-coverage:1.2.7") {
+//        if (env == 'jenkins') {
+            test (":code-coverage:2.0.3-2") {
                 export = false
             }
-        }
+//        }
         //test ":build-test-data:2.0.5"
 
         runtime ":roomplanner-api:$roomplannerApiVersion"

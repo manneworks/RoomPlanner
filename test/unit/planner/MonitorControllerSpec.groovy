@@ -3,6 +3,7 @@ package planner
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
+import roomplanner.MonitorController
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */

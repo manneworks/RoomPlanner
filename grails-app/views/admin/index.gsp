@@ -3,6 +3,8 @@
 <g:applyLayout name="twoblocks">
 <head>
 <title><g:message code="title.superuser.index" /></title>
+<asset:stylesheet src="datatables.css"/>
+<asset:javascript src="datatables.js"/>
 </head>
 
 <content tag="top"> 
@@ -11,9 +13,9 @@
 <content tag="main">
 <div class="row show-grid">
 <div class="col-lg-8">
-    <legend><i class="fa fa-bolt"></i> Requests</legend>
+    <legend><i class="fa fa-bolt"></i> Last 10 Requests</legend>
 
-    <table class="table table-condensed">
+    <table id="lastrequests" class="table table-striped table-condensed">
     <thead>
     	<tr>
     		<th>#</th>
@@ -33,11 +35,6 @@
 	</g:each>    
 	</tbody>	
 	</table>
-    <div class="row">
-    	<div class="col-lg-12">
-            <g:link controller="request">All requests</g:link>
-        </div>
-    </div>
 </div>
 <div class="col-lg-4">
     <legend><i class="fa fa-bar-chart-o"></i> Status</legend>
@@ -62,7 +59,17 @@
     </ul>
 </div>
 </div>
-
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#lastrequests').dataTable(
+    {
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        "filter":   false 
+    })
+});
+</script>
 </content>
 
 </g:applyLayout>

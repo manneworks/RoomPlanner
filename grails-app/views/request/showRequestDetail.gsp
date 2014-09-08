@@ -8,10 +8,10 @@
 
 <content tag="main">
 <div class="row show-grid">
-<div class="col-lg-12">
+<div class="col-lg-10">
     <legend><i class="fa fa-bolt"></i> Request</legend>
 
-<g:form class="form-horizontal" action="#" method="POST">
+    <g:form class="form-horizontal" action="#" method="POST">
 
         <div class="form-group">
             <label class="col-lg-3 control-label">
@@ -41,6 +41,10 @@
         </div>
 
     </g:form>    
+
+</div>
+<div class="col-lg-2">
+    <legend><i class="fa fa-tasks"></i> Actions</legend>
 
 </div>
 </div>

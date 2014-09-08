@@ -1,7 +1,8 @@
 <g:applyLayout name="twoblocks">
 <head>
 <title><g:message code="title.superuser.index" /></title>
-<asset:javascript src="chart.js"/>
+<asset:stylesheet src="datatables.css"/>
+<asset:javascript src="datatables.js"/>
 </head>
 
 <content tag="top"> 
@@ -9,10 +10,10 @@
 
 <content tag="main">
 <div class="row show-grid">
-<div class="col-lg-8">
+<div class="col-lg-10">
     <legend><i class="fa fa-cogs"></i> Partners</legend>
    
-    <table class="table table-condensed">
+    <table id="allpartners" class="table table-striped table-condensed">
     <thead>
     	<tr>
     		<th>#</th>
@@ -30,21 +31,23 @@
 	</g:each>    
 	</tbody>	
 	</table>
-    <div class="row" id="pagination">
-    	<div class="col-lg-12">
-    		<g:paginate next="Forward" prev="Back"
-            		maxsteps="0" controller="admin"
-            		action="index" total="${partnerInstanceCount}" />
-        </div>
-    </div>
-
 </div>
-<div class="col-lg-4">
+<div class="col-lg-2">
     <legend><i class="fa fa-tasks"></i> Actions</legend>
-    <g:link action="createNewPartner" class="btn btn-primary">Create new partner</g:link>
+    <g:link action="createNewPartner" class="btn btn-primary btn-block">Create new partner</g:link>
 </div>
 </div>
-
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#allpartners').dataTable(
+    {
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        "filter":   false 
+    })
+});
+</script>
 </content>
 
 </g:applyLayout>

@@ -7,6 +7,7 @@
       <li><g:link controller="request">Requests</g:link></li>
       <li><g:link controller="partner">Partners</g:link></li>
       <li><g:link controller="charts">Charts</g:link></li>
+      <li><g:link controller="monitor">Monitoring</g:link></li>
     </ul>
 
     <sec:ifLoggedIn>

@@ -1,6 +1,8 @@
 <g:applyLayout name="twoblocks">
 <head>
 <title><g:message code="title.superuser.index" /></title>
+<asset:stylesheet src="datatables.css"/>
+<asset:javascript src="datatables.js"/>
 </head>
 
 <content tag="top"> 
@@ -8,10 +10,10 @@
 
 <content tag="main">
 <div class="row show-grid">
-<div class="col-lg-8">
+<div class="col-lg-10">
     <legend><i class="fa fa-bolt"></i> Requests</legend>
 
-    <table class="table table-condensed">
+    <table id="allrequests" class="table table-striped table-condensed">
     <thead>
     	<tr>
     		<th>#</th>
@@ -21,7 +23,7 @@
     	</tr>
     </thead>
     <tbody>
-	<g:each var="item" in="${requestInstanceList}" status="i">
+	<g:each in="${requestInstanceList}" status="i" var="item">
     	<!-- render items here -->
     	<tr>
     		<td><g:link action="showRequestDetail" id="${item.id}"><code>${i+1}</code></g:link></td>
@@ -31,20 +33,19 @@
 	</g:each>    
 	</tbody>	
 	</table>
-    <div class="row" id="pagination">
-    	<div class="col-lg-12">
-    		<g:paginate next="Forward" prev="Back"
-            		maxsteps="0" controller="request"
-            		action="index" total="${requestInstanceCount}" />
-        </div>
-    </div>
 </div>
-<div class="col-lg-4">
+<div class="col-lg-2">
     <legend><i class="fa fa-tasks"></i> Actions</legend>
-    <g:link action="archivate" class="btn btn-primary">Archivate data</g:link>
+    <g:link action="archivate" class="btn btn-primary btn-block">Archivate data</g:link>
 </div>
 </div>
-
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#allrequests').dataTable(
+    {
+    })
+});
+</script>
 </content>
 
 </g:applyLayout>

@@ -3,6 +3,8 @@
 <g:applyLayout name="twoblocks">
 <head>
 <title><g:message code="title.superuser.index" /></title>
+<asset:stylesheet src="datatables.css"/>
+<asset:javascript src="datatables.js"/>
 </head>
 
 <content tag="top"> 
@@ -13,7 +15,7 @@
 <div class="col-lg-8">
     <legend><i class="fa fa-bolt"></i> Requests</legend>
 
-    <table class="table table-condensed">
+    <table id="lastrequests" class="table table-striped table-condensed">
     <thead>
     	<tr>
     		<th>#</th>
@@ -62,7 +64,17 @@
     </ul>
 </div>
 </div>
-
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#lastrequests').dataTable(
+    {
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        "filter":   false 
+    })
+});
+</script>
 </content>
 
 </g:applyLayout>

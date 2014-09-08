@@ -38,7 +38,7 @@ grails.mime.types = [
 // Whether debug resources
 //grails.resources.debug = true
 
-//grails.assets.less.compiler = 'less4j'
+grails.assets.less.compiler = 'standard' //'less4j'
 grails.assets.minifyJs = false
 grails.assets.minifyCss = false
 grails.assets.excludes = [

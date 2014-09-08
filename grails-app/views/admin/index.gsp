@@ -13,7 +13,7 @@
 <content tag="main">
 <div class="row show-grid">
 <div class="col-lg-8">
-    <legend><i class="fa fa-bolt"></i> Requests</legend>
+    <legend><i class="fa fa-bolt"></i> Last 10 Requests</legend>
 
     <table id="lastrequests" class="table table-striped table-condensed">
     <thead>
@@ -35,11 +35,6 @@
 	</g:each>    
 	</tbody>	
 	</table>
-    <div class="row">
-    	<div class="col-lg-12">
-            <g:link controller="request">All requests</g:link>
-        </div>
-    </div>
 </div>
 <div class="col-lg-4">
     <legend><i class="fa fa-bar-chart-o"></i> Status</legend>

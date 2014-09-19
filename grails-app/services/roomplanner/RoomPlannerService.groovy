@@ -207,18 +207,21 @@ class RoomPlannerService {
 
 					try {
 						String solverConfig = grailsApplication.config.solver.configurationXML
-						log.trace("Configure solver from $solverConfig")
+						log.trace("Configure solver from $solverConfig ...")
  						solverFactory = SolverFactory.createFromXmlResource(solverConfig)
+						log.trace("... done.")
 					} catch (Exception e) {
 						log.error("Cannot configure solver: " + e.message)
 						throw new Exception()
 					}
 					
-		    		log.trace("Build solver")
+		    		log.trace("Build solver ...")
 					solver = solverFactory.buildSolver()
+					log.trace("... done.")
 
-		    		log.trace("Build scoreDirector")
+		    		log.trace("Build scoreDirector ...")
 					ScoreDirector scoreDirector = solver.getScoreDirectorFactory().buildScoreDirector();
+					log.trace("... done.")
 
 		    		log.trace("Store solver in grailsApplication")
 					grailsApplication.config.solverObject = solver

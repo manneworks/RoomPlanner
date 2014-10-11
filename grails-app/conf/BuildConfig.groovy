@@ -129,7 +129,7 @@ grails.project.dependency.resolution = {
 
         runtime ":database-migration:1.4.0"
 
-        compile ':cache:1.1.7'
+        compile ':cache:1.1.8'
         //compile ':cache-ehcache:1.0.1'
 
         test (":spock:0.7") {
@@ -146,7 +146,7 @@ grails.project.dependency.resolution = {
         }
         //test ":build-test-data:2.0.5"
 
-        compile ":grails-melody:1.52.0"
+        compile ":grails-melody:1.53.0"
 
         runtime ":roomplanner-api:$roomplannerApiVersion"
         runtime ":roombix-ui:$roombixUiVersion"
